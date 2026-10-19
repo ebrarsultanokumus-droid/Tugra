@@ -1,10 +1,9 @@
-// Hier deine Firebase-Daten einfügen (Schritt 5 der Anleitung).
-// Diese Datei musst du bei neuen App-Versionen NICHT ersetzen.
+// Firebase-Verbindung für Tuğra. Diese Datei bei neuen App-Versionen NICHT ersetzen.
 window.FIREBASE_CONFIG = {
-  apiKey: "HIER_EINFUEGEN",
-  authDomain: "HIER_EINFUEGEN",
-  projectId: "HIER_EINFUEGEN",
-  storageBucket: "HIER_EINFUEGEN",
-  messagingSenderId: "HIER_EINFUEGEN",
-  appId: "HIER_EINFUEGEN"
+  apiKey: "AIzaSyDktqkGVW1TXFfxlVeQtESzIfnxvpy0WYo",
+  authDomain: "tugra-1c44f.firebaseapp.com",
+  projectId: "tugra-1c44f",
+  storageBucket: "tugra-1c44f.firebasestorage.app",
+  messagingSenderId: "748883840562",
+  appId: "1:748883840562:web:e1db15189f031b50a8f62b"
 };
