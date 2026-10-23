@@ -391,6 +391,20 @@ svg.hl-mark{width:40px}
 /* ===== Neu: Seitenleiste, Assistent, Handschrift, Farben, Hinweise ===== */
 #sheet,#studio,#ink{color-scheme:var(--sscheme,light)}
 .ut{white-space:pre-wrap;word-break:break-word}
+.sortbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:0 0 12px}
+.sortbar .chips{margin:0}
+.sortbar .chip{padding:6px 12px;font-size:12.5px}
+.sortbar .chip svg{width:14px;height:14px}
+.alist{display:flex;flex-direction:column}
+.arr-item{display:flex;gap:8px;align-items:stretch;margin-bottom:10px;break-inside:avoid}
+.arr-item > :last-child{flex:1;min-width:0;margin:0!important;pointer-events:none}
+.arr-item.dragging{opacity:.6}
+.arr-ctl{display:flex;flex-direction:column;gap:4px;justify-content:center;flex:none}
+.arr-ctl button{width:36px;height:32px;border-radius:10px;background:var(--card);color:var(--cardInk);display:grid;place-items:center;box-shadow:var(--shadow)}
+.arr-ctl button[data-grip]{cursor:grab;touch-action:none;background:var(--accent);color:var(--accentInk)}
+.arr-ctl svg{width:17px;height:17px}
+.ngrid.arranging{columns:1!important}
+.arranging .mp{max-width:180px}
 .vstats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;margin-top:12px;padding:14px 8px}
 .vstats b{display:block;font-family:var(--fh);font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
 .vstats span{font-size:12px;color:var(--cardInk2);font-weight:600}
@@ -507,6 +521,163 @@ svg.hl-mark{width:40px}
 @media (min-width:1200px){
   .wgrid{grid-template-columns:repeat(4,1fr)}
   .masonry{columns:4}
+}
+/* ===== Planer (Kalender) ===== */
+.planner{--rule:color-mix(in srgb,var(--cardInk) 38%,transparent);--ptint:color-mix(in srgb,var(--accent) 13%,var(--card));--pline:color-mix(in srgb,var(--cardInk) 14%,transparent)}
+.pl-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:2px 0 10px}
+.pl-crumb{display:flex;align-items:center;gap:2px;flex-wrap:wrap;min-width:0}
+.pl-crumb button{padding:6px 9px;border-radius:9px;font-weight:600;font-size:14px;color:var(--pageInk2)}
+.pl-crumb button.on{color:var(--pageInk);background:color-mix(in srgb,var(--pageInk) 12%,transparent)}
+.pl-crumb i{font-style:normal;color:var(--pageInk2);opacity:.6}
+.mtabs{display:flex;gap:3px;overflow-x:auto;scrollbar-width:none;margin:0 0 12px;padding-bottom:2px}
+.mtabs::-webkit-scrollbar{display:none}
+.mtabs button{flex:none;padding:7px 11px 6px;border-radius:10px 10px 4px 4px;font:600 11.5px var(--fb);letter-spacing:.1em;text-transform:uppercase;background:color-mix(in srgb,var(--card) 82%,transparent);color:var(--cardInk2)}
+.mtabs button.on{background:var(--accent);color:var(--accentInk)}
+.spread{display:grid;gap:14px;align-items:start}
+.pg{background:var(--card);color:var(--cardInk);border-radius:calc(var(--radius) * .7);padding:18px 16px;box-shadow:var(--shadow);min-width:0}
+.pg{text-align:left}
+.pg .legend span{color:var(--cardInk2)}
+.pg .legend{margin-top:12px}
+.pg .free span{color:var(--cardInk);background:var(--ptint)}
+.planner .qa{display:flex;flex-wrap:wrap;gap:6px}
+.planner .qa button{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:99px;background:var(--ptint);color:var(--cardInk);font-weight:650;font-size:13px}
+.planner .qa button svg{width:15px;height:15px}
+.planner .qa button.pri{background:var(--accent);color:var(--accentInk)}
+.trk .pl-in{flex:1 1 70px;min-width:60px}
+.pg-hrow{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.pg-h{font-family:var(--fh);font-weight:700;font-size:clamp(28px,6vw,38px);text-transform:uppercase;letter-spacing:.04em;line-height:1;margin:0;color:var(--cardInk)}
+.pg-h small{font-size:.5em;letter-spacing:.08em;color:var(--cardInk2);font-weight:600;margin-left:4px}
+.pg-links{display:flex;gap:6px;flex-wrap:wrap}
+.pg-links button{background:var(--ptint);padding:6px 10px;border-radius:6px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;display:inline-flex;gap:5px;align-items:center}
+.pg-links button svg{width:14px;height:14px}
+.pg2{display:grid;gap:14px}
+.pbx{border:1px solid var(--rule);border-radius:4px;margin:0 0 14px;overflow:hidden}
+.pbh{background:var(--ptint);text-align:center;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:7px;border-bottom:1px solid var(--rule)}
+.pbb{padding:8px 10px}
+.plbl{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;border-bottom:1.5px solid var(--rule);padding-bottom:6px;margin:16px 0 4px}
+.plbl:first-child{margin-top:4px}
+.plbl .mini{font-size:11px;letter-spacing:.02em;text-transform:none;color:var(--accent);font-weight:700}
+.pl-in{width:100%;border:0;border-bottom:1px solid var(--pline);background:transparent;padding:7px 2px;font-size:15px;color:var(--cardInk);outline:none;border-radius:0;min-width:0}
+.pl-in:focus{border-bottom-color:var(--accent)}
+.pl-in.done{text-decoration:line-through;opacity:.55}
+.pl-ta{display:block;width:100%;border:0;background:var(--ptint);border-radius:4px;padding:9px 10px;resize:vertical;color:var(--cardInk);font:inherit;font-size:15px;line-height:28px;outline:none;min-height:60px}
+.pl-ta.ruled{background:transparent;background-image:repeating-linear-gradient(transparent 0 27px,var(--pline) 27px 28px);background-attachment:local;padding:0 2px;border-radius:0}
+.pl-ta.slim{min-height:30px;font-size:13.5px}
+.pbb .pl-ta{background-color:transparent;padding:2px}
+.ln{display:flex;align-items:center;gap:8px}
+.ln > span{font-size:14px;color:var(--cardInk2);flex:none}
+.ln .ml{width:74px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.pll .pli,.pli{display:flex;align-items:center;gap:8px}
+.pli span{flex:1;padding:7px 0;border-bottom:1px solid var(--pline);font-size:15px}
+.pl-x{opacity:.35;flex:none}.pl-x svg{width:15px;height:15px}
+.pli:focus-within .pl-x{opacity:.8}
+.pg .addli{font-size:13px;padding:8px 0 2px}
+.dchips{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 12px}
+.dchips button{min-width:30px;height:26px;padding:0 6px;border-radius:99px;background:var(--ptint);font-size:12px;font-variant-numeric:tabular-nums}
+.dchips button.has{font-weight:800;box-shadow:inset 0 -2px 0 var(--accent)}
+.dchips button.today{background:var(--accent);color:var(--accentInk)}
+.dchips.wk button{min-width:40px}
+/* Monatsraster */
+.mg{display:grid;grid-template-columns:24px repeat(7,minmax(0,1fr));border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.mg-c{background:var(--ptint);border-bottom:1px solid var(--rule)}
+.mg-h{background:var(--ptint);text-align:center;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--rule);border-left:1px solid var(--rule);font-weight:600}
+.mg-h span{display:none}
+.mg-w{background:var(--ptint);border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.mg-w span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+.mc{position:relative;min-height:58px;border-left:1px solid var(--rule);border-top:1px solid var(--pline);padding:26px 3px 3px;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;gap:2px}
+.mc:hover{background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.mc.out{opacity:.38}
+.mc .dn{position:absolute;top:3px;right:3px;min-width:22px;height:20px;padding:0 4px;border-radius:4px;background:var(--ptint);font-size:11.5px;font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.mc.today .dn{background:var(--accent);color:var(--accentInk)}
+.mc .ev{display:block;font-size:0;height:5px;border-radius:3px;background:var(--c)}
+.mc .more{font-size:10px;color:var(--cardInk2);font-weight:700}
+.mc-x{display:flex;gap:4px;flex-wrap:wrap;margin-top:auto}
+.mc-x i{font-style:normal;font-size:10px;font-weight:700;display:inline-flex;align-items:center;gap:1px;color:var(--cardInk2)}
+.mc-x svg{width:11px;height:11px}
+@media (min-width:640px){
+  .mg{grid-template-columns:30px repeat(7,minmax(0,1fr))}
+  .mc{min-height:92px}
+  .mc .ev{font-size:10.5px;height:auto;line-height:1.3;padding:1px 4px;background:color-mix(in srgb,var(--c) 18%,transparent);border-left:3px solid var(--c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mg-h span{display:inline}
+  .mg-w{font-size:10px}
+}
+/* Jahr */
+.yrs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
+@media (min-width:640px){.yrs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1300px){.yrs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.ymh{display:block;width:100%;background:var(--ptint);text-align:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:5px;border-radius:4px;margin-bottom:4px}
+.ygrid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;text-align:center}
+.ygrid i{font-style:normal;font-size:9.5px;color:var(--cardInk2);font-weight:700}
+.yd{font-size:11px;aspect-ratio:1;border-radius:5px;font-variant-numeric:tabular-nums;display:grid;place-items:center}
+.yd.has{background:var(--ptint);font-weight:800}
+.yd.today{background:var(--accent);color:var(--accentInk)}
+.kd{display:flex;gap:10px;align-items:baseline;width:100%;padding:7px 0;border-bottom:1px solid var(--pline);text-align:left}
+.kd span{font-size:12px;color:var(--cardInk2);width:56px;flex:none;font-variant-numeric:tabular-nums}
+.kd b{font-weight:600;font-size:14px;border-left:3px solid var(--c);padding-left:7px}
+/* Überblick */
+.gl{display:flex;gap:10px;border-bottom:1px solid var(--pline);padding:5px 0;align-items:flex-start}
+.gl.today .gl-d b{background:var(--accent);color:var(--accentInk)}
+.gl-d{display:flex;flex-direction:column;align-items:center;width:38px;flex:none;padding-top:2px}
+.gl-d b{font-size:13px;background:var(--ptint);border-radius:5px;padding:2px 5px;font-variant-numeric:tabular-nums}
+.gl-d span{font-size:10px;color:var(--cardInk2);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.gl-c{flex:1;display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-width:0}
+.gl-c .pl-in{border-bottom:0;padding:4px 2px;font-size:14px}
+/* Einträge als Chips */
+.pev{display:inline-flex;align-items:center;gap:4px;max-width:100%;font-size:12.5px;line-height:1.3;padding:3px 7px;border-radius:5px;background:color-mix(in srgb,var(--c,var(--accent)) 16%,transparent);border-left:3px solid var(--c,var(--accent));text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pev b{font-weight:700;font-variant-numeric:tabular-nums}
+.pev svg{width:13px;height:13px;flex:none}
+.pev.todo{--c:var(--cardInk2)}
+.pev.done{text-decoration:line-through;opacity:.55}
+.pev.add{--c:transparent;background:var(--ptint);border-left:0;padding:3px 6px}
+/* Woche */
+.wrs{border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.wr{display:grid;grid-template-columns:34px minmax(0,1fr);border-top:1px solid var(--rule)}
+.wr:first-child{border-top:0}
+.wr-l{background:var(--ptint);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 0;border-right:1px solid var(--rule)}
+.wr-l span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.wr-l b{font-size:13px;font-variant-numeric:tabular-nums}
+.wr.today .wr-l{background:var(--accent);color:var(--accentInk)}
+.wr-c{padding:6px 8px;display:flex;flex-direction:column;gap:4px;min-height:96px}
+.wr-ev{display:flex;flex-wrap:wrap;gap:4px}
+.ht{display:grid;gap:2px}
+.ht-r{display:grid;grid-template-columns:minmax(0,1fr) repeat(7,26px);align-items:center;gap:2px}
+.ht-h span{text-align:center;font-size:10.5px;font-weight:700;color:var(--cardInk2)}
+.ht-h span.today{color:var(--accent)}
+.ht-n{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:4px}
+.hc{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--rule);display:grid;place-items:center;justify-self:center;color:transparent;font-size:10px;font-weight:800}
+.hc svg{width:12px;height:12px;stroke-width:3}
+.hc.on{background:var(--accent);color:var(--accentInk);box-shadow:none}
+.hc.pc{color:var(--cardInk2)}.hc.pc.on{color:var(--accentInk)}
+/* Tag */
+.sched{border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.hr{display:grid;grid-template-columns:30px minmax(0,1fr);border-top:1px solid var(--pline)}
+.sched .hr:first-child{border-top:0}
+.hh{background:var(--ptint);text-align:center;font-size:12px;font-weight:700;padding:7px 0;font-variant-numeric:tabular-nums}
+.hc2{min-height:32px;padding:3px 6px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;cursor:pointer}
+.hc2:hover{background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.ppr{font-size:11.5px;color:var(--accent);font-weight:700;white-space:nowrap}
+.trk{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px solid var(--rule);border-radius:4px;padding:8px 10px;margin:0 0 10px;background:var(--ptint)}
+.trk > span{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.trk .pl-in{width:auto;flex:1;background:transparent}
+.drops{display:flex;gap:2px;flex-wrap:wrap}
+.drops button{width:22px;height:26px;display:grid;place-items:center;color:var(--cardInk2)}
+.drops svg{width:18px;height:20px;stroke-width:1.6}
+.drops button.on{color:#3B8FD9}.drops button.on svg{fill:#3B8FD9}
+.emo{display:flex;gap:2px;flex-wrap:wrap}
+.emo button{font-size:20px;width:32px;height:32px;border-radius:8px;opacity:.38;filter:grayscale(.6)}
+.emo button.on{opacity:1;filter:none;background:var(--card);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.ink-open{display:block;width:100%;border:1px solid var(--rule);border-radius:4px;overflow:hidden;margin-top:6px}
+.pg .row{background:transparent;box-shadow:none;border-bottom:1px solid var(--pline);border-radius:0;padding-left:0;padding-right:0;margin:0}
+.pg .pdots{justify-content:space-between}
+@media (min-width:1000px){
+  .spread{align-items:stretch;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;box-shadow:var(--shadow);border-radius:calc(var(--radius) * .7)}
+  .spread.wide-l{grid-template-columns:minmax(0,1.75fr) minmax(0,1fr)}
+  .spread > .pg{box-shadow:none;border-radius:0;padding:24px 22px}
+  .spread > .pg:first-child{border-radius:calc(var(--radius) * .7) 0 0 calc(var(--radius) * .7);border-right:1px solid var(--pline);box-shadow:inset -14px 0 18px -16px rgba(0,0,0,.18)}
+  .spread > .pg:last-child{border-radius:0 calc(var(--radius) * .7) calc(var(--radius) * .7) 0;box-shadow:inset 14px 0 18px -16px rgba(0,0,0,.18)}
+  .spread > .pg:only-child{border-radius:calc(var(--radius) * .7)}
+  .pg2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+  #app:has(.planner){max-width:1400px}
 }
 </style>
 <div id="splash" aria-hidden="true"></div>
@@ -627,7 +798,7 @@ const TR = {
 // Medien
 'Bild wird gespeichert…':'Resim kaydediliyor…','Bilder werden gespeichert…':'Resimler kaydediliyor…','Bild hinzugefügt':'Resim eklendi','Das Bild konnte nicht gespeichert werden':'Resim kaydedilemedi','Ein Bild konnte nicht gespeichert werden':'Bir resim kaydedilemedi','Video wird gespeichert…':'Video kaydediliyor…','Das Video konnte nicht gespeichert werden':'Video kaydedilemedi','Video ist nur auf diesem Gerät gespeichert':'Video sadece bu cihazda kayıtlı',
 // Sprache
-'Wörter':'Kelimeler','Wort':'Kelime','Übersetzung':'Çeviri','Beispielsatz (optional)':'Örnek cümle (isteğe bağlı)','Neues Wort':'Yeni kelime','Wort bearbeiten':'Kelimeyi düzenle','Sprache hinzufügen':'Dil ekle','Neue Sprache':'Yeni dil','Welche Sprache willst du lernen?':'Hangi dili öğrenmek istiyorsun?','Eigene Sprache':'Başka bir dil','Name der Sprache':'Dilin adı','Sprachcode für die Aussprache (z. B. en, ar, es)':'Telaffuz için dil kodu (ör. en, ar, es)','Karteikarten':'Kartlar','Quiz':'Quiz','Schreiben':'Yazma','Fällig':'Sırası gelen','Gelernt':'Öğrenildi','Serie':'Seri','Antippen zum Umdrehen':'Çevirmek için dokun','Nochmal':'Tekrar','Schwer':'Zor','Gewusst':'Bildim','Heute alles wiederholt. Super!':'Bugünkü tekrarlar bitti. Harika!','Trotzdem üben':'Yine de çalış','Richtung':'Yön','Weiter':'Devam','Richtig!':'Doğru!','Leider falsch.':'Maalesef yanlış.','Für ein Quiz brauchst du mindestens 4 Wörter.':'Quiz için en az 4 kelime gerekir.','Mit KI Wörter vorschlagen':'Yapay zekâyla kelime öner','Thema':'Konu','Niveau':'Seviye','Anfänger':'Başlangıç','Mittel':'Orta','Fortgeschritten':'İleri','Vorschläge holen':'Öneri al','Ausgewählte übernehmen':'Seçilenleri ekle','Satz prüfen':'Cümleyi kontrol et','Schreib einen Satz in der Sprache, die du lernst. Die KI verbessert ihn und erklärt kurz die Fehler.':'Öğrendiğin dilde bir cümle yaz. Yapay zekâ düzeltir ve hataları kısaca açıklar.','Dein Satz':'Cümlen','Prüfe …':'Kontrol ediliyor …','Anhören':'Dinle','Sprache bearbeiten':'Dili düzenle','Sprache löschen samt Wörtern':'Dili kelimeleriyle sil','Noch keine Wörter. Tippe auf das Plus oder lass dir Wörter vorschlagen.':'Henüz kelime yok. Artıya dokun ya da kelime önerisi al.','Englisch':'İngilizce','Arabisch':'Arapça','Kurdisch':'Kürtçe','Spanisch':'İspanyolca','Französisch':'Fransızca','Italienisch':'İtalyanca','Russisch':'Rusça','Koreanisch':'Korece','Japanisch':'Japonca','Persisch':'Farsça','Deutsch':'Almanca','Türkisch':'Türkçe','Wörter lernen, wiederholen und üben':'Kelime öğren, tekrarla ve çalış','Wortschatz-Trainer mit Karteikarten und Quiz':'Kartlı ve quizli kelime çalıştırıcı','Sprachen lernen':'Dil öğren','Rosa Nacht':'Pembe gece','App-Farben passend zum Logo':'Logoya uygun uygulama renkleri','Farben angepasst. Im Design-Studio kannst du alles ändern.':'Renkler uyarlandı. Tasarım stüdyosunda her şeyi değiştirebilirsin.','Gold auf Nachtblau':'Lacivert üzerine altın','Gold, Bordeaux & Rosa':'Altın, bordo & pembe','Tinte auf Papier':'Kağıt üzerine mürekkep','Ornament':'Süsleme','Osmanischer Stern':'Osmanlı yıldızı','Ohne':'Yok','Tuğra, Animation abspielen':'Tuğra, animasyonu oynat','Offline: wird gespeichert und später übertragen':'Çevrimdışı: kaydediliyor, sonra aktarılacak','Nicht angemeldet: Daten nur auf diesem Gerät':'Giriş yapılmadı: veriler sadece bu cihazda','Sync noch nicht eingerichtet':'Eşitleme henüz kurulmadı','Melde dich an, damit nichts verloren geht':'Hiçbir şey kaybolmasın diye giriş yap','Sync einrichten, damit nichts verloren geht':'Hiçbir şey kaybolmasın diye eşitlemeyi kur','Sonst bleiben deine Einträge nur auf diesem Gerät.':'Yoksa kayıtların sadece bu cihazda kalır.','Melde dich auf jedem Gerät mit derselben E-Mail an. Was schon auf diesem Gerät steht, wird dabei übernommen.':'Her cihazda aynı e-postayla giriş yap. Bu cihazdaki kayıtlar da aktarılır.','E-Mail':'E-posta','Passwort (mind. 6 Zeichen)':'Şifre (en az 6 karakter)','Anmelden':'Giriş yap','Konto erstellen':'Hesap oluştur','Passwort vergessen?':'Şifremi unuttum','Abmelden':'Çıkış yap','Wirklich abmelden? Nochmal tippen':'Gerçekten çıkış yapılsın mı? Tekrar dokun','Angemeldet':'Giriş yapıldı','Abgemeldet':'Çıkış yapıldı','Konto erstellt':'Hesap oluşturuldu','Verbunden':'Bağlandı','Verbinden':'Bağlan','Gib zuerst deine E-Mail ein':'Önce e-postanı gir','E-Mail zum Zurücksetzen verschickt':'Sıfırlama e-postası gönderildi','Alles wird in deinem Konto gesichert und erscheint auf allen Geräten, auf denen du so angemeldet bist. Offline Eingetragenes wird nachgeschickt.':'Her şey hesabında saklanır ve bu şekilde giriş yaptığın tüm cihazlarda görünür. Çevrimdışı eklenenler sonra gönderilir.','Damit deine Einträge gesichert sind und auf allen Geräten erscheinen, verbinde die App einmal mit deinem kostenlosen Firebase-Projekt (siehe Anleitung). Trag die Daten am besten in die Datei firebase-config.js ein. Oder füge sie hier ein, dann gelten sie nur für dieses Gerät.':'Kayıtların saklansın ve tüm cihazlarda görünsün diye uygulamayı bir kez ücretsiz Firebase projene bağla (kılavuza bak). Bilgileri en iyisi firebase-config.js dosyasına yaz. Ya da buraya yapıştır, o zaman sadece bu cihaz için geçerli olur.','Bitte die Firebase-Daten einfügen':'Lütfen Firebase bilgilerini yapıştır','Das sieht nicht wie die Firebase-Daten aus':'Bu Firebase bilgilerine benzemiyor','Die E-Mail-Adresse ist ungültig':'E-posta adresi geçersiz','Bitte ein Passwort eingeben':'Lütfen bir şifre gir','Das Passwort braucht mindestens 6 Zeichen':'Şifre en az 6 karakter olmalı','Für diese E-Mail gibt es schon ein Konto. Melde dich an.':'Bu e-postayla zaten bir hesap var. Giriş yap.','E-Mail oder Passwort stimmt nicht':'E-posta ya da şifre yanlış','Zu viele Versuche. Warte kurz.':'Çok fazla deneme. Biraz bekle.','Keine Verbindung zum Internet':'İnternet bağlantısı yok','In Firebase ist die Anmeldung mit E-Mail noch nicht aktiviert':'Firebase\'de e-postayla giriş henüz açık değil','Das hat nicht geklappt. Versuch es noch einmal.':'Olmadı. Tekrar dene.','In dieser Version braucht der Assistent einen eigenen API-Schlüssel von Anthropic (console.anthropic.com). Die Nutzung kostet dort ein paar Cent pro Anfrage. Der Schlüssel bleibt nur auf diesem Gerät.':'Bu sürümde asistanın kendi Anthropic API anahtarına ihtiyacı var (console.anthropic.com). Kullanımı istek başına birkaç sent tutar. Anahtar sadece bu cihazda kalır.','Schnell & günstig':'Hızlı & ucuz','Gründlicher':'Daha kapsamlı','Schlüssel speichern':'Anahtarı kaydet','Damit der Assistent in dieser Version läuft, hinterlege in den Einstellungen unter „Assistent“ einen API-Schlüssel von Anthropic.':'Asistanın bu sürümde çalışması için Ayarlar\'da „Asistan“ altında bir Anthropic API anahtarı gir.','Der API-Schlüssel wurde abgelehnt. Prüfe ihn in den Einstellungen.':'API anahtarı reddedildi. Ayarlardan kontrol et.','Keine Verbindung zum Internet.':'İnternet bağlantısı yok.','Sprache lernen':'Dil öğren','1 Sofort':'1 Hemen','2 Wichtig':'2 Önemli','3 Normal':'3 Normal','4 Später':'4 Sonra','5 Irgendwann':'5 Bir ara','Weiß':'Beyaz','Rosa':'Açık pembe','Pink':'Pembe','Vorlesen ist auf diesem Gerät nicht verfügbar':'Sesli okuma bu cihazda yok','Bitte Wort und Übersetzung eingeben':'Lütfen kelime ve çeviri gir','Die KI ist hier nicht verfügbar':'Yapay zekâ burada kullanılamıyor','Ich konnte gerade keine Vorschläge holen. Versuch es noch einmal.':'Şu an öneri alınamadı. Tekrar dene.','Muttersprache → Fremdsprache':'Ana dil → yabancı dil','Fremdsprache → Muttersprache':'Yabancı dil → ana dil',
+'Wörter':'Kelimeler','Wort':'Kelime','Übersetzung':'Çeviri','Beispielsatz (optional)':'Örnek cümle (isteğe bağlı)','Neues Wort':'Yeni kelime','Wort bearbeiten':'Kelimeyi düzenle','Sprache hinzufügen':'Dil ekle','Neue Sprache':'Yeni dil','Welche Sprache willst du lernen?':'Hangi dili öğrenmek istiyorsun?','Eigene Sprache':'Başka bir dil','Name der Sprache':'Dilin adı','Sprachcode für die Aussprache (z. B. en, ar, es)':'Telaffuz için dil kodu (ör. en, ar, es)','Karteikarten':'Kartlar','Quiz':'Quiz','Schreiben':'Yazma','Fällig':'Sırası gelen','Gelernt':'Öğrenildi','Serie':'Seri','Antippen zum Umdrehen':'Çevirmek için dokun','Nochmal':'Tekrar','Schwer':'Zor','Gewusst':'Bildim','Heute alles wiederholt. Super!':'Bugünkü tekrarlar bitti. Harika!','Trotzdem üben':'Yine de çalış','Richtung':'Yön','Weiter':'Devam','Richtig!':'Doğru!','Leider falsch.':'Maalesef yanlış.','Für ein Quiz brauchst du mindestens 4 Wörter.':'Quiz için en az 4 kelime gerekir.','Mit KI Wörter vorschlagen':'Yapay zekâyla kelime öner','Thema':'Konu','Niveau':'Seviye','Anfänger':'Başlangıç','Mittel':'Orta','Fortgeschritten':'İleri','Vorschläge holen':'Öneri al','Ausgewählte übernehmen':'Seçilenleri ekle','Satz prüfen':'Cümleyi kontrol et','Schreib einen Satz in der Sprache, die du lernst. Die KI verbessert ihn und erklärt kurz die Fehler.':'Öğrendiğin dilde bir cümle yaz. Yapay zekâ düzeltir ve hataları kısaca açıklar.','Dein Satz':'Cümlen','Prüfe …':'Kontrol ediliyor …','Anhören':'Dinle','Sprache bearbeiten':'Dili düzenle','Sprache löschen samt Wörtern':'Dili kelimeleriyle sil','Noch keine Wörter. Tippe auf das Plus oder lass dir Wörter vorschlagen.':'Henüz kelime yok. Artıya dokun ya da kelime önerisi al.','Englisch':'İngilizce','Arabisch':'Arapça','Kurdisch':'Kürtçe','Spanisch':'İspanyolca','Französisch':'Fransızca','Italienisch':'İtalyanca','Russisch':'Rusça','Koreanisch':'Korece','Japanisch':'Japonca','Persisch':'Farsça','Deutsch':'Almanca','Türkisch':'Türkçe','Wörter lernen, wiederholen und üben':'Kelime öğren, tekrarla ve çalış','Wortschatz-Trainer mit Karteikarten und Quiz':'Kartlı ve quizli kelime çalıştırıcı','Sprachen lernen':'Dil öğren','KW':'Hf.','Woche':'Hafta','Jahr':'Yıl','Jahresziele':'Yıllık hedefler','Wichtige Termine':'Önemli tarihler','Vision für das Jahr':'Yılın vizyonu','Was soll dieses Jahr ausmachen?':'Bu yıl neyle anılsın?','Geburtstage, Prüfungen und ganztägige Termine erscheinen hier.':'Doğum günleri, sınavlar ve tüm gün süren randevular burada görünür.','Ziel für dieses Jahr':'Bu yılın hedefi','Im Überblick':'Bir bakışta','Rückblick':'Değerlendirme','Monatsziele':'Aylık hedefler','Ziel für diesen Monat':'Bu ayın hedefi','To-do':'Yapılacaklar','Was diesen Monat ansteht':'Bu ay yapılacaklar','Gläser Wasser/Tag':'Bardak su/gün','Gewohnheiten':'Alışkanlıklar','Highlights des Monats':'Ayın öne çıkanları','Was lief gut?':'Ne iyi gitti?','Was will ich verbessern?':'Neyi geliştirmek istiyorum?','Was habe ich gelernt?':'Ne öğrendim?','Wofür bin ich dankbar?':'Neye şükrediyorum?','Fokus für nächsten Monat':'Gelecek ayın odağı','Gewohnheiten bearbeiten':'Alışkanlıkları düzenle','+ Gewohnheit hinzufügen':'+ Alışkanlık ekle','Notiz':'Not','Monat':'Ay','Wochenfokus':'Haftanın odağı','Für diese Woche':'Bu hafta için','Mit Stift schreiben':'Kalemle yaz','Tagesplan':'Günün planı','Tagesfokus':'Günün odağı','Unerledigtes auf morgen':'Bitmeyenleri yarına taşı','Neue Aufgabe, Enter zum Speichern':'Yeni görev, kaydetmek için Enter','Notizen & Reflexion':'Notlar & düşünceler','Memo':'Not defteri','Affirmation':'Olumlama','Ich bin dankbar für …':'Şükrettiklerim …','Mahlzeiten':'Öğünler','Frühstück':'Kahvaltı','Mittag':'Öğle','Abend':'Akşam','Snack':'Ara öğün','Wasser':'Su','Aufgewacht':'Uyanış','Schlaf':'Uyku','Std.':'sa.','Wetter':'Hava','Highlight des Tages':'Günün en güzel anı','Erscheinen in der Woche und an jedem Tag zum Abhaken, zum Beispiel Lesen, Sport oder Quran.':'Haftada ve her günde işaretlemek için görünür, örneğin okuma, spor ya da Kuran.','z. B. 10.000 Schritte':'ör. 10.000 adım','Weiter':'İleri','Handschrift':'El yazısı','Neueste oben':'En yeni üstte','Älteste oben':'En eski üstte','Eigene Reihenfolge':'Kendi sıram','Anordnen':'Sırala','Mit den Pfeilen verschieben oder am Griff ziehen.':'Oklarla taşı ya da tutamaçtan sürükle.','Rosa Nacht':'Pembe gece','App-Farben passend zum Logo':'Logoya uygun uygulama renkleri','Farben angepasst. Im Design-Studio kannst du alles ändern.':'Renkler uyarlandı. Tasarım stüdyosunda her şeyi değiştirebilirsin.','Gold auf Nachtblau':'Lacivert üzerine altın','Gold, Bordeaux & Rosa':'Altın, bordo & pembe','Tinte auf Papier':'Kağıt üzerine mürekkep','Ornament':'Süsleme','Osmanischer Stern':'Osmanlı yıldızı','Ohne':'Yok','Tuğra, Animation abspielen':'Tuğra, animasyonu oynat','Offline: wird gespeichert und später übertragen':'Çevrimdışı: kaydediliyor, sonra aktarılacak','Nicht angemeldet: Daten nur auf diesem Gerät':'Giriş yapılmadı: veriler sadece bu cihazda','Sync noch nicht eingerichtet':'Eşitleme henüz kurulmadı','Melde dich an, damit nichts verloren geht':'Hiçbir şey kaybolmasın diye giriş yap','Sync einrichten, damit nichts verloren geht':'Hiçbir şey kaybolmasın diye eşitlemeyi kur','Sonst bleiben deine Einträge nur auf diesem Gerät.':'Yoksa kayıtların sadece bu cihazda kalır.','Melde dich auf jedem Gerät mit derselben E-Mail an. Was schon auf diesem Gerät steht, wird dabei übernommen.':'Her cihazda aynı e-postayla giriş yap. Bu cihazdaki kayıtlar da aktarılır.','E-Mail':'E-posta','Passwort (mind. 6 Zeichen)':'Şifre (en az 6 karakter)','Anmelden':'Giriş yap','Konto erstellen':'Hesap oluştur','Passwort vergessen?':'Şifremi unuttum','Abmelden':'Çıkış yap','Wirklich abmelden? Nochmal tippen':'Gerçekten çıkış yapılsın mı? Tekrar dokun','Angemeldet':'Giriş yapıldı','Abgemeldet':'Çıkış yapıldı','Konto erstellt':'Hesap oluşturuldu','Verbunden':'Bağlandı','Verbinden':'Bağlan','Gib zuerst deine E-Mail ein':'Önce e-postanı gir','E-Mail zum Zurücksetzen verschickt':'Sıfırlama e-postası gönderildi','Alles wird in deinem Konto gesichert und erscheint auf allen Geräten, auf denen du so angemeldet bist. Offline Eingetragenes wird nachgeschickt.':'Her şey hesabında saklanır ve bu şekilde giriş yaptığın tüm cihazlarda görünür. Çevrimdışı eklenenler sonra gönderilir.','Damit deine Einträge gesichert sind und auf allen Geräten erscheinen, verbinde die App einmal mit deinem kostenlosen Firebase-Projekt (siehe Anleitung). Trag die Daten am besten in die Datei firebase-config.js ein. Oder füge sie hier ein, dann gelten sie nur für dieses Gerät.':'Kayıtların saklansın ve tüm cihazlarda görünsün diye uygulamayı bir kez ücretsiz Firebase projene bağla (kılavuza bak). Bilgileri en iyisi firebase-config.js dosyasına yaz. Ya da buraya yapıştır, o zaman sadece bu cihaz için geçerli olur.','Bitte die Firebase-Daten einfügen':'Lütfen Firebase bilgilerini yapıştır','Das sieht nicht wie die Firebase-Daten aus':'Bu Firebase bilgilerine benzemiyor','Die E-Mail-Adresse ist ungültig':'E-posta adresi geçersiz','Bitte ein Passwort eingeben':'Lütfen bir şifre gir','Das Passwort braucht mindestens 6 Zeichen':'Şifre en az 6 karakter olmalı','Für diese E-Mail gibt es schon ein Konto. Melde dich an.':'Bu e-postayla zaten bir hesap var. Giriş yap.','E-Mail oder Passwort stimmt nicht':'E-posta ya da şifre yanlış','Zu viele Versuche. Warte kurz.':'Çok fazla deneme. Biraz bekle.','Keine Verbindung zum Internet':'İnternet bağlantısı yok','In Firebase ist die Anmeldung mit E-Mail noch nicht aktiviert':'Firebase\'de e-postayla giriş henüz açık değil','Das hat nicht geklappt. Versuch es noch einmal.':'Olmadı. Tekrar dene.','In dieser Version braucht der Assistent einen eigenen API-Schlüssel von Anthropic (console.anthropic.com). Die Nutzung kostet dort ein paar Cent pro Anfrage. Der Schlüssel bleibt nur auf diesem Gerät.':'Bu sürümde asistanın kendi Anthropic API anahtarına ihtiyacı var (console.anthropic.com). Kullanımı istek başına birkaç sent tutar. Anahtar sadece bu cihazda kalır.','Schnell & günstig':'Hızlı & ucuz','Gründlicher':'Daha kapsamlı','Schlüssel speichern':'Anahtarı kaydet','Damit der Assistent in dieser Version läuft, hinterlege in den Einstellungen unter „Assistent“ einen API-Schlüssel von Anthropic.':'Asistanın bu sürümde çalışması için Ayarlar\'da „Asistan“ altında bir Anthropic API anahtarı gir.','Der API-Schlüssel wurde abgelehnt. Prüfe ihn in den Einstellungen.':'API anahtarı reddedildi. Ayarlardan kontrol et.','Keine Verbindung zum Internet.':'İnternet bağlantısı yok.','Sprache lernen':'Dil öğren','1 Sofort':'1 Hemen','2 Wichtig':'2 Önemli','3 Normal':'3 Normal','4 Später':'4 Sonra','5 Irgendwann':'5 Bir ara','Weiß':'Beyaz','Rosa':'Açık pembe','Pink':'Pembe','Vorlesen ist auf diesem Gerät nicht verfügbar':'Sesli okuma bu cihazda yok','Bitte Wort und Übersetzung eingeben':'Lütfen kelime ve çeviri gir','Die KI ist hier nicht verfügbar':'Yapay zekâ burada kullanılamıyor','Ich konnte gerade keine Vorschläge holen. Versuch es noch einmal.':'Şu an öneri alınamadı. Tekrar dene.','Muttersprache → Fremdsprache':'Ana dil → yabancı dil','Fremdsprache → Muttersprache':'Yabancı dil → ana dil',
 };
 /* Muster für zusammengesetzte Texte. Reihenfolge ist wichtig. */
 const TRX = [
@@ -689,6 +860,8 @@ const TRX = [
   [/^Fach nicht gefunden\. /, 'Ders bulunamadı. '],
   [/^Wie sieht mein (.+) aus, und wann habe ich Zeit\?$/, '$1 nasıl görünüyor ve ne zaman boş vaktim var?'],
   [/^Morgen$/, 'Yarın'],
+  [/^Woche (\d+)/, '$1. hafta'],
+  [/^(\d+) Aufgaben? auf morgen verschoben$/, '$1 görev yarına taşındı'],
   [/^(\d+) (Bild|Bilder) in dein Konto übertragen$/, '$1 resim hesabına aktarıldı'],
   [/^frei (\S+)$/, 'boş $1'],
   [/, Korrektur in Minuten$/, ', düzeltme (dakika)'],
@@ -907,6 +1080,7 @@ const defaults = () => ({
   pray:{loc:null, adj:{fajr:0, sunrise:0, dhuhr:0, asr:0, maghrib:0, isha:0}, hanafi:false, extras:[], log:{}, hijri:0},
   zikir:{sel:'z_subhan', items:clone(ZK_PRESETS), log:{}},
   ink:{},
+  plan:{days:{}, weeks:{}, months:{}, years:{}, habits:[], hlog:{}},
   vocab:{langs:[], cards:[], log:{}, sel:'', dir:'f', mode:'learn'},
   theme:baseTheme(),
   settings:{name:'', budget:0, greet:'mix', lang:'de', logo:'dunkel', splash:true, notify:{events:true, evMin:15, prayers:true, prMin:0, which:['fajr','dhuhr','asr','maghrib','isha'], sound:true}, dayStart:'08:00', dayEnd:'22:00'}
@@ -1414,6 +1588,207 @@ function sesRow(s){
     <button class="rbody" data-act="editSes" data-id="${s.id}"><span class="rt ${s.done ? 'done' : ''}">${esc(sub.name)}${s.topic ? ': ' + esc(s.topic) : ''}</span><span class="rs">${fmtMin(s.min)}</span></button><span class="sw"></span></div>`;
 }
 
+/* ================= Kalender als Planer: Jahr → Monat → Woche → Tag ================= */
+// Aufbau angelehnt an einen digitalen Papierplaner. Alles ist verlinkt und nutzt die echten Daten der App
+// (Termine, Aufgaben, Lerneinheiten, Geburtstage, Gebete). Eigene Planerfelder liegen in S.plan.
+const PL = () => { if (!S.plan || typeof S.plan !== 'object') S.plan = {}; const p = S.plan; for (const k of ['days', 'weeks', 'months', 'years', 'hlog']) if (!p[k] || typeof p[k] !== 'object') p[k] = {}; if (!Array.isArray(p.habits)) p.habits = []; return p; };
+const pget = path => path.split('|').reduce((o, k) => o == null ? o : o[k], PL());
+function pset(path, v){
+  const a = path.split('|'); let o = PL();
+  while (a.length > 1){ const k = a.shift(); if (o[k] == null || typeof o[k] !== 'object') o[k] = /^\d+$/.test(a[0]) ? [] : {}; o = o[k]; }
+  o[a[0]] = v;
+}
+let _pls; const plSave = () => { clearTimeout(_pls); _pls = setTimeout(save, 500); };
+const mondayOf = d => addDays(d, -wdIdx(pd(d)));
+const monKey = d => d.slice(0, 7);
+function isoWeek(dstr){ const d = pd(dstr), t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())), day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return Math.ceil(((t - y0) / 86400000 + 1) / 7); }
+function monthWeeks(y, m){ const first = ds(new Date(y, m, 1)), last = ds(new Date(y, m + 1, 0)); const out = []; for (let w = mondayOf(first); w <= last; w = addDays(w, 7)) out.push(w); return out; }
+const dayTodos = d => S.todos.filter(x => x.due === d).sort((a, b) => (a.done ? 1 : 0) - (b.done ? 1 : 0) || todoSort(a, b));
+const daySes = d => S.sessions.filter(s => s.date === d);
+const prayCount = d => PKEYS.filter(k => (S.pray.log[d] || {})[k]).length;
+function calGo(level, d){
+  if (d){ V.sel = d; V.cm = new Date(pd(d).getFullYear(), pd(d).getMonth(), 1); V.wk = mondayOf(d); }
+  V.cv = level; render(); scrollTo(0, 0);
+}
+const DMOODS = ['😄', '🙂', '😐', '🙁', '😢', '😣'];
+const WEATHER = ['☀️', '⛅', '🌧️', '💨', '❄️'];
+
+// --- kleine Bausteine ---
+const plIn = (path, ph = '', attrs = '') => `<input class="pl-in" data-pl="${path}" value="${esc(pget(path) ?? '')}" placeholder="${esc(ph)}" ${attrs}>`;
+const plTa = (path, ph = '', rows = 3, cls = 'pl-ta') => `<textarea class="${cls}" data-pl="${path}" rows="${rows}" placeholder="${esc(ph)}">${esc(pget(path) ?? '')}</textarea>`;
+const box = (title, inner, cls = '') => `<div class="pbx ${cls}"><div class="pbh">${title}</div><div class="pbb">${inner}</div></div>`;
+const lbl = (t, extra = '') => `<div class="plbl"><span>${t}</span>${extra}</div>`;
+function plList(path, ph){
+  const arr = pget(path) || [];
+  return `<div class="pll">${arr.map(it => `<div class="pli"><button class="chk sm ${it.done ? 'on' : ''}" data-act="plTog" data-p="${path}" data-id="${it.id}" aria-label="Erledigt">${I.check}</button><input class="pl-in ${it.done ? 'done' : ''}" data-pli="${path}|${it.id}" value="${esc(it.t)}" placeholder="${esc(ph)}"><button class="pl-x" data-act="plDel" data-p="${path}" data-id="${it.id}" aria-label="Entfernen">${I.x}</button></div>`).join('')}
+    <button class="addli" data-act="plAdd" data-p="${path}">+ Hinzufügen</button></div>`;
+}
+const evChip = e => `<button class="pev" style="--c:${colorOf(e)}" data-act="${e.bday ? 'editBd' : e.derived ? 'editSub' : 'editEv'}" data-id="${e.bday ? e.bid : e.derived ? e.sid : e.id}" data-d="${e.vd}">${e.start ? `<b>${e.start}</b> ` : ''}${esc(e.title)}</button>`;
+
+function plTop(){
+  const y = V.cm.getFullYear(), m = V.cm.getMonth(), lv = V.cv || 'month';
+  const wk = V.wk || mondayOf(V.sel);
+  const crumbs = [['year', String(y)], ['month', MONTHS[m]], ['week', `${TL('KW')} ${isoWeek(wk)}`], ['day', shortDate(V.sel)]];
+  return `<div class="pl-top">
+    <div class="pl-crumb">${crumbs.map(([k, t], i) => `${i ? '<i>›</i>' : ''}<button class="${(lv === k || (k === 'month' && ['glance', 'review'].includes(lv))) ? 'on' : ''}" data-act="calV" data-v="${k}">${esc(t)}</button>`).join('')}</div>
+    <div class="mbtns"><button class="iconbtn" data-act="calNav" data-dir="-1" aria-label="Zurück">${I.left}</button><button class="pill" data-act="calToday">Heute</button><button class="iconbtn" data-act="calNav" data-dir="1" aria-label="Weiter">${I.right}</button></div>
+  </div>
+  <div class="mtabs">${MS.map((n, i) => `<button class="${i === m ? 'on' : ''}" data-act="calMonth" data-m="${i}">${n}</button>`).join('')}</div>`;
+}
+
+// --- JAHR ---
+function vYear(){
+  const y = V.cm.getFullYear(), t = today();
+  const months = Array.from({length:12}, (_, m) => {
+    const off = wdIdx(new Date(y, m, 1)), n = new Date(y, m + 1, 0).getDate();
+    let cells = WD.map(w => `<i class="yw">${w[0]}</i>`).join('') + '<i></i>'.repeat(off);
+    for (let d = 1; d <= n; d++){ const k = `${y}-${pad(m + 1)}-${pad(d)}`, has = dayItems(k, true).length; cells += `<button class="yd ${k === t ? 'today' : ''} ${has ? 'has' : ''}" data-act="calDay" data-d="${k}">${d}</button>`; }
+    return `<div class="ym"><button class="ymh" data-act="calMonth" data-m="${m}">${MONTHS[m]}</button><div class="ygrid">${cells}</div></div>`;
+  }).join('');
+  const up = []; for (let i = 0; i < 120 && up.length < 10; i++){ const d = addDays(t, i); dayItems(d, true).forEach(e => { if (up.length < 10 && (e.bday || e.derived || !e.start || e.type === 'pruefung')) up.push({d, e}); }); }
+  return `<div class="spread wide-l"><div class="pg"><div class="pg-hrow"><h2 class="pg-h">${y}</h2></div><div class="yrs">${months}</div></div>
+    <div class="pg">${box('Jahresziele', plList(`years|${y}|goals`, 'Ziel für dieses Jahr'))}
+      ${box('Wichtige Termine', up.length ? up.map(({d, e}) => `<button class="kd" data-act="calDay" data-d="${d}"><span>${shortDate(d)}</span><b style="--c:${colorOf(e)}">${esc(e.title)}</b></button>`).join('') : '<p class="hint">Geburtstage, Prüfungen und ganztägige Termine erscheinen hier.</p>')}
+      ${box('Vision für das Jahr', plTa(`years|${y}|vision`, 'Was soll dieses Jahr ausmachen?', 5))}</div></div>`;
+}
+
+// --- MONAT ---
+function vMonthP(){
+  const y = V.cm.getFullYear(), m = V.cm.getMonth(), mk = `${y}-${pad(m + 1)}`, t = today(), n = new Date(y, m + 1, 0).getDate();
+  const weeks = monthWeeks(y, m);
+  let grid = `<i class="mg-c"></i>` + WDL.map(w => `<div class="mg-h">${w.slice(0, 2)}<span>${w.slice(2)}</span></div>`).join('');
+  weeks.forEach((w, wi) => {
+    grid += `<button class="mg-w" data-act="calWeek" data-d="${w}"><span>${TL('Woche')} ${wi + 1}</span></button>`;
+    for (let i = 0; i < 7; i++){
+      const d = addDays(w, i), inM = d.slice(0, 7) === mk, its = dayItems(d, true), td = S.todos.filter(x => x.due === d && !x.done).length, ss = daySes(d).length;
+      grid += `<div class="mc ${inM ? '' : 'out'} ${d === t ? 'today' : ''}" data-act="calDay" data-d="${d}"><span class="dn">${pd(d).getDate()}</span>
+        ${its.slice(0, 3).map(e => `<span class="ev" style="--c:${colorOf(e)}">${esc(e.title)}</span>`).join('')}${its.length > 3 ? `<span class="more">+${its.length - 3}</span>` : ''}
+        ${td || ss ? `<span class="mc-x">${td ? `<i>${I.todo}${td}</i>` : ''}${ss ? `<i>${I.study}${ss}</i>` : ''}</span>` : ''}</div>`;
+    }
+  });
+  const chips = Array.from({length:n}, (_, i) => { const d = `${mk}-${pad(i + 1)}`; return `<button class="${d === t ? 'today' : ''} ${dayItems(d, true).length ? 'has' : ''}" data-act="calDay" data-d="${d}">${pad(i + 1)}</button>`; }).join('');
+  return `<div class="spread wide-l pl-swipe"><div class="pg">
+      <div class="pg-hrow"><h2 class="pg-h">${MONTHS[m]} <small>${y}</small></h2><div class="pg-links"><button data-act="calV" data-v="glance">Im Überblick</button><button data-act="calBudget">Budget</button><button data-act="calV" data-v="review">Rückblick</button></div></div>
+      <div class="dchips">${chips}</div>
+      <div class="mg" style="grid-template-rows:auto repeat(${weeks.length},minmax(0,1fr))">${grid}</div>
+      <div class="legend">${S.cats.map(c => `<span><i style="--c:${c.color}"></i>${esc(c.name)}</span>`).join('')}<span><i style="--c:${BDC}"></i>Geburtstag</span></div>
+      <div class="chips" style="margin-top:10px"><button class="chip" style="padding:6px 12px;font-size:13px" data-act="mCats">Kategorien anpassen</button><button class="chip" style="padding:6px 12px;font-size:13px" data-act="icsSheet">${I.link} Apple Kalender</button></div>
+    </div>
+    <div class="pg">${box('Monatsziele', plList(`months|${mk}|goals`, 'Ziel für diesen Monat'))}${box('To-do', plList(`months|${mk}|todos`, 'Was diesen Monat ansteht'))}${box('Notizen', plTa(`months|${mk}|notes`, '', 6, 'pl-ta ruled'))}</div></div>`;
+}
+function vGlance(){
+  const y = V.cm.getFullYear(), m = V.cm.getMonth(), mk = `${y}-${pad(m + 1)}`, n = new Date(y, m + 1, 0).getDate(), t = today();
+  let rows = '';
+  for (let i = 1; i <= n; i++){
+    const d = `${mk}-${pad(i)}`, its = dayItems(d, true), td = S.todos.filter(x => x.due === d);
+    rows += `<div class="gl ${d === t ? 'today' : ''}"><button class="gl-d" data-act="calDay" data-d="${d}"><b>${pad(i)}</b><span>${WD[wdIdx(pd(d))]}</span></button>
+      <div class="gl-c">${its.map(evChip).join('')}${td.map(x => `<span class="pev todo ${x.done ? 'done' : ''}">${I.todo} ${esc(x.title)}</span>`).join('')}${plIn(`days|${d}|glance`, '…', 'style="flex:1;min-width:120px"')}</div></div>`;
+  }
+  return `<div class="pg"><div class="pg-hrow"><h2 class="pg-h">${MONTHS[m]} <small>${TL('Im Überblick')}</small></h2><div class="pg-links"><button data-act="calV" data-v="month">Monat</button><button data-act="calV" data-v="review">Rückblick</button></div></div>${rows}</div>`;
+}
+function vReview(){
+  const y = V.cm.getFullYear(), m = V.cm.getMonth(), mk = `${y}-${pad(m + 1)}`, n = new Date(y, m + 1, 0).getDate(), P = PL();
+  const days = Array.from({length:n}, (_, i) => `${mk}-${pad(i + 1)}`);
+  const evs = days.reduce((a, d) => a + dayItems(d).length, 0), tdDone = S.todos.filter(x => x.done && (x.due || '').startsWith(mk)).length;
+  const pr = days.reduce((a, d) => a + prayCount(d), 0), wat = days.map(d => (P.days[d] || {}).water || 0).filter(Boolean);
+  const hab = P.habits.length ? Math.round(100 * days.reduce((a, d) => a + P.habits.filter(h => ((P.hlog[d] || {})[h.id])).length, 0) / (P.habits.length * n)) : null;
+  const moods = days.map(d => (P.days[d] || {}).mood).filter(x => x != null);
+  const stat = (v, l) => `<div><b>${v}</b><span>${l}</span></div>`;
+  const mp = `months|${mk}|review`;
+  return `<div class="spread"><div class="pg"><div class="pg-hrow"><h2 class="pg-h">${MONTHS[m]} <small>${TL('Rückblick')}</small></h2><div class="pg-links"><button data-act="calV" data-v="month">Monat</button><button data-act="calV" data-v="glance">Im Überblick</button></div></div>
+      <div class="vstats" style="grid-template-columns:repeat(3,1fr);box-shadow:none;background:var(--ptint)">${stat(evs, TL('Termine'))}${stat(tdDone, TL('Erledigt'))}${stat(pr + '/' + n * 5, 'Namaz')}${stat(wat.length ? (wat.reduce((a, b) => a + b, 0) / wat.length).toFixed(1).replace('.', ',') : '–', TL('Gläser Wasser/Tag'))}${stat(hab == null ? '–' : hab + '%', TL('Gewohnheiten'))}${stat(moods.length ? DMOODS[Math.round(moods.reduce((a, b) => a + b, 0) / moods.length)] : '–', TL('Stimmung'))}</div>
+      ${box('Highlights des Monats', plTa(mp + '|high', '', 4))}${box('Was lief gut?', plTa(mp + '|good', '', 3))}</div>
+    <div class="pg">${box('Was will ich verbessern?', plTa(mp + '|better', '', 3))}${box('Was habe ich gelernt?', plTa(mp + '|learned', '', 3))}${box('Wofür bin ich dankbar?', plTa(mp + '|grat', '', 3))}${box('Fokus für nächsten Monat', plTa(mp + '|next', '', 3))}</div></div>`;
+}
+
+// --- WOCHE ---
+function habitTable(days){
+  const P = PL(), t = today();
+  const head = `<div class="ht-r ht-h"><span></span>${days.map(d => `<span class="${d === t ? 'today' : ''}">${WD[wdIdx(pd(d))][0]}</span>`).join('')}</div>`;
+  const pray = `<div class="ht-r"><span class="ht-n">Namaz</span>${days.map(d => { const c = prayCount(d); return `<button class="hc pc ${c === 5 ? 'on' : ''}" data-act="calDay" data-d="${d}" title="${c}/5">${c || ''}</button>`; }).join('')}</div>`;
+  const rows = P.habits.map(h => `<div class="ht-r"><span class="ht-n">${esc(h.name)}</span>${days.map(d => `<button class="hc ${((P.hlog[d] || {})[h.id]) ? 'on' : ''}" data-act="hTog" data-h="${h.id}" data-d="${d}" aria-label="${esc(h.name)}">${I.check}</button>`).join('')}</div>`).join('');
+  return `<div class="ht">${head}${pray}${rows}</div><button class="addli" data-act="habitSheet">${P.habits.length ? 'Gewohnheiten bearbeiten' : '+ Gewohnheit hinzufügen'}</button>`;
+}
+function vWeekP(){
+  const wk = V.wk || mondayOf(V.sel), days = Array.from({length:7}, (_, i) => addDays(wk, i)), t = today(), wkey = wk;
+  const y = V.cm.getFullYear(), m = V.cm.getMonth(), mws = monthWeeks(y, m);
+  const dayRow = d => {
+    const its = dayItems(d, true), td = dayTodos(d), ss = daySes(d);
+    return `<div class="wr ${d === t ? 'today' : ''}"><button class="wr-l" data-act="calDay" data-d="${d}"><span>${WDL[wdIdx(pd(d))]}</span><b>${pd(d).getDate()}</b></button>
+      <div class="wr-c"><div class="wr-ev">${its.map(evChip).join('')}${td.map(x => `<button class="pev todo ${x.done ? 'done' : ''}" data-act="tgTodo" data-id="${x.id}">${x.done ? I.check : I.todo} ${esc(x.title)}</button>`).join('')}${ss.map(s => { const sub = S.subjects.find(z => z.id === s.sid); return sub ? `<button class="pev" style="--c:${sub.color}" data-act="editSes" data-id="${s.id}">${I.study} ${esc(sub.name)}</button>` : ''; }).join('')}<button class="pev add" data-act="dayAdd" data-d="${d}" aria-label="Hinzufügen">${I.plus}</button></div>
+      ${plTa(`days|${d}|wnote`, 'Notiz', 2, 'pl-ta ruled slim')}</div></div>`;
+  };
+  return `<div class="spread pl-swipe"><div class="pg">
+      <div class="pg-hrow"><h2 class="pg-h">${TL('Woche')} ${isoWeek(wk)} <small>${shortDate(wk)} – ${shortDate(addDays(wk, 6))}</small></h2><div class="pg-links"><button data-act="calV" data-v="month">Monat</button></div></div>
+      <div class="dchips wk">${mws.map((w, i) => `<button class="${w === wk ? 'today' : ''}" data-act="calWeek" data-d="${w}">W${i + 1}</button>`).join('')}</div>
+      <div class="wrs">${days.slice(0, 5).map(dayRow).join('')}</div></div>
+    <div class="pg"><div class="wrs">${days.slice(5).map(dayRow).join('')}</div>
+      <div class="pg2">${box('Wochenfokus', plTa(`weeks|${wkey}|focus`, '', 3))}
+        <div>${lbl('Prioritäten')}${[0, 1, 2].map(i => `<div class="ln"><span>${i + 1}.</span>${plIn(`weeks|${wkey}|prio|${i}`)}</div>`).join('')}</div></div>
+      ${lbl('To-do')}${plList(`weeks|${wkey}|todos`, 'Für diese Woche')}
+      ${box('Gewohnheiten', habitTable(days))}
+      ${box('Notizen', plTa(`weeks|${wkey}|notes`, '', 4, 'pl-ta ruled'))}</div></div>`;
+}
+
+// --- TAG ---
+function vDayP(){
+  const d = V.sel, P = PL(), dp = `days|${d}`, D = P.days[d] || {}, t = today();
+  const its = dayItems(d, true), allday = its.filter(e => !e.start), timed = its.filter(e => e.start);
+  const L = getLoc(), tt = L && prayerTimes(d, L), pr = {};
+  if (tt) ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].forEach(k => { const c = fmtClock(tt[k], tzOf(L)); (pr[Number(c.slice(0, 2))] = pr[Number(c.slice(0, 2))] || []).push(`${PNAMES[k][0]} ${c}`); });
+  let sched = '';
+  for (let h = 5; h <= 23; h++){
+    const at = timed.filter(e => Number(e.start.slice(0, 2)) === h);
+    sched += `<div class="hr"><span class="hh">${h}</span><div class="hc2" data-act="hourAdd" data-d="${d}" data-h="${h}">${(pr[h] || []).map(x => `<span class="ppr">🕌 ${x}</span>`).join('')}${at.map(evChip).join('')}</div></div>`;
+  }
+  const td = dayTodos(d), ss = daySes(d), open = td.filter(x => !x.done).length;
+  const water = D.water || 0, fr = d >= t ? freeSlots(d, 30) : [];
+  const hab = P.habits.map(h => `<div class="pli"><button class="chk sm ${((P.hlog[d] || {})[h.id]) ? 'on' : ''}" data-act="hTog" data-h="${h.id}" data-d="${d}">${I.check}</button><span>${esc(h.name)}</span></div>`).join('');
+  const lg = S.pray.log[d] || {};
+  const dIdx = wdIdx(pd(d));
+  return `<div class="spread pl-swipe"><div class="pg">
+      <div class="pg-hrow"><h2 class="pg-h">${WDL[dIdx]} <small>${pd(d).getDate()}. ${MONTHS[pd(d).getMonth()]}</small></h2><div class="pg-links"><button data-act="calWeek" data-d="${mondayOf(d)}">Woche</button><button data-act="calV" data-v="month">Monat</button><button data-act="dayInk" data-d="${d}">${I.pen} Mit Stift schreiben</button></div></div>
+      <div class="qa" style="margin:4px 0 6px"><button class="pri" data-act="dayNew" data-k="ev">${I.plus} Termin</button><button data-act="dayNew" data-k="todo">${I.todo} Aufgabe</button><button data-act="dayNew" data-k="ses">${I.study} Lernen</button><button data-act="dayAsk">${I.spark} Assistent fragen</button></div>
+      ${fr.length ? `<div class="free">${fr.slice(0, 5).map(f => `<span>frei ${f.a}–${f.b}</span>`).join('')}</div>` : ''}
+      <div class="pg2">
+        <div>${lbl('Tagesplan')}${allday.length ? `<div class="hr"><span class="hh">·</span><div class="hc2">${allday.map(evChip).join('')}</div></div>` : ''}<div class="sched">${sched}</div></div>
+        <div>${lbl('Prioritäten')}${[0, 1, 2].map(i => `<div class="ln"><span>${i + 1}.</span>${plIn(`${dp}|prio|${i}`)}</div>`).join('')}
+          ${lbl('Tagesfokus')}${plTa(`${dp}|focus`, '', 3)}
+          ${lbl('To-do', open && d <= t ? `<button class="mini" data-act="moveTomorrow" data-d="${d}">→ ${TL('Unerledigtes auf morgen')}</button>` : '')}
+          ${td.map(x => todoRow(x, false)).join('')}${ss.map(sesRow).join('')}
+          <input class="pl-in" id="dayTodo" data-d="${d}" placeholder="${esc(TL('Neue Aufgabe, Enter zum Speichern'))}" enterkeyhint="done">
+          ${lbl('Notizen & Reflexion')}${plTa(`${dp}|notes`, '', 5, 'pl-ta ruled')}</div>
+      </div></div>
+    <div class="pg"><div class="pg2">
+      <div>${box('Memo', plTa(`${dp}|memo`, '', 3))}
+        ${lbl('Namaz')}<div class="pdots" style="margin:6px 0 2px">${PKEYS.map((k, i) => `<div class="pcol">${pstBtn(k, d, lg[k])}<small>${PSHORT[i]}</small></div>`).join('')}</div>
+        ${lbl('Gewohnheiten')}${hab}<button class="addli" data-act="habitSheet">${P.habits.length ? 'Gewohnheiten bearbeiten' : '+ Gewohnheit hinzufügen'}</button>
+        ${box('Affirmation', plTa(`${dp}|aff`, '', 2))}
+        ${lbl('Ich bin dankbar für …')}${[0, 1, 2].map(i => `<div class="ln">${plIn(`${dp}|grat|${i}`)}</div>`).join('')}</div>
+      <div>${box('Mahlzeiten', [['b', 'Frühstück'], ['l', 'Mittag'], ['d', 'Abend'], ['s', 'Snack']].map(([k, n]) => `<div class="ln"><span class="ml">${TL(n)}</span>${plIn(`${dp}|meals|${k}`)}</div>`).join(''))}
+        <div class="trk"><span>${TL('Wasser')}</span><div class="drops">${Array.from({length:10}, (_, i) => `<button class="${i < water ? 'on' : ''}" data-act="water" data-d="${d}" data-n="${i + 1}" aria-label="${i + 1}"><svg viewBox="0 0 24 24"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg></button>`).join('')}</div></div>
+        <div class="trk"><span>${TL('Aufgewacht')}</span>${plIn(`${dp}|wake`, '', 'type="time" style="max-width:110px"')}<span>${TL('Schlaf')}</span>${plIn(`${dp}|sleep`, 'Std.', 'inputmode="decimal" style="max-width:60px"')}</div>
+        <div class="trk"><span>${TL('Stimmung')}</span><div class="emo">${DMOODS.map((e, i) => `<button class="${D.mood === i ? 'on' : ''}" data-act="plPick" data-p="${dp}|mood" data-v="${i}">${e}</button>`).join('')}</div></div>
+        <div class="trk"><span>${TL('Wetter')}</span><div class="emo">${WEATHER.map((e, i) => `<button class="${D.wx === i ? 'on' : ''}" data-act="plPick" data-p="${dp}|wx" data-v="${i}">${e}</button>`).join('')}</div></div>
+        ${box('Highlight des Tages', plTa(`${dp}|high`, '', 4))}
+        ${D.ink && S.ink[D.ink] && S.ink[D.ink].length ? `${lbl('Handschrift')}<button class="ink-open" data-act="dayInk" data-d="${d}"><img class="ink-prev" alt="Handschrift" data-ink="${D.ink}"></button>` : ''}</div>
+    </div></div></div>`;
+}
+
+function vCal(){
+  if (!V.cv) V.cv = 'month';
+  const body = {year:vYear, month:vMonthP, week:vWeekP, day:vDayP, glance:vGlance, review:vReview}[V.cv] || vMonthP;
+  return `<div class="planner">${plTop()}${body()}</div>`;
+}
+function habitSheet(){
+  F = {items:clone(PL().habits)};
+  const rows = () => F.items.map((h, i) => `<div class="li"><input class="li-in" data-hi="${i}" value="${esc(h.name)}" placeholder="${esc(TL('z. B. 10.000 Schritte'))}"><button class="x" data-act="habitDel" data-i="${i}" aria-label="Entfernen">${I.x}</button></div>`).join('');
+  sheet(`<h2 class="sh">Gewohnheiten</h2><p class="hint">Erscheinen in der Woche und an jedem Tag zum Abhaken, zum Beispiel Lesen, Sport oder Quran.</p>
+    <div id="hlist">${rows()}</div><button class="addli" data-act="habitAdd">+ Gewohnheit hinzufügen</button>
+    <button class="btn" data-act="habitSave" style="margin-top:16px">Speichern</button>`);
+  F._rows = rows;
+}
+
 /* ================= Widgets ================= */
 const WSTYLES = [{v:'card',n:'Standard'},{v:'dark',n:'Schwarz'},{v:'light',n:'Hell'},{v:'glass',n:'Milchglas'},{v:'clear',n:'Transparent'},{v:'accent',n:'Akzent'}];
 const WT = {
@@ -1540,32 +1915,6 @@ function vHome(){
     + (!S.home.length && !V.edit ? '<div class="empty">Deine Startseite ist leer. Tippe auf den Stift, um Widgets hinzuzufügen.</div>' : '');
 }
 
-function vCal(){
-  const y = V.cm.getFullYear(), m = V.cm.getMonth(), t = today();
-  const off = wdIdx(new Date(y, m, 1)), n = new Date(y, m+1, 0).getDate();
-  let cells = WD.map(w => `<div class="wd">${w}</div>`).join('');
-  for (let i = 0; i < off; i++) cells += '<div></div>';
-  for (let d = 1; d <= n; d++){
-    const k = `${y}-${pad(m+1)}-${pad(d)}`;
-    const cols = [...new Set([...dayItems(k, true).map(colorOf), ...S.sessions.filter(s => s.date === k).map(s => (S.subjects.find(x => x.id === s.sid) || {}).color).filter(Boolean)])].slice(0, 3);
-    cells += `<button class="cd ${k === t ? 'today' : ''} ${k === V.sel ? 'sel' : ''}" data-act="selDay" data-d="${k}"><span>${d}</span><span class="dots">${cols.map(c => `<i class="dot" style="--c:${c}"></i>`).join('')}</span></button>`;
-  }
-  const items = dayItems(V.sel, true), ses = S.sessions.filter(s => s.date === V.sel), td = S.todos.filter(x => x.due === V.sel && !x.done);
-  const empty = !items.length && !ses.length && !td.length, fr = freeSlots(V.sel, 30);
-  return `<div class="calwrap"><div>
-    <div class="mnav"><div class="t"><small>${y}</small>${MONTHS[m]}</div>
-    <div class="mbtns"><button class="iconbtn" data-act="prevM" aria-label="Vorheriger Monat">${I.left}</button><button class="pill" data-act="goToday">Heute</button><button class="iconbtn" data-act="nextM" aria-label="Nächster Monat">${I.right}</button></div></div>
-    <div class="card" style="margin-top:14px;padding:12px"><div class="cal">${cells}</div></div>
-    <div class="legend">${S.cats.map(c => `<span><i style="--c:${c.color}"></i>${esc(c.name)}</span>`).join('')}<span><i style="--c:${BDC}"></i>Geburtstag</span></div>
-    <div class="chips" style="margin-top:12px"><button class="chip" style="padding:6px 12px;font-size:13px" data-act="mCats">Kategorien anpassen</button><button class="chip" style="padding:6px 12px;font-size:13px" data-act="icsSheet">${I.link} Apple Kalender</button></div>
-  </div><div class="dpanel">
-    <div class="sec" style="margin-top:22px">${V.sel === t ? 'Heute, ' + shortDate(V.sel) : longDate(V.sel)}<small>${items.length + ses.length + td.length ? plural(items.length + ses.length + td.length, 'Eintrag', 'Einträge') : ''}</small></div>
-    <div class="qa"><button class="pri" data-act="dayNew" data-k="ev">${I.plus} Termin</button><button data-act="dayNew" data-k="todo">${I.todo} Aufgabe</button><button data-act="dayNew" data-k="ses">${I.study} Lernen</button><button data-act="dayAsk">${I.spark} Assistent fragen</button></div>
-    ${fr.length ? `<div class="free" title="Freie Zeiten zwischen ${S.settings.dayStart} und ${S.settings.dayEnd}">${fr.slice(0, 5).map(f => `<span>frei ${f.a}–${f.b}</span>`).join('')}</div>` : ''}
-    ${items.map(evRow).join('')}${ses.map(sesRow).join('')}${td.map(x => todoRow(x, true)).join('')}
-    ${empty ? '<div class="empty">Noch nichts geplant. Tippe den Tag noch einmal an, um direkt einen Termin anzulegen.</div>' : ''}
-  </div></div>`;
-}
 const toMin = h => { const [a, b] = (h || '0:0').split(':').map(Number); return a * 60 + (b || 0); };
 const fromMin = m => `${pad(Math.floor(m / 60) % 24)}:${pad(m % 60)}`;
 function busyOn(d, withPrayer){
@@ -1682,12 +2031,12 @@ function vNotes(){
   const q = V.nq.trim().toLowerCase();
   let arr = S.notes.filter(n => V.nf === 'all' || (V.nf === n.kind) || (V.nf === 'pin' && n.pin));
   if (q) arr = arr.filter(n => (n.title + ' ' + (n.body || '') + ' ' + (n.items || []).map(i => i.t).join(' ')).toLowerCase().includes(q));
-  arr.sort((a,b) => (b.pin ? 1 : 0) - (a.pin ? 1 : 0) || (b.ts || 0) - (a.ts || 0));
+  arr = ordered('notes', arr, true);
   const f = (v, n) => `<button class="chip ${V.nf === v ? 'on' : ''}" data-act="nf" data-v="${v}">${n}</button>`;
   let html = head('notes', 'Listen, Infos und alles, was du nicht vergessen willst') + `<input class="search" data-q="nq" type="search" placeholder="Suchen" value="${esc(V.nq)}">
-    <div class="chips" style="margin-bottom:16px">${f('all','Alle')}${f('note','Notizen')}${f('list','Listen')}${f('ink','Handschrift')}${f('pin','Angepinnt')}<button class="chip on" style="margin-left:auto" data-act="inkNew">${I.ink} Handschriftlich</button></div>`;
+    <div class="chips" style="margin-bottom:16px">${f('all','Alle')}${f('note','Notizen')}${f('list','Listen')}${f('ink','Handschrift')}${f('pin','Angepinnt')}<button class="chip on" style="margin-left:auto" data-act="inkNew">${I.ink} Handschriftlich</button></div>${sortBar('notes', arr.length)}`;
   if (!arr.length) return html + `<div class="empty">${S.notes.length ? 'Keine Treffer.' : 'Noch keine Notizen. Lege eine Einkaufsliste oder eine wichtige Info an.'}</div>`;
-  return html + `<div class="ngrid">` + arr.map(noteCard).join('') + `</div>`;
+  return html + arrBox('notes', 'ngrid', arr.map(n => arrWrap('notes', n.id, noteCard(n))).join(''));
 }
 function noteCard(n){
   let body = '';
@@ -1723,9 +2072,9 @@ function vSpace(){
     html += `<input class="search" id="qsp" style="margin-top:0" placeholder="Neue Aufgabe eingeben und Enter drücken" enterkeyhint="done">` + (open.length ? open.map(x => todoRow(x, true)).join('') : empty('Keine offenen Aufgaben.'));
     if (done.length) html += `<div class="sec">Erledigt<small>${done.length}</small></div>` + done.map(x => todoRow(x, false)).join('');
   } else if (cur === 'notes'){
-    const arr = mine(S.notes).sort((a, b) => (b.pin ? 1 : 0) - (a.pin ? 1 : 0) || (b.ts || 0) - (a.ts || 0));
-    html += `<div class="chips" style="margin-bottom:14px"><button class="chip on" data-act="spNew" data-k="note">${I.notes} Notiz</button><button class="chip on" data-act="spNew" data-k="list">${I.todo} Liste</button><button class="chip on" data-act="inkNew">${I.ink} Handschrift</button></div>`
-      + (arr.length ? `<div class="ngrid">${arr.map(noteCard).join('')}</div>` : empty('Noch keine Notizen in dieser Kategorie.'));
+    const arr = ordered('notes', mine(S.notes), true);
+    html += `<div class="chips" style="margin-bottom:14px"><button class="chip on" data-act="spNew" data-k="note">${I.notes} Notiz</button><button class="chip on" data-act="spNew" data-k="list">${I.todo} Liste</button><button class="chip on" data-act="inkNew">${I.ink} Handschrift</button></div>${sortBar('notes', arr.length)}`
+      + (arr.length ? arrBox('notes', 'ngrid', arr.map(n => arrWrap('notes', n.id, noteCard(n))).join('')) : empty('Noch keine Notizen in dieser Kategorie.'));
   } else if (cur === 'cal'){
     let any = false; const t0 = today();
     for (let i = 0; i < 180; i++){ const d = addDays(t0, i), its = dayItems(d).filter(e => e.sp === sp); if (its.length){ any = true; html += `<div class="dayh">${i === 0 ? 'Heute' : longDate(d)}</div>` + its.map(evRow).join(''); } }
@@ -1735,11 +2084,11 @@ function vSpace(){
     html += `<div class="card"><div class="rs">Saldo dieser Kategorie</div><div class="bal" style="${inc - out < 0 ? 'color:var(--danger)' : ''}">${fmtE(inc - out)}</div><div class="two"><div><b style="color:var(--ok)">${fmtE(inc)}</b><span>Einnahmen</span></div><div><b>${fmtE(out)}</b><span>Ausgaben</span></div></div></div>`
       + `<div class="sec">Buchungen<small>${arr.length}</small></div>` + (arr.length ? arr.map(txRow).join('') : empty('Noch keine Buchungen.'));
   } else if (cur === 'know'){
-    const arr = mine(S.know).sort((a, b) => (b.ts || 0) - (a.ts || 0)); html += arr.length ? arr.map(knowCard).join('') : empty('Noch nichts festgehalten.');
+    const arr = ordered('know', mine(S.know), true); html += sortBar('know', arr.length) + (arr.length ? arrBox('know', 'alist', arr.map(k => arrWrap('know', k.id, knowCard(k))).join('')) : empty('Noch nichts festgehalten.'));
   } else if (cur === 'quotes'){
-    const arr = mine(S.quotes); html += arr.length ? arr.map(quoteCard).join('') : empty('Noch keine Zitate.');
+    const arr = ordered('quotes', mine(S.quotes)); html += sortBar('quotes', arr.length) + (arr.length ? arrBox('quotes', 'alist', arr.map(q => arrWrap('quotes', q.id, quoteCard(q))).join('')) : empty('Noch keine Zitate.'));
   } else if (cur === 'board'){
-    const arr = mine(S.board).sort((a, b) => (b.ts || 0) - (a.ts || 0)); html += arr.length ? `<div class="masonry">${arr.map(boardTile).join('')}</div>` : empty('Noch keine Bilder. Tippe auf das Plus.');
+    const arr = ordered('board', mine(S.board)); html += sortBar('board', arr.length) + (arr.length ? arrBox('board', V.arrange === 'board' ? 'alist' : 'masonry', arr.map(b => arrWrap('board', b.id, boardTile(b))).join('')) : empty('Noch keine Bilder. Tippe auf das Plus.'));
   }
   return html;
 }
@@ -1769,30 +2118,62 @@ function spDelete(id, all){
   if (V.view === id) V.view = 'home';
 }
 
+/* ================= Reihenfolge in Listen ================= */
+// Neueste oben (Standard), Älteste oben oder eigene Reihenfolge (zum Verschieben). Gilt je Liste.
+const SORTS = [['new', 'Neueste oben'], ['old', 'Älteste oben'], ['manual', 'Eigene Reihenfolge']];
+const SORT_COLL = {quotes:() => S.quotes, notes:() => S.notes, know:() => S.know, board:() => S.board, vocab:() => vS().cards};
+const sortMode = k => ((S.settings.sort || {})[k]) || 'new';
+function ordered(k, arr, pinFirst){
+  const all = SORT_COLL[k](), idx = new Map(all.map((x, i) => [x.id, i])), m = sortMode(k), I_ = x => idx.has(x.id) ? idx.get(x.id) : 1e9;
+  const key = m === 'old' ? x => I_(x) : m === 'new' ? x => -I_(x) : x => (typeof x.ord === 'number' ? x.ord : -1e12 - I_(x));
+  return arr.slice().sort((a, b) => (pinFirst ? (b.pin ? 1 : 0) - (a.pin ? 1 : 0) : 0) || key(a) - key(b));
+}
+function sortBar(k, n){
+  if (n < 2) return '';
+  const m = sortMode(k), on = V.arrange === k;
+  return `<div class="sortbar"><div class="chips">${SORTS.map(([v, t]) => `<button class="chip ${m === v ? 'on' : ''}" data-act="sortSet" data-k="${k}" data-v="${v}">${t}</button>`).join('')}</div>${m === 'manual' ? `<button class="chip ${on ? 'on' : ''}" data-act="arrToggle" data-k="${k}">${on ? I.check + ' Fertig' : I.grip + ' Anordnen'}</button>` : ''}</div>${on ? '<p class="hint" style="color:var(--pageInk2);margin:-4px 0 12px">Mit den Pfeilen verschieben oder am Griff ziehen.</p>' : ''}`;
+}
+// Im Anordnen-Modus bekommt jedes Element Pfeile und einen Griff
+const arrWrap = (k, id, html) => V.arrange === k ? `<div class="arr-item" data-wid="${id}"><div class="arr-ctl"><button data-grip aria-label="Ziehen zum Verschieben">${I.grip}</button><button data-act="arrMove" data-k="${k}" data-id="${id}" data-dir="-1" aria-label="Nach oben">${I.up}</button><button data-act="arrMove" data-k="${k}" data-id="${id}" data-dir="1" aria-label="Nach unten">${I.down}</button></div>${html}</div>` : html;
+const arrBox = (k, cls, inner) => `<div class="${cls}${V.arrange === k ? ' arranging' : ''}" data-arr="${k}">${inner}</div>`;
+function applyOrder(k, visibleIds){
+  const all = SORT_COLL[k](), full = ordered(k, all).map(x => x.id), vis = new Set(visibleIds);
+  const slots = full.map((id, i) => vis.has(id) ? i : -1).filter(i => i >= 0);
+  slots.forEach((pos, j) => full[pos] = visibleIds[j]);
+  const map = new Map(all.map(x => [x.id, x]));
+  full.forEach((id, i) => { const x = map.get(id); if (x) x.ord = i; });
+  save();
+}
+function initArrange(){
+  const box = document.querySelector('[data-arr].arranging'); if (!box) return;
+  initSort(box, '.arr-item', ids => { applyOrder(box.dataset.arr, ids); render(); });
+}
+
 function vKnow(){
   const q = V.kq.trim().toLowerCase();
   const alltags = [...new Set(S.know.flatMap(k => k.tags || []))].sort();
   let arr = S.know.filter(k => (!V.kt || (k.tags || []).includes(V.kt)) && (!q || (k.title + ' ' + k.body + ' ' + (k.source || '') + ' ' + (k.tags || []).join(' ')).toLowerCase().includes(q)));
-  arr.sort((a,b) => (b.pin ? 1 : 0) - (a.pin ? 1 : 0) || (b.ts || 0) - (a.ts || 0));
+  arr = ordered('know', arr, true);
   let html = head('know', 'Recherchen, Fakten und Quellen, die du dir merken willst') + `<input class="search" data-q="kq" type="search" placeholder="Im ${esc(tl('know'))} suchen" value="${esc(V.kq)}">`;
   if (alltags.length) html += `<div class="chips" style="margin-bottom:14px"><button class="chip ${!V.kt ? 'on' : ''}" data-act="kTag" data-v="">Alle</button>${alltags.map(t => `<button class="chip ${V.kt === t ? 'on' : ''}" data-act="kTag" data-v="${esc(t)}">#${esc(t)}</button>`).join('')}</div>`;
   if (!arr.length) return html + `<div class="empty">${S.know.length ? 'Keine Treffer.' : 'Noch leer. Halte hier fest, was du bei Recherchen herausfindest, samt Quelle und Bildern.'}</div>`;
-  return html + arr.map(k => `<button class="card kc" data-act="viewKnow" data-id="${k.id}"><h4>${k.pin ? I.pin + ' ' : ''}${esc(k.title)}</h4>${k.body ? `<p class="ut" style="${fmtCss(k.fmt)}">${fmtText(k.body)}</p>` : ''}${thumbs((k.imgs || []).slice(0, 4))}${(k.tags || []).length ? `<div class="tags">${k.tags.map(t => `<span class="tg">#${esc(t)}</span>`).join('')}</div>` : ''}</button>`).join('');
+  return html + sortBar('know', arr.length) + arrBox('know', 'alist', arr.map(k => arrWrap('know', k.id, knowCard(k))).join(''));
 }
 
 function vQuotes(){
   let html = head('quotes', S.quotes.length ? plural(S.quotes.length, 'Zitat', 'Zitate') + ', eines davon erscheint auf deiner Startseite' : 'Sammle Sätze, die dich begleiten');
   if (!S.quotes.length) return html + '<div class="empty">Noch keine Zitate. Tippe auf das Plus.</div>';
-  return html + `<div style="margin-top:14px">` + S.quotes.map(q => `<button class="card qc" data-act="editQuote" data-id="${q.id}"><q class="ut" style="${fmtCss(q.fmt)}">${fmtText(q.text)}</q>${q.author ? `<span>${esc(q.author)}</span>` : ''}</button>`).join('') + `</div>`;
+  const arr = ordered('quotes', S.quotes);
+  return html + `<div style="height:14px"></div>` + sortBar('quotes', arr.length) + arrBox('quotes', 'alist', arr.map(q => arrWrap('quotes', q.id, quoteCard(q))).join(''));
 }
 
 function vBoard(){
   const boards = [...new Set(S.board.map(b => b.board).filter(Boolean))];
-  const arr = S.board.filter(b => !V.bd || b.board === V.bd).sort((a,b) => (b.ts || 0) - (a.ts || 0));
+  const arr = ordered('board', S.board.filter(b => !V.bd || b.board === V.bd));
   let html = head('board', 'Bilder und Inspiration, zum Beispiel von Pinterest') + `<p class="hint" style="margin-top:8px;color:var(--pageInk2)">Tipp: Speichere ein Bild bei Pinterest in deine Fotos und füge es hier mit dem Plus hinzu.</p>`;
   if (boards.length) html += `<div class="chips" style="margin-bottom:14px"><button class="chip ${!V.bd ? 'on' : ''}" data-act="bdf" data-v="">Alle</button>${boards.map(b => `<button class="chip ${V.bd === b ? 'on' : ''}" data-act="bdf" data-v="${esc(b)}">${esc(b)}</button>`).join('')}</div>`;
   if (!arr.length) return html + '<div class="empty">Noch keine Bilder. Tippe auf das Plus.</div>';
-  return html + `<div class="masonry">${arr.map(b => `<button class="mp" data-act="boardOpen" data-id="${b.id}"><span class="ph" style="--ar:${b.ar || 1}" data-mid="${b.mid}"></span>${b.cap ? `<em>${esc(b.cap)}</em>` : ''}</button>`).join('')}</div>`;
+  return html + sortBar('board', arr.length) + arrBox('board', V.arrange === 'board' ? 'alist' : 'masonry', arr.map(b => arrWrap('board', b.id, boardTile(b))).join(''));
 }
 
 function richText(t){
@@ -2318,7 +2699,7 @@ function vVocab(){
   if (v.mode === 'list'){
     html += `<div class="chips" style="margin-bottom:12px"><button class="chip on" data-act="vNew">${I.plus} Neues Wort</button><button class="chip on" data-act="vSuggest">${I.spark} Mit KI Wörter vorschlagen</button><button class="chip" data-act="vLangSheet" data-id="${l.id}">${I.gear} Sprache bearbeiten</button></div>`;
     if (!cards.length) return html + `<div class="empty">Noch keine Wörter. Tippe auf das Plus oder lass dir Wörter vorschlagen.</div>`;
-    return html + cards.slice().sort((a, b) => (b.ts || 0) - (a.ts || 0)).map(c => `<button class="row" data-act="vEdit" data-id="${c.id}"><span class="vbox" title="Box ${c.box || 0}">${'●'.repeat(Math.min(5, c.box || 0)) + '○'.repeat(5 - Math.min(5, c.box || 0))}</span><span class="rbody"><span class="rt" dir="auto" data-nt>${esc(c.front)}</span><span class="rs" data-nt>${esc(c.back)}</span></span></button>`).join('');
+    return html + sortBar('vocab', cards.length) + arrBox('vocab', 'alist', ordered('vocab', cards).map(c => arrWrap('vocab', c.id, `<button class="row" data-act="vEdit" data-id="${c.id}"><span class="vbox" title="Box ${c.box || 0}">${'●'.repeat(Math.min(5, c.box || 0)) + '○'.repeat(5 - Math.min(5, c.box || 0))}</span><span class="rbody"><span class="rt" dir="auto" data-nt>${esc(c.front)}</span><span class="rs" data-nt>${esc(c.back)}</span></span></button>`)).join(''));
   }
   if (!cards.length) return html + `<div class="empty">Noch keine Wörter. Tippe auf das Plus oder lass dir Wörter vorschlagen.</div><div class="chips" style="justify-content:center"><button class="chip on" data-act="vNew">${I.plus} Neues Wort</button><button class="chip on" data-act="vSuggest">${I.spark} Mit KI Wörter vorschlagen</button></div>`;
   const dirBtn = `<div class="chips" style="margin-bottom:12px"><button class="chip" data-act="vDir">${I.redo} ${v.dir === 'r' ? 'Muttersprache → Fremdsprache' : 'Fremdsprache → Muttersprache'}</button></div>`;
@@ -2612,7 +2993,7 @@ function render(){
   if (!S.tools.some(t => t.id === V.view && (t.on || t.id === 'home') && !t.del)) V.view = 'home';
   if (!$('#studio').classList.contains('open')) applyTheme(effTheme());
   $('#main').innerHTML = (views[V.view] || vSpace)();
-  hydrate($('#main')); hydrateInk($('#main')); tick(); renderDock();
+  hydrate($('#main')); hydrateInk($('#main')); tick(); renderDock(); initArrange();
   $('#fab').style.display = ['home', 'blog', 'prayer', 'ai'].includes(V.view) || (isSpace(V.view) && !spMods().length) ? 'none' : 'grid';
   const q = $('#aiq'); if (q){ q.addEventListener('input', () => { q.style.height = 'auto'; q.style.height = Math.min(160, q.scrollHeight) + 'px'; }); }
   if (V.view === 'home' && V.edit) initSort($('#wgrid'), '.widget', ids => { S.home = ids.map(id => S.home.find(w => w.id === id)).filter(Boolean); save(); });
@@ -3019,7 +3400,7 @@ function studioClose(){ $('#studio').classList.remove('open'); T = null; }
 const A = {
   close(){ closeSheet(); },
   none(){},
-  tab(d){ V.view = d.v; V.edit = false; if (d.v === 'prayer'){ V.pd = ''; autoLoc(); } render(); scrollTo(0, 0); },
+  tab(d){ V.arrange = null; V.view = d.v; V.edit = false; if (d.v === 'prayer'){ V.pd = ''; autoLoc(); } render(); scrollTo(0, 0); },
   fab(){ if (V.view === 'vocab') return vLang() ? vCardSheet() : vLangSheet(); if (isSpace(V.view)){ const m = spCur(); return ({todo:() => todoSheet(), notes:() => noteSheet(), cal:() => evSheet(null, today()), budget:() => txSheet(), know:() => knowSheet(), quotes:() => quoteSheet(), board:() => A.boardAdd()})[m]?.(); } ({cal:() => evSheet(null, V.sel), todo:() => todoSheet(), bday:() => bdSheet(), study:() => subSheet(), budget:() => txSheet(), notes:() => noteSheet(), know:() => knowSheet(), quotes:() => quoteSheet(), board:() => A.boardAdd(), zikir:() => zikirSheet()})[V.view]?.(); },
   chip(d, el){
     if (d.m){ const a = getF(d.f) || []; const i = a.indexOf(d.v); i >= 0 ? a.splice(i, 1) : a.push(d.v); setF(d.f, a); el.classList.toggle('on'); }
@@ -3332,6 +3713,57 @@ const A = {
   vSugAdd(){ const v = vS(), l = vLang(), add = (VQ.sug || []).filter(w => w.on); add.forEach((w, i) => v.cards.push({id:uid(), lid:l.id, front:w.front, back:w.back, ex:w.ex, box:0, due:'', ts:Date.now() + i})); VQ.sug = null; save(); closeSheet(); render(); toast(TL(`${add.length} ${add.length === 1 ? 'Wort' : 'Wörter'} übernommen`)); },
   vCheck(){ vCheckGo(); },
   appLang(d){ S.settings.lang = d.v; setLangArrays(); save(); closeSheet(); render(); renderDock(); settingsSheet(); },
+  /* Planer */
+  calV(d){ V.cv = d.v; if (d.v === 'week') V.wk = mondayOf(V.sel); render(); scrollTo(0, 0); },
+  calDay(d){ calGo('day', d.d); },
+  calWeek(d){ V.wk = d.d; const th = addDays(d.d, 3); V.cm = new Date(pd(th).getFullYear(), pd(th).getMonth(), 1); if (V.sel < d.d || V.sel > addDays(d.d, 6)) V.sel = d.d; V.cv = 'week'; render(); scrollTo(0, 0); },
+  calMonth(d){ V.cm = new Date(V.cm.getFullYear(), Number(d.m), 1); const t = today(); V.sel = t.slice(0, 7) === ds(V.cm).slice(0, 7) ? t : ds(V.cm); V.wk = mondayOf(V.sel); if (!['month', 'glance', 'review'].includes(V.cv)) V.cv = 'month'; render(); },
+  calNav(d){
+    const n = Number(d.dir), lv = V.cv || 'month';
+    if (lv === 'year') V.cm = new Date(V.cm.getFullYear() + n, V.cm.getMonth(), 1);
+    else if (lv === 'week'){ V.wk = addDays(V.wk || mondayOf(V.sel), 7 * n); V.sel = V.wk; const th = addDays(V.wk, 3); V.cm = new Date(pd(th).getFullYear(), pd(th).getMonth(), 1); }
+    else if (lv === 'day'){ const x = addDays(V.sel, n); V.sel = x; V.wk = mondayOf(x); V.cm = new Date(pd(x).getFullYear(), pd(x).getMonth(), 1); }
+    else { V.cm = new Date(V.cm.getFullYear(), V.cm.getMonth() + n, 1); const t = today(); V.sel = t.slice(0, 7) === ds(V.cm).slice(0, 7) ? t : ds(V.cm); V.wk = mondayOf(V.sel); }
+    render();
+  },
+  calToday(){ const t = today(); V.sel = t; V.wk = mondayOf(t); V.cm = new Date(pd(t).getFullYear(), pd(t).getMonth(), 1); render(); },
+  calBudget(){ V.bm = new Date(V.cm.getFullYear(), V.cm.getMonth(), 1); V.view = 'budget'; render(); scrollTo(0, 0); },
+  plAdd(d){ const arr = pget(d.p) || []; const id = uid(); arr.push({id, t:'', done:false}); pset(d.p, arr); save(); render(); const el = document.querySelector(`[data-pli="${d.p}|${id}"]`); if (el) el.focus(); },
+  plTog(d){ const it = (pget(d.p) || []).find(x => x.id === d.id); if (it){ it.done = !it.done; save(); render(); } },
+  plDel(d){ pset(d.p, (pget(d.p) || []).filter(x => x.id !== d.id)); save(); render(); },
+  plPick(d){ const v = Number(d.v); pset(d.p, pget(d.p) === v ? null : v); save(); render(); },
+  hTog(d){ const P = PL(), l = P.hlog[d.d] || (P.hlog[d.d] = {}); if (l[d.h]) delete l[d.h]; else l[d.h] = 1; if (!Object.keys(l).length) delete P.hlog[d.d]; save(); render(); },
+  water(d){ const n = Number(d.n), cur = pget(`days|${d.d}|water`) || 0; pset(`days|${d.d}|water`, cur === n ? n - 1 : n); save(); render(); },
+  moveTomorrow(d){ const nx = addDays(d.d, 1); let n = 0; S.todos.forEach(x => { if (x.due === d.d && !x.done){ x.due = nx; n++; } }); save(); render(); toast(TL(`${n} ${n === 1 ? 'Aufgabe' : 'Aufgaben'} auf morgen verschoben`)); },
+  dayAdd(d){ V.sel = d.d; evSheet(null, d.d); },
+  hourAdd(d, el, e){ if (e && e.target.closest('.pev')) return; const h = Number(d.h); evSheet(null, d.d); F.start = `${pad(h)}:00`; F.end = `${pad(Math.min(23, h + 1))}:00`; const a = $('[data-f=start]'), b = $('[data-f=end]'); if (a) a.value = F.start; if (b) b.value = F.end; },
+  dayInk(d){
+    const P = PL(), D = P.days[d.d] || (P.days[d.d] = {});
+    let n = D.ink && S.notes.find(x => x.id === D.ink);
+    if (!n){ n = {id:uid(), kind:'ink', title:longDate(d.d), body:'', items:[], color:0, pin:false, ts:Date.now()}; S.notes.push(n); D.ink = n.id; save(); }
+    inkOpen(n.id);
+  },
+  habitSheet(){ habitSheet(); },
+  habitAdd(){ F.items.push({id:uid(), name:''}); $('#hlist').innerHTML = F._rows(); const l = document.querySelectorAll('[data-hi]'); l[l.length - 1]?.focus(); },
+  habitDel(d){ F.items.splice(Number(d.i), 1); $('#hlist').innerHTML = F._rows(); },
+  habitSave(){ PL().habits = F.items.filter(h => h.name.trim()).map(h => ({id:h.id, name:h.name.trim()})); save(); closeSheet(); render(); toast('Gespeichert'); },
+  /* Reihenfolge */
+  sortSet(d){
+    const k = d.k;
+    if (d.v === 'manual' && sortMode(k) !== 'manual'){ const cur = ordered(k, SORT_COLL[k]()); cur.forEach((x, i) => x.ord = i); }
+    S.settings.sort = {...(S.settings.sort || {}), [k]:d.v};
+    if (d.v !== 'manual' && V.arrange === k) V.arrange = null;
+    if (d.v === 'manual') V.arrange = k;
+    save(); render();
+  },
+  arrToggle(d){ V.arrange = V.arrange === d.k ? null : d.k; render(); },
+  arrMove(d){
+    const box = document.querySelector(`[data-arr="${d.k}"]`); if (!box) return;
+    const ids = [...box.querySelectorAll(':scope > .arr-item')].map(e => e.dataset.wid), i = ids.indexOf(d.id), j = i + Number(d.dir);
+    if (i < 0 || j < 0 || j >= ids.length) return;
+    [ids[i], ids[j]] = [ids[j], ids[i]]; applyOrder(d.k, ids); render();
+    const el = document.querySelector(`[data-arr="${d.k}"] .arr-item[data-wid="${d.id}"]`); if (el) el.scrollIntoView({block:'nearest'});
+  },
   /* Schrift */
   fmtSet(d){ if (d.k === 'i0'){ const c = getP(d.p + '.i'); setP(d.p + '.i', c === 0 ? '' : 0); refreshFmt(d.p); return; } const v = d.k === 'c' || d.k === 'a' ? d.v : d.v === '' ? '' : Number(d.v); const cur = getP(d.p + '.' + d.k); setP(d.p + '.' + d.k, (d.k === 'i' || d.k === 'u') ? (v ? 1 : '') : (String(cur) === String(v) && d.k !== 'c' ? '' : v)); refreshFmt(d.p); },
   fmtWrap(d){
@@ -3449,6 +3881,9 @@ document.addEventListener('click', e => {
 });
 const onField = e => {
   const t = e.target;
+  if (t.dataset.pl){ pset(t.dataset.pl, t.value); plSave(); return; }
+  if (t.dataset.pli){ const a_ = t.dataset.pli.split('|'), id_ = a_.pop(), it_ = (pget(a_.join('|')) || []).find(x => x.id === id_); if (it_){ it_.t = t.value; plSave(); } return; }
+  if (t.dataset.hi !== undefined){ F.items[Number(t.dataset.hi)].name = t.value; return; }
   if (t.dataset.fp){ const p_ = t.dataset.fp, base = p_.slice(0, p_.lastIndexOf('.')); setP(p_, t.value); refreshFmt(base); return; }
   if (t.dataset.fmtta && e.type === 'input'){ const pv = document.querySelector(`[data-fmtpv="${t.dataset.fmtta}"]`); if (pv) pv.innerHTML = fmtText(t.value); }
   if (t.dataset.tc){ if (!T.colors) T.colors = {}; if (t.dataset.tc === 'bg') T.bg = t.value; else T.colors[t.dataset.tc] = t.value; applyTheme(T); const row = t.closest('.crow'); row.querySelector('.sw3').style.setProperty('--cc', t.value); row.querySelector('.hex').textContent = t.value.toUpperCase(); if (e.type === 'change') studioRender(); }
@@ -3476,7 +3911,9 @@ document.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
   const t = e.target;
   if (t.id === 'aiq' && !e.shiftKey && !e.isComposing){ e.preventDefault(); t.form.requestSubmit(); return; }
-  if (t.id === 'qsp' && t.value.trim()){
+  if (t.id === 'dayTodo' && t.value.trim()){
+    e.preventDefault(); S.todos.push({id:uid(), title:t.value.trim(), due:t.dataset.d, prio:0, group:'', done:false, ts:Date.now()}); save(); render(); $('#dayTodo')?.focus();
+  } else if (t.id === 'qsp' && t.value.trim()){
     S.todos.push({id:uid(), title:t.value.trim(), due:'', prio:0, group:'', done:false, ts:Date.now(), sp:curSp()}); save(); render(); $('#qsp').focus();
   } else if (t.id === 'qt' && t.value.trim()){
     S.todos.push({id:uid(), title:t.value.trim(), due:'', prio:0, group:V.tg !== 'all' ? V.tg : '', done:false, ts:Date.now()}); save(); render(); $('#qt').focus();
@@ -3488,9 +3925,9 @@ document.addEventListener('keydown', e => {
 let sx = 0, sy = 0;
 $('#main').addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
 $('#main').addEventListener('touchend', e => {
-  if (V.view !== 'cal' || !e.target.closest('.cal')) return;
+  if (V.view !== 'cal' || !e.target.closest('.pl-swipe') || e.target.closest('input,textarea')) return;
   const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) dx < 0 ? A.nextM() : A.prevM();
+  if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.8) A.calNav({dir:dx < 0 ? 1 : -1});
 }, {passive:true});
 document.addEventListener('visibilitychange', () => { if (!document.hidden && !$('#sheet.open') && !$('#studio.open')){ V.sel = V.view === 'cal' ? V.sel : V.sel; render(); } });
 document.addEventListener('pointerdown', e => { const t = e.target.closest('[data-zk]'); if (!t || V.edit) return; e.preventDefault(); zkTap(t); });
