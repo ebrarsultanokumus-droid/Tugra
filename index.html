@@ -1,20 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Tuğra">
-<meta name="theme-color" content="#0B1A2E">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" href="icon-192.png">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="manifest" href="manifest.json">
+<!-- Firebase-Daten für Sync (Datei firebase-config.js im selben Ordner) -->
 <script src="firebase-config.js"></script>
-</head>
-<body>
 <title>Tuğra</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" content="#0B1A2E">
@@ -680,6 +674,8 @@ svg.hl-mark{width:40px}
   #app:has(.planner){max-width:1400px}
 }
 </style>
+</head>
+<body>
 <div id="splash" aria-hidden="true"></div>
 <div id="wall"></div>
 <div id="app"><div id="main"></div></div>
@@ -867,7 +863,7 @@ const TRX = [
   [/, Korrektur in Minuten$/, ', düzeltme (dakika)'],
   [/^(\S+) (fröhlich|verliebt|entspannt|begeistert|müde|traurig|genervt|gestresst|feierlaune|nachdenklich|motiviert|cool)$/, (m, e, w) => e + ' ' + TR[w]],
 ];
-const AI_SUGG_TR = ['Bu hafta 2 saat ders çalışmak için ne zaman boş vaktim var?', 'Yarın saat 14\'te diş hekimi randevusu ekle', 'Bugün neler var?', 'Bu ay ne kadar harcadım?', 'Yarınki görevlerimi namaz vakitlerinin arasına planla'];
+const AI_SUGG_TR = ['Bu hafta 2 saat ders çalışmak için ne zaman boş vaktim var?', 'Yarın saat 14\'te diş hekimi randevusu ekle', 'Bugün neler var?', 'Bu ay ne kadar harcadım?', 'Yarınki görevlerimi namaz vakitlerinin arasına planla', 'Tarihte bugün ne oldu?', 'Yardım'];
 
 
 /* ================= Sprache der App (Deutsch / Türkçe) ================= */
@@ -1019,6 +1015,101 @@ const catColor = n => ([...CATS_OUT, ...CATS_IN].find(c => c.n === n) || {c:'#94
 const REPEATS = [['none','Nie'],['daily','Täglich'],['weekdays','Montag bis Freitag'],['weekly','Jede Woche'],['biweekly','Alle 2 Wochen']];
 const MOODS = [['😊','fröhlich'],['🥰','verliebt'],['😌','entspannt'],['🤩','begeistert'],['😴','müde'],['😢','traurig'],['😤','genervt'],['😰','gestresst'],['🥳','feierlaune'],['🤔','nachdenklich'],['💪','motiviert'],['😎','cool']];
 const BDC = '#E58EB5';
+
+/* ---- Gedenktage: Türkische Geschichte 1918–1934 ----
+   Erscheinen jedes Jahr am Jahrestag im Kalender (Titel und Notiz in der App-Sprache).
+   [Datum, bis (MM-DD, optional), Titel TR, Notiz TR, Titel DE, Notiz DE, Hinweis TR, Hinweis DE] */
+const HISTC = '#B23A48';
+const HIST_RAW = [
+['1918-10-30','','Mondros Mütarekesi’nin imzalanması','Osmanlı Devleti ile İtilaf Devletleri arasında Limni Adası’ndaki Mondros Limanı’nda, Agamemnon zırhlısında ateşkes imzalandı. Osmanlı Devleti böylece fiilen I. Dünya Savaşı’ndan çekildi. 7. madde, İtilaf Devletleri’ne güvenliklerini tehdit eden her yeri işgal etme hakkı tanıdı ve işgallerin önünü açtı.','Unterzeichnung des Waffenstillstands von Mudros','Im Hafen von Mudros auf Lemnos unterzeichneten das Osmanische Reich und die Entente an Bord der HMS Agamemnon einen Waffenstillstand. Damit schied das Reich faktisch aus dem Ersten Weltkrieg aus. Artikel 7 erlaubte den Siegern, jeden „sicherheitsrelevanten“ Ort zu besetzen, und öffnete so den Weg für die Besetzungen.'],
+['1918-11-03','','Musul’un İngilizler tarafından işgali','İngilizler, ateşkes imzalandığında Osmanlı askerinin elinde olan Musul’u Mondros’un 7. maddesine dayanarak işgal etti. Bu, ateşkesten sonraki ilk büyük işgaldi. Musul meselesi Lozan’da da çözülemedi ve 1926’da İngiliz mandasındaki Irak lehine sonuçlandı.','Besetzung von Mossul durch die Briten','Die Briten besetzten Mossul, das bei Abschluss des Waffenstillstands noch in osmanischer Hand war, unter Berufung auf Artikel 7 von Mudros. Es war die erste große Besetzung nach dem Waffenstillstand. Die Mossul-Frage blieb auch in Lausanne offen und wurde 1926 zugunsten des britischen Mandats Irak entschieden.'],
+['1918-11-08','','İtilaf kuvvetlerince Çanakkale Boğazı’nın işgali','Mondros’un şartlarına göre Çanakkale Boğazı’ndaki tabyalar İtilaf kuvvetlerine teslim edildi. 1915’te savaşla geçilemeyen boğaz böylece savaşsız olarak İtilaf donanmalarına açıldı. Bu durum İstanbul’un işgaline giden yolu da açtı.','Besetzung der Dardanellen durch die Entente','Gemäß Mudros wurden die Festungen an den Dardanellen den Entente-Truppen übergeben. Die Meerenge, die 1915 im Kampf nicht bezwungen worden war, stand den alliierten Flotten nun kampflos offen. Damit war auch der Weg nach Istanbul frei.'],
+['1918-11-09','','İskenderun’un İngilizler tarafından işgali','İngilizler, Suriye’ye ve Güney Anadolu’ya giden yolları kontrol eden İskenderun limanını işgal etti. Yıldırım Orduları Grubu Komutanı Mustafa Kemal Paşa, bu işgale karşı direnilmesi gerektiğini bildirmişti. Komutanlığı kaldırılınca İstanbul’a döndü.','Besetzung von İskenderun durch die Briten','Die Briten besetzten den Hafen von İskenderun (Alexandrette), der die Wege nach Syrien und Südanatolien kontrollierte. Mustafa Kemal Pascha, Befehlshaber der Yıldırım-Heeresgruppe, hatte gefordert, sich der Besetzung zu widersetzen. Nach der Auflösung seines Kommandos kehrte er nach Istanbul zurück.'],
+['1918-11-09','','Urfa, Maraş ve Antep’in Fransızlar tarafından işgali','Mondros’tan sonra Güneydoğu Anadolu’daki Urfa, Maraş ve Antep işgal edildi. Bölge önce İngiliz kontrolüne girdi, 1919 sonunda Fransızlara devredildi. Halk bu işgallere karşı Kuvâ-yi Milliye ile güçlü bir direniş başlattı.','Besetzung von Urfa, Maraş und Antep durch die Franzosen','Nach Mudros wurden Urfa, Maraş und Antep in Südostanatolien besetzt. Die Region kam zunächst unter britische Kontrolle und wurde Ende 1919 an Frankreich übergeben. Die Bevölkerung leistete mit der Kuvâ-yi Milliye (Volksmiliz) heftigen Widerstand.'],
+['1918-11-13','','İtilaf kuvvetlerince İstanbul’un işgali','İtilaf donanması İstanbul önlerine demirledi ve şehir fiilen işgal altına girdi. Aynı gün İstanbul’a gelen Mustafa Kemal Paşa, donanmayı görünce “Geldikleri gibi giderler.” dedi. Resmî işgal 16 Mart 1920’de gerçekleşti.','Besetzung Istanbuls durch die Entente','Die alliierte Flotte ankerte vor Istanbul, die Stadt stand damit faktisch unter Besatzung. Mustafa Kemal Pascha, der am selben Tag in Istanbul eintraf, sagte beim Anblick der Schiffe: „Wie sie gekommen sind, so werden sie gehen.“ Die offizielle Besetzung folgte am 16. März 1920.'],
+['1918-11-29','','Millî Kongre Cemiyeti’nin kuruluşu','İstanbul’da kurulan cemiyet, Türk milletinin haklarını yayın ve propaganda yoluyla savunmayı amaçladı. Avrupa kamuoyunda Türkler aleyhine yapılan propagandaya karşı bildiriler ve konferanslarla mücadele etti. Millî Mücadele’yi destekleyen ilk cemiyetlerden biridir.','Gründung der Millî-Kongre-Gesellschaft','Die in Istanbul gegründete Gesellschaft wollte die Rechte der türkischen Nation mit Veröffentlichungen und Aufklärung verteidigen. Sie trat der antitürkischen Propaganda in Europa mit Schriften und Vorträgen entgegen. Sie gehört zu den ersten Vereinigungen, die den nationalen Widerstand unterstützten.'],
+['1918-12-02','','Trakya-Paşaeli Müdafaa Heyet-i Osmaniyesi’nin kurulması','Edirne’de, Trakya’yı Yunan ve Bulgar emellerine karşı korumak amacıyla kuruldu. Cemiyet, bölgedeki Türk ve Müslüman nüfusu belgelerle ortaya koyarak Trakya’nın Türk yurdu olduğunu savundu. Gerekirse silahlı direniş yapmayı da hedefledi.','Gründung der Verteidigungsgesellschaft für Thrakien und Paşaeli','Sie wurde in Edirne gegründet, um Thrakien gegen griechische und bulgarische Ansprüche zu schützen. Mit Belegen zur türkischen und muslimischen Bevölkerung wollte sie zeigen, dass Thrakien türkisches Land ist. Notfalls war auch bewaffneter Widerstand vorgesehen.'],
+['1918-12-02','','İzmir Müdafaa-i Hukuk-u Osmaniye Cemiyeti’nin kurulması','İzmir’de, Batı Anadolu’ya yönelik Yunan emellerine karşı kuruldu. Bölgenin Türk olduğunu kanıtlamak için bilimsel ve kültürel çalışmalar yaptı. “Müdafaa-i Hukuk” adını taşıyan ilk cemiyettir.','Gründung der Gesellschaft zur Verteidigung der Rechte in İzmir','Sie entstand in İzmir als Antwort auf die griechischen Ansprüche auf Westanatolien. Mit wissenschaftlichen und kulturellen Arbeiten sollte belegt werden, dass die Region türkisch ist. Es war die erste Vereinigung mit dem Namen „Müdafaa-i Hukuk“ (Verteidigung der Rechte).'],
+['1918-12-21','','Osmanlı Mebusan Meclisi’nin feshi','Padişah Vahdettin, İttihatçıların çoğunlukta olduğu Mebusan Meclisi’ni kapattı. Böylece padişah ve hükümet, millet adına denetlenmeden hareket edebilir hâle geldi. Millî iradenin devre dışı kalması, Anadolu’da millî cemiyetlerin güçlenmesine yol açtı.','Auflösung des osmanischen Abgeordnetenhauses','Sultan Vahdettin löste das Abgeordnetenhaus auf, in dem die Jungtürken (İttihatçılar) die Mehrheit hatten. Sultan und Regierung konnten nun ohne Kontrolle durch das Parlament handeln. Weil der Volkswille ausgeschaltet war, gewannen die nationalen Vereinigungen in Anatolien an Gewicht.'],
+['1919-02-12','','Trabzon Muhafaza-i Hukuk-u Milliye Cemiyeti’nin kurulması','Trabzon’da, Karadeniz kıyısında bir Rum (Pontus) devleti kurulmasını engellemek için kuruldu. Bölgenin Türk ve Müslüman karakterini korumayı amaçladı. Cemiyetin temsilcileri daha sonra Erzurum Kongresi’ne katıldı.','Gründung der Gesellschaft zum Schutz der nationalen Rechte in Trabzon','Sie wurde in Trabzon gegründet, um einen griechischen Pontos-Staat an der Schwarzmeerküste zu verhindern. Ziel war, den türkisch-muslimischen Charakter der Region zu bewahren. Ihre Vertreter nahmen später am Kongress von Erzurum teil.'],
+['1919-03-30','','Paris Barış Konferansı’nda İzmir’in Yunanlılara verilmesi kararının alınması','Paris Barış Konferansı’nda, Yunanistan Başbakanı Venizelos’un talepleri doğrultusunda İzmir ve çevresinin Yunanistan’a bırakılması kararlaştırıldı. İtalya’nın bölgedeki emellerini dengelemek isteyen İngiltere bu kararı destekledi. Karar, 15 Mayıs 1919’daki İzmir işgalinin zeminini hazırladı.','Paris: Beschluss, İzmir an Griechenland zu geben','Auf der Pariser Friedenskonferenz wurde auf Drängen des griechischen Premiers Venizelos beschlossen, İzmir und Umgebung Griechenland zu überlassen. Großbritannien unterstützte dies, um italienische Ansprüche in der Region auszugleichen. Der Beschluss bereitete die Besetzung İzmirs am 15. Mai 1919 vor.'],
+['1919-05-06','','Mustafa Kemal Paşa’nın 9. Ordu Kıtaatı Müfettişliği’ne atanması','Mustafa Kemal Paşa, Doğu Anadolu ve Orta Karadeniz’deki birlikleri denetlemek ve asayişi sağlamakla görevlendirildi. Bu görev ona geniş askerî ve sivil yetkiler verdi. O, bu yetkileri Anadolu’da millî direnişi örgütlemek için kullandı.','Ernennung Mustafa Kemals zum Inspekteur der 9. Armee','Mustafa Kemal Pascha wurde beauftragt, die Truppen in Ostanatolien und an der mittleren Schwarzmeerküste zu inspizieren und die Ordnung herzustellen. Das Amt gab ihm weitreichende militärische und zivile Befugnisse. Er nutzte sie, um in Anatolien den nationalen Widerstand zu organisieren.','Atama iradesi birçok kaynakta 30 Nisan 1919 tarihiyle geçer.','In vielen Quellen ist der Ernennungserlass auf den 30. April 1919 datiert.'],
+['1919-05-14','','Redd-i İlhak Cemiyeti’nin kuruluşu','Yunan çıkarmasının haberi gelince İzmirliler, işgalden önceki gece Maşatlık’ta toplanıp ilhakı reddetti. “İlhakın reddi” anlamına gelen cemiyet, halkı işgale karşı direnmeye çağırdı. Batı Anadolu’daki direnişin ilk adımlarından biri oldu.','Gründung der Gesellschaft Redd-i İlhak','Als die Nachricht von der griechischen Landung kam, versammelten sich Einwohner İzmirs in der Nacht davor in Maşatlık und lehnten die Annexion ab. Der Name bedeutet „Ablehnung der Annexion“; die Gesellschaft rief zum Widerstand gegen die Besetzung auf. Sie war einer der ersten Schritte des Widerstands in Westanatolien.'],
+['1919-05-15','','İzmir’in Yunan kuvvetlerince işgal edilmesi','Yunan askerleri, İtilaf donanmasının koruması altında Mondros’un 7. maddesine dayanarak İzmir’e çıktı. İşgal sırasında halka karşı ağır şiddet uygulandı. Bu olay bütün yurtta büyük tepki doğurdu, mitingler düzenlendi ve Kuvâ-yi Milliye hareketi hız kazandı.','Besetzung İzmirs durch griechische Truppen','Griechische Truppen landeten unter dem Schutz der alliierten Flotte und unter Berufung auf Artikel 7 von Mudros in İzmir. Bei der Besetzung kam es zu schwerer Gewalt gegen die Bevölkerung. Das löste im ganzen Land Empörung und Kundgebungen aus und gab der Kuvâ-yi Milliye starken Auftrieb.'],
+['1919-05-15','','Hasan Tahsin (Osman Nevres) Bey’in Yunanlılara ilk kurşunu sıkması ve şehit düşmesi','Gazeteci Hasan Tahsin (asıl adı Osman Nevres), Yunan askerleri Kordon’a çıkarken onlara ilk kurşunu sıktı. Ardından süngülenerek şehit edildi. Bu kurşun, işgale karşı silahlı direnişin sembolü oldu.','Hasan Tahsin feuert den ersten Schuss und fällt','Der Journalist Hasan Tahsin (eigentlich Osman Nevres) gab beim Landen der griechischen Soldaten am Kordon den ersten Schuss auf sie ab. Danach wurde er mit dem Bajonett getötet. Sein Schuss wurde zum Symbol des bewaffneten Widerstands gegen die Besetzung.'],
+['1919-05-19','','Mustafa Kemal Paşa ve kurmay heyetinin Samsun’a çıkması','Mustafa Kemal Paşa, kurmay heyetiyle birlikte Bandırma Vapuru ile İstanbul’dan Samsun’a ulaştı. Bu tarih, Millî Mücadele’nin başlangıcı kabul edilir. Bugün Atatürk’ü Anma, Gençlik ve Spor Bayramı olarak kutlanır.','Mustafa Kemal Pascha landet in Samsun','Mustafa Kemal Pascha erreichte mit seinem Stab an Bord des Dampfers Bandırma von Istanbul aus Samsun. Dieser Tag gilt als Beginn des Unabhängigkeitskampfes. Heute ist er der Gedenktag an Atatürk und Tag der Jugend und des Sports.'],
+['1919-06-13','','Mustafa Kemal Paşa’nın Amasya’ya geçişi','Mustafa Kemal Paşa, Havza’dan Amasya’ya geçti ve halk tarafından coşkuyla karşılandı. Burada Rauf Bey, Ali Fuat Paşa ve Refet Bey ile görüştü. Bu görüşmeler Amasya Genelgesi’nin hazırlanmasını sağladı.','Mustafa Kemal Pascha kommt nach Amasya','Mustafa Kemal Pascha reiste von Havza nach Amasya und wurde dort begeistert empfangen. Er traf sich mit Rauf Bey, Ali Fuat Pascha und Refet Bey. Aus diesen Gesprächen ging das Rundschreiben von Amasya hervor.'],
+['1919-06-22','','Amasya Genelgesi’nin yayınlanması','Genelgede “Vatanın bütünlüğü, milletin bağımsızlığı tehlikededir.” ve “Milletin bağımsızlığını yine milletin azim ve kararı kurtaracaktır.” denildi. Millî Mücadele’nin gerekçesi, amacı ve yöntemi ilk kez açıkça ortaya kondu. Ayrıca Sivas’ta bir millî kongre toplanması kararlaştırıldı.','Veröffentlichung des Rundschreibens von Amasya','Darin hieß es: „Die Einheit des Vaterlandes und die Unabhängigkeit der Nation sind in Gefahr“ und „Die Unabhängigkeit der Nation wird nur ihr eigener Wille und Entschluss retten.“ Zum ersten Mal wurden Grund, Ziel und Weg des Befreiungskampfes klar benannt. Außerdem wurde ein nationaler Kongress in Sivas beschlossen.'],
+['1919-06-24','','Mustafa Kemal Paşa’nın İstanbul Hükümeti’nce görevinden alınması','Amasya Genelgesi’nden sonra İstanbul Hükümeti, Mustafa Kemal Paşa’yı görevinden aldı ve valilere emirlerinin uygulanmamasını bildirdi. Mustafa Kemal, 8 Temmuz 1919’da Erzurum’da askerlik görevinden de istifa etti. Mücadeleye bundan sonra sivil olarak, milletin bir ferdi şeklinde devam etti.','Absetzung Mustafa Kemals durch die Istanbuler Regierung','Nach dem Rundschreiben von Amasya enthob die Istanbuler Regierung Mustafa Kemal seines Amtes und wies die Gouverneure an, seinen Befehlen nicht zu folgen. Am 8. Juli 1919 trat er in Erzurum auch aus dem Militärdienst aus. Danach führte er den Kampf als Zivilist weiter.'],
+['1919-06-26','','I. Balıkesir Kongresi','Yunan ilerleyişine karşı Batı Anadolu’daki direnişi örgütlemek için toplandı. Kongrede işgale karşı silahlı mücadele kararı alındı ve cephe için asker, para ve malzeme toplanması planlandı. Bunu başka Balıkesir kongreleri izledi.','Erster Kongress von Balıkesir','Er trat zusammen, um den Widerstand gegen den griechischen Vormarsch in Westanatolien zu organisieren. Beschlossen wurden der bewaffnete Kampf gegen die Besetzung und das Sammeln von Kämpfern, Geld und Material für die Front. Weitere Kongresse in Balıkesir folgten.'],
+['1919-07-23','08-07','Erzurum Kongresi’nin toplanması','Doğu illerinin temsilcileri Mustafa Kemal Paşa başkanlığında toplandı; kongre toplanış bakımından bölgesel, aldığı kararlar bakımından millîdir. “Millî sınırlar içinde vatan bir bütündür, parçalanamaz.” ilkesi kabul edildi, manda ve himaye reddedildi. Ayrıca bir Temsil Heyeti seçildi.','Kongress von Erzurum','Vertreter der Ostprovinzen tagten unter dem Vorsitz von Mustafa Kemal Pascha; regional nach den Teilnehmern, national nach den Beschlüssen. Angenommen wurde der Grundsatz „Innerhalb der nationalen Grenzen ist das Vaterland ein unteilbares Ganzes“, Mandat und Protektorat wurden abgelehnt. Zudem wurde ein Repräsentativkomitee (Heyet-i Temsiliye) gewählt.'],
+['1919-08-04','','I. Nazilli Kongresi’nin toplanması','Aydın cephesinde Yunan işgaline karşı direnişi düzenlemek için Nazilli’de toplandı. Kuvâ-yi Milliye’nin asker ve ihtiyaçlarının bölge halkından karşılanması kararlaştırıldı. Kongre, Batı Anadolu’daki dağınık direnişin birleştirilmesine katkı sağladı.','Erster Kongress von Nazilli','Er tagte in Nazilli, um den Widerstand gegen die griechische Besetzung an der Aydın-Front zu ordnen. Beschlossen wurde, Kämpfer und Versorgung der Kuvâ-yi Milliye aus der Bevölkerung der Region zu stellen. Der Kongress half, den zersplitterten Widerstand in Westanatolien zu bündeln.'],
+['1919-09-04','09-12','Sivas Kongresi’nin toplanması','Yurdun her yerinden gelen temsilcilerle toplandı; hem toplanış hem de kararları bakımından millî bir kongredir. Bütün millî cemiyetler “Anadolu ve Rumeli Müdafaa-i Hukuk Cemiyeti” adı altında birleştirildi ve manda kesin olarak reddedildi. Temsil Heyeti artık bütün yurdu temsil etti ve “İrade-i Milliye” gazetesi çıkarıldı.','Kongress von Sivas','Mit Delegierten aus dem ganzen Land war er nach Teilnahme und Beschlüssen ein nationaler Kongress. Alle nationalen Vereinigungen wurden zur „Gesellschaft zur Verteidigung der Rechte Anatoliens und Rumeliens“ vereinigt, ein Mandat wurde endgültig abgelehnt. Das Repräsentativkomitee vertrat nun das ganze Land, und die Zeitung „İrade-i Milliye“ wurde gegründet.'],
+['1919-11-19','','Karakol Cemiyeti’nin kuruluşu','İstanbul’da gizlice kurulan cemiyet, işgal altındaki şehirden Anadolu’ya silah, cephane ve subay kaçırdı. Ayrıca İtilaf kuvvetleri hakkında istihbarat topladı. Millî Mücadele’ye İstanbul’dan verilen en önemli desteklerden biridir.','Gründung der Karakol-Gesellschaft','Die im Geheimen in Istanbul gegründete Gesellschaft schmuggelte Waffen, Munition und Offiziere aus der besetzten Stadt nach Anatolien. Sie sammelte außerdem Nachrichten über die alliierten Truppen. Sie war eine der wichtigsten Stützen des Befreiungskampfes in Istanbul.','Birçok kaynakta cemiyetin kuruluşu 1918 sonu olarak geçer.','Viele Quellen datieren die Gründung auf Ende 1918.'],
+['1919-12-27','','Mustafa Kemal Paşa’nın Ankara’ya gelişi','Mustafa Kemal Paşa ve Temsil Heyeti Sivas’tan Ankara’ya geldi ve halk tarafından coşkuyla karşılandı. Batı cephesine yakınlığı ve demiryolu bağlantısı sayesinde Ankara, Millî Mücadele’nin merkezi oldu. Şehir daha sonra yeni devletin başkenti oldu.','Mustafa Kemal Pascha kommt nach Ankara','Mustafa Kemal Pascha und das Repräsentativkomitee kamen aus Sivas nach Ankara und wurden begeistert empfangen. Dank der Nähe zur Westfront und der Bahnverbindung wurde Ankara zum Zentrum des Befreiungskampfes. Später wurde die Stadt Hauptstadt des neuen Staates.'],
+['1920-01-12','','Son Osmanlı Mebusan Meclisi’nin toplanması','Temsil Heyeti’nin baskısıyla yapılan seçimlerin ardından meclis İstanbul’da açıldı. Seçimleri büyük ölçüde Müdafaa-i Hukukçular kazandı. Erzurum mebusu seçilen Mustafa Kemal Paşa, güvenliği olmadığı için İstanbul’a gitmedi.','Zusammentritt des letzten osmanischen Abgeordnetenhauses','Nach Wahlen, die auf Druck des Repräsentativkomitees stattfanden, trat das Parlament in Istanbul zusammen. Gewonnen hatten überwiegend Anhänger der Müdafaa-i-Hukuk-Bewegung. Mustafa Kemal Pascha, als Abgeordneter für Erzurum gewählt, ging aus Sicherheitsgründen nicht nach Istanbul.'],
+['1920-01-28','','Son Osmanlı Mebusan Meclisi’nde Misak-ı Millî’nin kabulü','Meclis, Erzurum ve Sivas kararlarına dayanan Misak-ı Millî’yi (Millî Ant) kabul etti ve 17 Şubat’ta kamuoyuna duyurdu. Mondros imzalandığında işgal edilmemiş, Türklerin çoğunlukta olduğu toprakların bölünmez olduğu bildirildi ve kapitülasyonlar reddedildi. Kars, Ardahan, Batum ve Batı Trakya için halk oylaması öngörüldü.','Annahme des Nationalpakts (Misak-ı Millî)','Das Parlament nahm den auf den Beschlüssen von Erzurum und Sivas beruhenden Nationalpakt an und machte ihn am 17. Februar bekannt. Gebiete mit türkischer Mehrheit, die bei Abschluss von Mudros nicht besetzt waren, wurden für unteilbar erklärt und die Kapitulationen abgelehnt. Für Kars, Ardahan, Batum und Westthrakien waren Volksabstimmungen vorgesehen.'],
+['1920-02-12','','Maraş’ın kurtuluşu','Maraş halkı, Fransız ve Ermeni birliklerine karşı 22 gün süren sokak çatışmalarının ardından şehri kurtardı. Fransız kuvvetleri geceleyin şehri terk etmek zorunda kaldı. Bu direnişten dolayı şehre 1973’te “Kahraman” unvanı verildi.','Befreiung von Maraş','Nach 22 Tagen Straßenkämpfen gegen französische und armenische Truppen befreite die Bevölkerung von Maraş ihre Stadt. Die französischen Truppen mussten nachts abziehen. Wegen dieses Widerstands erhielt die Stadt 1973 den Beinamen „Kahraman“ (heldenhaft).'],
+['1920-03-16','','İstanbul’un İtilaf kuvvetlerince resmen işgali','İtilaf kuvvetleri İstanbul’u resmen işgal etti; Şehzadebaşı’ndaki karakol basıldı ve askerler şehit edildi. Mebusan Meclisi basıldı, bazı milletvekilleri tutuklanarak Malta’ya sürgün edildi. Bu olay, Ankara’da yeni bir meclisin açılmasının yolunu açtı.','Offizielle Besetzung Istanbuls durch die Entente','Die Entente besetzte Istanbul nun auch offiziell; die Wache in Şehzadebaşı wurde überfallen, Soldaten kamen ums Leben. Das Parlament wurde gestürmt, einige Abgeordnete wurden verhaftet und nach Malta verbannt. Damit war der Weg frei für eine neue Versammlung in Ankara.'],
+['1920-03-18','','Son Osmanlı Mebusan Meclisi’nin çalışmalarını erteleme kararı alması','Baskına uğrayan Mebusan Meclisi, işgali protesto ederek son toplantısında çalışmalarını süresiz erteledi. Böylece Osmanlı Devleti’nde millî iradeyi temsil eden bir meclis kalmadı. Meclis, 11 Nisan 1920’de padişah tarafından resmen feshedildi.','Das letzte Abgeordnetenhaus vertagt sich','Aus Protest gegen die Besetzung vertagte das gestürmte Parlament in seiner letzten Sitzung seine Arbeit auf unbestimmte Zeit. Im Osmanischen Reich gab es damit keine Volksvertretung mehr. Am 11. April 1920 löste der Sultan das Parlament offiziell auf.'],
+['1920-03-19','','Mustafa Kemal Paşa’nın yeni bir seçim talimatını vali ve mutasarrıflara yollaması','Mustafa Kemal Paşa, valilere ve mutasarrıflara gönderdiği genelgeyle Ankara’da olağanüstü yetkilere sahip bir meclis için seçim yapılmasını istedi. Malta’ya sürgün edilmeyen İstanbul milletvekillerinin de bu meclise katılması sağlandı. Bu çağrı TBMM’nin açılışına giden yolu hazırladı.','Mustafa Kemal ordnet Neuwahlen an','In einem Rundschreiben an Gouverneure und Bezirksvorsteher rief Mustafa Kemal Pascha zu Wahlen für eine Versammlung mit außerordentlichen Befugnissen in Ankara auf. Auch die nicht verbannten Abgeordneten aus Istanbul sollten daran teilnehmen. Dieser Aufruf bereitete die Eröffnung der Großen Nationalversammlung vor.'],
+['1920-04-10','04-11','Fransız kuvvetlerinin Urfa’yı terk etmesi','Urfa halkının kuşatması sonucu Fransız garnizonu şehri terk etmek zorunda kaldı. Çekilen Fransız birlikleri Şebeke Boğazı’nda Kuvâ-yi Milliye tarafından ağır kayba uğratıldı. Bu direnişten dolayı şehre 1984’te “Şanlı” unvanı verildi.','Französische Truppen verlassen Urfa','Nach der Belagerung durch die Bevölkerung musste die französische Garnison Urfa verlassen. Die abziehenden Truppen erlitten in der Şebeke-Schlucht schwere Verluste durch die Kuvâ-yi Milliye. Wegen dieses Widerstands erhielt die Stadt 1984 den Beinamen „Şanlı“ (ruhmreich).'],
+['1920-04-23','','TBMM’nin Ankara’da toplanması','Türkiye Büyük Millet Meclisi, Hacı Bayram Camii’nde kılınan cuma namazının ardından Ankara’da açıldı ve Mustafa Kemal Paşa meclis başkanı seçildi. Meclis, millî egemenliğe dayanıyor, yasama ve yürütme yetkisini kendinde topluyordu. Bugün Ulusal Egemenlik ve Çocuk Bayramı olarak kutlanır.','Die Große Nationalversammlung tritt in Ankara zusammen','Nach dem Freitagsgebet in der Hacı-Bayram-Moschee wurde die Große Nationalversammlung der Türkei in Ankara eröffnet, Mustafa Kemal Pascha wurde ihr Präsident. Sie beruhte auf der Volkssouveränität und vereinte gesetzgebende und ausführende Gewalt. Heute ist der Tag das Fest der nationalen Souveränität und der Kinder.'],
+['1920-05-03','','TBMM Hükümeti’nin Mustafa Kemal Paşa başkanlığında kurulması','TBMM, Mustafa Kemal Paşa başkanlığında İcra Vekilleri Heyeti’ni (hükümeti) oluşturdu. Bakanlar meclis tarafından tek tek seçildi ve meclise karşı sorumluydu. Böylece Ankara’da İstanbul’dan bağımsız bir yönetim kuruldu.','Bildung der Regierung der Großen Nationalversammlung','Die Versammlung bildete unter dem Vorsitz von Mustafa Kemal Pascha den Ministerrat (İcra Vekilleri Heyeti). Die Minister wurden einzeln vom Parlament gewählt und waren ihm verantwortlich. So entstand in Ankara eine von Istanbul unabhängige Regierung.'],
+['1920-12-02','12-03','Gümrü Antlaşması’nın imzalanması','Kâzım Karabekir Paşa komutasındaki Doğu Cephesi’nin zaferinden sonra Ermenistan ile imzalandı. Ermenistan, Sevr’deki taleplerinden vazgeçti ve Kars ile çevresi Türkiye’de kaldı. Bu, TBMM’nin imzaladığı ilk uluslararası antlaşmadır.','Vertrag von Gümrü','Nach dem Sieg der Ostfront unter Kâzım Karabekir Pascha wurde er mit Armenien unterzeichnet. Armenien verzichtete auf seine Ansprüche aus dem Vertrag von Sèvres, Kars und Umgebung blieben türkisch. Es war der erste internationale Vertrag der Großen Nationalversammlung.'],
+['1921-01-10','01-11','I. İnönü Savaşı','İsmet Bey komutasındaki düzenli ordu, Yunan kuvvetlerini İnönü’de durdurdu. Bu, düzenli ordunun ilk zaferidir ve halkın TBMM’ye güvenini artırdı. Ardından Teşkilât-ı Esasiye Kanunu kabul edildi ve İtilaf Devletleri Londra Konferansı’nı topladı.','Erste Schlacht von İnönü','Die reguläre Armee unter İsmet Bey stoppte die griechischen Truppen bei İnönü. Es war der erste Sieg der regulären Armee und stärkte das Vertrauen in die Nationalversammlung. Danach wurde die Verfassung von 1921 (Teşkilât-ı Esasiye) angenommen, und die Entente berief die Londoner Konferenz ein.','Savaş birçok kaynakta 6–10 Ocak 1921 olarak geçer.','Die Schlacht wird meist auf den 6.–10. Januar 1921 datiert.'],
+['1921-02-21','','Londra Konferansı’nın toplanması','İtilaf Devletleri, Sevr Antlaşması’nı bazı değişikliklerle kabul ettirmek için konferans topladı. TBMM’nin de davet edilmesi, Ankara Hükümeti’nin fiilen tanınması anlamına geliyordu. TBMM heyeti Misak-ı Millî’den taviz vermedi ve konferanstan sonuç çıkmadı.','Londoner Konferenz','Die Entente berief die Konferenz ein, um den Vertrag von Sèvres mit kleinen Änderungen durchzusetzen. Dass auch die Nationalversammlung eingeladen wurde, bedeutete ihre faktische Anerkennung. Die Delegation aus Ankara wich nicht vom Nationalpakt ab, die Konferenz blieb ergebnislos.'],
+['1921-03-16','','Moskova Antlaşması’nın imzalanması','TBMM Hükümeti ile Sovyet Rusya arasında dostluk antlaşması imzalandı. Sovyetler Misak-ı Millî’yi tanıdı; Batum Gürcistan’a bırakılırken Kars ve Ardahan Türkiye’de kaldı. Antlaşma doğu sınırını büyük ölçüde güvenceye aldı ve Sovyet yardımlarının yolunu açtı.','Vertrag von Moskau','Die Regierung in Ankara und Sowjetrussland schlossen einen Freundschaftsvertrag. Die Sowjets erkannten den Nationalpakt an; Batum ging an Georgien, Kars und Ardahan blieben türkisch. Damit war die Ostgrenze weitgehend gesichert und der Weg für sowjetische Hilfe frei.'],
+['1921-03-23','04-01','II. İnönü Savaşı','Yunan ordusu yeniden saldırdı, ancak İsmet Paşa komutasındaki Türk ordusu tarafından tekrar yenildi. Mustafa Kemal Paşa, İsmet Paşa’ya “Siz orada yalnız düşmanı değil, milletin makûs talihini de yendiniz.” diye telgraf çekti. Bu zaferden sonra İtalyanlar Anadolu’dan çekilmeye başladı.','Zweite Schlacht von İnönü','Die griechische Armee griff erneut an und wurde wieder von den türkischen Truppen unter İsmet Pascha geschlagen. Mustafa Kemal telegrafierte ihm: „Ihr habt dort nicht nur den Feind, sondern auch das Unglück der Nation besiegt.“ Nach diesem Sieg begannen die Italiener, Anatolien zu verlassen.'],
+['1921-08-23','09-13','Sakarya Savaşı','Başkomutan Mustafa Kemal Paşa’nın yönettiği ve 22 gün 22 gece süren savaşta Yunan ordusu Ankara önlerinde durduruldu. Mustafa Kemal’in “Hattı müdafaa yoktur, sathı müdafaa vardır.” emri bu savaşta verildi. Zaferden sonra TBMM ona Gazi unvanını ve mareşal rütbesini verdi.','Schlacht am Sakarya','In der 22 Tage und Nächte dauernden Schlacht unter Oberbefehlshaber Mustafa Kemal Pascha wurde die griechische Armee vor Ankara gestoppt. Hier fiel sein berühmter Befehl: „Es gibt keine Verteidigungslinie, sondern eine Verteidigungsfläche.“ Nach dem Sieg verlieh ihm die Nationalversammlung den Titel Gazi und den Rang eines Marschalls.'],
+['1921-10-13','','Kars Antlaşması’nın imzalanması','TBMM Hükümeti ile Ermenistan, Gürcistan ve Azerbaycan Sovyet cumhuriyetleri arasında, Sovyet Rusya’nın katılımıyla imzalandı. Bu devletler de Moskova Antlaşması’nın esaslarını kabul etti. Türkiye’nin bugünkü doğu sınırı büyük ölçüde bu antlaşmayla belirlendi.','Vertrag von Kars','Er wurde zwischen der Regierung in Ankara und den Sowjetrepubliken Armenien, Georgien und Aserbaidschan unter Beteiligung Sowjetrusslands geschlossen. Diese Staaten erkannten die Bestimmungen des Moskauer Vertrags an. Die heutige Ostgrenze der Türkei wurde im Wesentlichen damit festgelegt.'],
+['1921-10-20','','Ankara İtilafnamesi’nin imzalanması','Sakarya zaferinden sonra Fransa ile imzalandı ve Fransa güney cephesinden çekilmeyi kabul etti. Fransa, TBMM’yi tanıyan ilk büyük İtilaf devleti oldu; böylece İtilaf cephesi bölündü. Hatay sınır dışında kaldı, ancak oradaki Türklere özel haklar tanındı.','Abkommen von Ankara mit Frankreich','Nach dem Sieg am Sakarya wurde es mit Frankreich geschlossen, das sich aus Südanatolien zurückzog. Frankreich erkannte als erste große Entente-Macht die Nationalversammlung an, die Entente war damit gespalten. Hatay blieb außerhalb der Grenzen, die Türken dort erhielten aber Sonderrechte.'],
+['1921-03-25','','Fransız kuvvetlerinin Antep’i terk etmesi','Antep halkı Fransız kuşatmasına karşı aylarca direndi; savunma ancak açlık yüzünden 8 Şubat 1921’de sona erdi. Ankara İtilafnamesi’nden sonra Fransız kuvvetleri şehri tamamen boşalttı. Kahramanca savunması nedeniyle şehre 1921’de TBMM tarafından “Gazi” unvanı verildi.','Französische Truppen verlassen Antep','Die Bevölkerung von Antep hielt der französischen Belagerung monatelang stand; erst der Hunger beendete die Verteidigung am 8. Februar 1921. Nach dem Abkommen von Ankara räumten die französischen Truppen die Stadt vollständig. Für ihren Widerstand erhielt die Stadt 1921 von der Nationalversammlung den Titel „Gazi“.','Fransızların Antep’ten çekilmesi çoğu kaynakta 25 Aralık 1921 olarak geçer.','Der französische Abzug aus Antep wird meist auf den 25. Dezember 1921 datiert.'],
+['1922-08-26','','Büyük Taarruz’un başlaması','Türk ordusu, Mustafa Kemal Paşa’nın Kocatepe’den yönettiği genel saldırıya şafakla başladı. Saldırının amacı Yunan ordusunu Anadolu’dan tamamen çıkarmaktı. Kısa sürede Afyon çevresindeki Yunan savunma hatları yarıldı.','Beginn der Großen Offensive','Im Morgengrauen begann die türkische Armee die Generaloffensive, die Mustafa Kemal Pascha vom Kocatepe aus leitete. Ziel war, die griechische Armee vollständig aus Anatolien zu vertreiben. Schon bald wurden die griechischen Verteidigungslinien bei Afyon durchbrochen.'],
+['1922-08-30','','Dumlupınar Zaferi','Başkomutan Mustafa Kemal Paşa’nın yönettiği muharebede Yunan ordusunun büyük bölümü Dumlupınar’da kuşatılarak yok edildi. Mustafa Kemal 1 Eylül’de “Ordular! İlk hedefiniz Akdeniz’dir, ileri!” emrini verdi. Bugün Zafer Bayramı olarak kutlanır.','Sieg von Dumlupınar','In der Schlacht unter Oberbefehlshaber Mustafa Kemal Pascha wurde der Großteil der griechischen Armee bei Dumlupınar eingekesselt und vernichtet. Am 1. September folgte sein Befehl: „Armeen! Euer erstes Ziel ist das Mittelmeer. Vorwärts!“ Heute wird der Tag als Siegesfest (Zafer Bayramı) gefeiert.'],
+['1922-10-11','','Mudanya Mütarekesi’nin imzalanması','TBMM Hükümeti ile İngiltere, Fransa ve İtalya arasında imzalandı; Yunanistan birkaç gün sonra katıldı. Doğu Trakya ve Edirne savaşmadan Türkiye’ye bırakıldı, İstanbul ve Boğazların yönetiminin TBMM’ye geçmesi kabul edildi. Kurtuluş Savaşı’nın askerî dönemi böylece sona erdi.','Waffenstillstand von Mudanya','Unterzeichnet von der Regierung in Ankara mit Großbritannien, Frankreich und Italien; Griechenland trat wenige Tage später bei. Ostthrakien mit Edirne fiel ohne Kampf an die Türkei, Istanbul und die Meerengen sollten der Nationalversammlung übergeben werden. Damit endete die militärische Phase des Unabhängigkeitskrieges.'],
+['1922-11-20','','Lozan Konferansı’nın başlaması','İsviçre’nin Lozan şehrinde barış görüşmeleri başladı; Türk heyetine İsmet Paşa başkanlık etti. İtilaf Devletleri İstanbul Hükümeti’ni de davet edince TBMM 1 Kasım 1922’de saltanatı kaldırdı ve tek temsilci olarak kaldı. Kapitülasyonlar ve Musul gibi konularda anlaşılamayınca görüşmeler Şubat 1923’te kesildi, Nisan’da yeniden başladı.','Beginn der Konferenz von Lausanne','In Lausanne in der Schweiz begannen die Friedensverhandlungen; die türkische Delegation leitete İsmet Pascha. Weil die Entente auch die Istanbuler Regierung eingeladen hatte, schaffte die Nationalversammlung am 1. November 1922 das Sultanat ab und blieb einzige Vertreterin. Wegen des Streits um Kapitulationen und Mossul wurden die Gespräche im Februar 1923 unterbrochen und im April fortgesetzt.'],
+['1923-07-25','','Lozan Barış Antlaşması’nın imzalanması','Antlaşmayla yeni Türk devletinin bağımsızlığı ve sınırları uluslararası alanda tanındı. Kapitülasyonlar kaldırıldı; Boğazlar uluslararası bir komisyona bırakıldı, Musul meselesi ise İngiltere ile görüşmelere bırakıldı. Sevr Antlaşması böylece tamamen geçersiz hâle geldi.','Unterzeichnung des Vertrags von Lausanne','Der Vertrag erkannte die Unabhängigkeit und die Grenzen des neuen türkischen Staates international an. Die Kapitulationen wurden abgeschafft; die Meerengen kamen unter eine internationale Kommission, die Mossul-Frage wurde Verhandlungen mit Großbritannien überlassen. Der Vertrag von Sèvres war damit endgültig hinfällig.','Antlaşma 24 Temmuz 1923’te imzalandı.','Der Vertrag wurde am 24. Juli 1923 unterzeichnet.'],
+['1923-10-13','','Ankara’nın başkent olması','TBMM, Ankara’yı yeni Türk devletinin başkenti yapan kanunu kabul etti. Ankara, Millî Mücadele’nin merkezi olması, güvenli konumu ve ulaşım imkânları nedeniyle seçildi. Böylece yüzyıllardır başkent olan İstanbul bu özelliğini kaybetti.','Ankara wird Hauptstadt','Die Nationalversammlung beschloss das Gesetz, das Ankara zur Hauptstadt des neuen Staates machte. Gründe waren seine Rolle als Zentrum des Befreiungskampfes, die sichere Lage und die Verkehrsanbindung. Istanbul verlor damit nach Jahrhunderten seinen Status als Hauptstadt.'],
+['1923-10-29','','Cumhuriyet’in ilanı','TBMM, Teşkilât-ı Esasiye Kanunu’nu değiştirerek devletin yönetim şeklini cumhuriyet olarak ilan etti. Aynı gün Mustafa Kemal Paşa ilk cumhurbaşkanı seçildi, İsmet Paşa ise ilk hükümeti kurdu. Bugün Cumhuriyet Bayramı olarak kutlanır.','Ausrufung der Republik','Durch eine Verfassungsänderung erklärte die Nationalversammlung die Republik zur Staatsform. Am selben Tag wurde Mustafa Kemal Pascha zum ersten Präsidenten gewählt, İsmet Pascha bildete die erste Regierung. Der Tag wird heute als Tag der Republik gefeiert.'],
+['1924-03-03','','Hilafet’in kaldırılması','TBMM halifeliği kaldırdı ve Osmanlı hanedanı üyelerini yurt dışına çıkardı. Aynı gün Tevhid-i Tedrisat Kanunu ile eğitim birleştirildi ve Şer’iye ve Evkaf Vekâleti kaldırıldı. Bu adımlar laik devlete geçişte önemli bir dönüm noktası oldu.','Abschaffung des Kalifats','Die Nationalversammlung schaffte das Kalifat ab und verwies die Mitglieder der osmanischen Dynastie des Landes. Am selben Tag wurde mit dem Gesetz zur Vereinheitlichung des Unterrichts das Bildungswesen zusammengeführt und das Ministerium für Scharia und Stiftungen aufgelöst. Das war ein Wendepunkt auf dem Weg zum laizistischen Staat.'],
+['1924-04-20','','Anayasa’nın kabulü','TBMM, 1921’den sonraki ikinci anayasa olan 1924 Teşkilât-ı Esasiye Kanunu’nu kabul etti. Egemenliğin kayıtsız şartsız milletin olduğu ve yasama ile yürütmenin mecliste toplandığı belirtildi. 1928’de “Devletin dini İslam’dır.” ifadesi çıkarıldı, 1937’de laiklik ilkesi eklendi.','Annahme der Verfassung von 1924','Die Nationalversammlung nahm nach der Verfassung von 1921 die zweite Verfassung (Teşkilât-ı Esasiye) an. Sie legte fest, dass die Souveränität bedingungslos bei der Nation liegt und Gesetzgebung wie Exekutive beim Parlament gebündelt sind. 1928 wurde der Satz „Die Religion des Staates ist der Islam“ gestrichen, 1937 kam der Laizismus hinzu.'],
+['1925-11-25','','Şapka ve kıyafet inkılabı ile ilgili kanunun kabulü','Şapka İktisası Hakkında Kanun ile şapka Türk erkeklerinin genel başlığı oldu, memurlar için zorunlu hâle geldi ve fes kaldırıldı. Mustafa Kemal bu değişikliği Ağustos 1925’teki Kastamonu gezisinde duyurmuştu. Amaç, kılık kıyafette çağdaş bir görünüm sağlamaktı.','Annahme des Hutgesetzes','Mit dem Hutgesetz wurde der Hut zur allgemeinen Kopfbedeckung der Männer und für Beamte zur Pflicht, der Fes wurde abgeschafft. Mustafa Kemal hatte den Schritt im August 1925 auf seiner Reise nach Kastamonu angekündigt. Ziel war ein modernes Erscheinungsbild auch in der Kleidung.'],
+['1925-12-26','','Miladi takvimin kabulü','Hicri ve Rumi takvim yerine uluslararası Miladi takvim kabul edildi ve 1 Ocak 1926’dan itibaren kullanılmaya başlandı. Aynı gün uluslararası saat sistemi de kabul edildi. Böylece Batı ile ticari ve resmî ilişkilerdeki karışıklık sona erdi.','Einführung des gregorianischen Kalenders','Anstelle des islamischen (Hicri) und des Rumi-Kalenders wurde der gregorianische Kalender eingeführt und galt ab dem 1. Januar 1926. Am selben Tag wurde auch die internationale Uhrzeit übernommen. Das beendete die Verwirrung im Handel und im amtlichen Verkehr mit dem Westen.'],
+['1926-02-17','','Türk Medeni Kanunu’nun kabulü','İsviçre Medeni Kanunu örnek alınarak hazırlanan kanun kabul edildi ve 4 Ekim 1926’da yürürlüğe girdi. Tek eşlilik, resmî nikâh, miras ve boşanmada kadın ile erkeğe eşit haklar getirildi. Hukuk alanında laikleşmenin en önemli adımlarından biridir.','Annahme des türkischen Zivilgesetzbuchs','Das nach Schweizer Vorbild erarbeitete Gesetz wurde angenommen und trat am 4. Oktober 1926 in Kraft. Es brachte die Einehe, die Zivilehe sowie gleiche Rechte von Frau und Mann bei Erbe und Scheidung. Es ist einer der wichtigsten Schritte zur Säkularisierung des Rechts.'],
+['1928-05-24','','Beynelmilel rakamların kabulü','Arap harfli rakamların yerine bugün kullandığımız uluslararası rakamlar kabul edildi. Bu değişiklik ticarette, bilimde ve dış ilişkilerde kolaylık sağladı. Harf İnkılabı’ndan önce atılmış hazırlayıcı bir adımdı.','Einführung der internationalen Ziffern','Die arabisch-osmanischen Ziffern wurden durch die heute üblichen internationalen Ziffern ersetzt. Das erleichterte Handel, Wissenschaft und Auslandsbeziehungen. Es war ein vorbereitender Schritt vor der Schriftreform.','Kanun çoğu kaynakta 20 Mayıs 1928 tarihlidir.','Das Gesetz ist meist auf den 20. Mai 1928 datiert.'],
+['1928-07-01','','Türk Ceza Kanunu’nun kabulü','İtalyan Ceza Kanunu örnek alınarak hazırlanan Türk Ceza Kanunu ile ceza hukuku çağdaş ve laik esaslara oturtuldu. Suç ve cezalar dinî kurallara göre değil, yasalarla belirlendi. Kanun 2005’e kadar yürürlükte kaldı.','Annahme des türkischen Strafgesetzbuchs','Mit dem nach italienischem Vorbild erarbeiteten Strafgesetzbuch wurde das Strafrecht auf moderne, laizistische Grundlagen gestellt. Straftaten und Strafen bestimmten nun Gesetze statt religiöser Regeln. Es blieb bis 2005 in Kraft.','Kanun 1 Mart 1926’da kabul edildi ve 1 Temmuz 1926’da yürürlüğe girdi.','Das Gesetz wurde am 1. März 1926 angenommen und trat am 1. Juli 1926 in Kraft.'],
+['1928-11-03','','Harf İnkılabı','1 Kasım 1928’de kabul edilen kanunla Arap alfabesinin yerine Latin harflerine dayanan yeni Türk alfabesi geldi ve 3 Kasım’da yürürlüğe girdi. Okuma yazmayı yaygınlaştırmak için Millet Mektepleri açıldı, Mustafa Kemal “Başöğretmen” olarak anıldı. Türkçenin sesleri yeni alfabeyle daha kolay yazılabildi.','Schriftreform','Mit dem am 1. November 1928 beschlossenen Gesetz ersetzte das neue türkische Alphabet auf lateinischer Grundlage die arabische Schrift; es galt ab dem 3. November. Um Lesen und Schreiben zu verbreiten, wurden Volksschulen (Millet Mektepleri) eröffnet, Mustafa Kemal wurde „Başöğretmen“ (Oberlehrer) genannt. Die Laute des Türkischen ließen sich nun leichter schreiben.'],
+['1931-04-15','','Türk Tarihi Tetkik Cemiyeti’nin kuruluşu','Mustafa Kemal’in isteğiyle Türk tarihini bilimsel yöntemlerle araştırmak amacıyla kuruldu. Cemiyet, Türk tarihini yalnızca Osmanlı ve İslam dönemiyle sınırlı görmeyen bir yaklaşımı benimsedi. 1935’te adı Türk Tarih Kurumu olarak değiştirildi.','Gründung der Gesellschaft für türkische Geschichtsforschung','Sie wurde auf Wunsch Mustafa Kemals gegründet, um die türkische Geschichte wissenschaftlich zu erforschen. Die Geschichte der Türken sollte dabei nicht auf die osmanische und islamische Zeit beschränkt werden. 1935 wurde sie in Türk Tarih Kurumu (Türkische Historische Gesellschaft) umbenannt.'],
+['1932-07-12','','Türk Dili Tetkik Cemiyeti’nin kuruluşu','Mustafa Kemal’in önderliğinde, Türkçeyi yabancı dillerin etkisinden kurtarmak ve zenginleştirmek amacıyla kuruldu. Sözlük ve dil bilgisi çalışmaları yapıldı, halk ağzından kelimeler derlendi. 1936’da adı Türk Dil Kurumu oldu.','Gründung der Gesellschaft für türkische Sprachforschung','Auf Initiative Mustafa Kemals gegründet, sollte sie das Türkische vom Einfluss fremder Sprachen befreien und bereichern. Es entstanden Arbeiten zu Wörterbuch und Grammatik, und Wörter aus der Volkssprache wurden gesammelt. 1936 wurde sie in Türk Dil Kurumu (Türkische Sprachgesellschaft) umbenannt.'],
+['1933-08-01','','İstanbul Üniversitesi’nin kuruluşu','Üniversite reformu kapsamında Darülfünun kapatıldı ve yerine İstanbul Üniversitesi kuruldu. Almanya’daki baskıdan kaçan birçok bilim insanı burada görev aldı. Amaç, bilimsel ve çağdaş bir yükseköğretim kurumu oluşturmaktı.','Gründung der Universität Istanbul','Im Zuge der Hochschulreform wurde der Darülfünun geschlossen und an seiner Stelle die Universität Istanbul gegründet. Viele Wissenschaftler, die vor der Verfolgung in Deutschland geflohen waren, lehrten hier. Ziel war eine moderne, wissenschaftliche Hochschule.'],
+['1934-11-11','','Türk kadınına seçilme hakkının tanınması','Anayasada yapılan değişiklikle Türk kadınları milletvekili seçme ve seçilme hakkı kazandı. Kadınlar bu hakkı daha önce 1930’da belediye, 1933’te muhtarlık seçimlerinde elde etmişti. 1935 seçimlerinde 18 kadın milletvekili meclise girdi.','Frauen erhalten das Wahlrecht für das Parlament','Durch eine Verfassungsänderung erhielten türkische Frauen das aktive und passive Wahlrecht für das Parlament. Bei Kommunalwahlen hatten sie es schon 1930, bei den Wahlen der Dorfvorsteher 1933 erhalten. Bei der Wahl 1935 zogen 18 Frauen ins Parlament ein.','Bu hak çoğu kaynakta 5 Aralık 1934 tarihiyle verilir.','Dieses Recht wird meist auf den 5. Dezember 1934 datiert.'],
+['1934-06-26','','Soyadı Kanunu’nun kabulü','Kanunla herkesin bir soyadı alması zorunlu hâle geldi; kanun 2 Ocak 1935’te yürürlüğe girdi. Kısa süre sonra ağa, hacı, hafız, paşa gibi lakap ve unvanlar da kaldırıldı. Böylece nüfus, askerlik ve mülkiyet işlerindeki karışıklıklar önlendi.','Annahme des Familiennamensgesetzes','Mit dem Gesetz musste jede Person einen Familiennamen annehmen; es trat am 2. Januar 1935 in Kraft. Kurz darauf wurden auch Titel und Beinamen wie Ağa, Hacı, Hafız oder Pascha abgeschafft. So ließ sich Verwirrung bei Melderegister, Militärdienst und Eigentum vermeiden.','Kanun çoğu kaynakta 21 Haziran 1934 tarihiyle geçer.','Das Gesetz ist meist auf den 21. Juni 1934 datiert.'],
+['1934-11-24','','Mustafa Kemal Paşa’ya “Atatürk” soyadının verilmesi','TBMM, özel bir kanunla Mustafa Kemal’e “Atatürk” soyadını verdi. Bu soyadının başka biri tarafından alınması ya da kullanılması yasaklandı. Böylece milletin ona duyduğu minnet ve saygı resmî olarak ifade edildi.','Mustafa Kemal erhält den Familiennamen „Atatürk“','Die Nationalversammlung verlieh Mustafa Kemal mit einem eigenen Gesetz den Familiennamen „Atatürk“ (Vater der Türken). Niemand sonst darf diesen Namen annehmen oder führen. So drückte die Nation ihren Dank und ihre Achtung offiziell aus.']
+];
+const HIST = HIST_RAW.map((r, i) => ({i, d:r[0], to:r[1], tr:[r[2], r[3]], de:[r[4], r[5]], alt:r[6] ? [r[6], r[7]] : null}));
+const HIST_BY = HIST.reduce((m, h) => { const k = h.d.slice(5); (m[k] = m[k] || []).push(h); return m; }, {});
+const histOn = () => S.settings.hist !== false;
+const histT = h => isTr() ? h.tr : h.de;
+function histDate(h){
+  const [y, m, d] = h.d.split('-').map(Number), tr = isTr();
+  const one = (dd, mm) => tr ? `${dd} ${MONTHS[mm - 1]}` : `${dd}. ${MONTHS[mm - 1]}`;
+  if (!h.to) return `${one(d, m)} ${y}`;
+  const [m2, d2] = h.to.split('-').map(Number);
+  if (m2 === m) return tr ? `${d}–${d2} ${MONTHS[m - 1]} ${y}` : `${d}.–${d2}. ${MONTHS[m - 1]} ${y}`;
+  return `${one(d, m)} – ${one(d2, m2)} ${y}`;
+}
+function histSheet(i, vd){
+  const h = HIST[i]; if (!h) return;
+  const [t, n] = histT(h), ago = pd(vd || today()).getFullYear() - Number(h.d.slice(0, 4));
+  sheet(`<div class="lab" style="margin:0 0 4px;letter-spacing:.08em;text-transform:uppercase;color:${HISTC}" data-nt>${esc(L2('Gedenktag · Türkische Geschichte', 'Tarihte bugün · Türk tarihi'))}</div>
+    <h2 class="sh" data-nt>${esc(t)}</h2>
+    <p class="hint" data-nt>${esc(histDate(h))}${ago > 0 ? ' · ' + esc(L2(`vor ${ago} Jahren`, `${ago} yıl önce`)) : ''}</p>
+    <label class="lab" data-nt>${esc(L2('Notiz', 'Not'))}</label>
+    <div class="card ut" style="box-shadow:none;padding:14px 16px;font-size:16px;line-height:1.55;border-left:4px solid ${HISTC}" data-nt>${esc(n)}</div>
+    ${h.alt ? `<p class="hint" style="margin-top:10px" data-nt>ℹ️ ${esc(isTr() ? h.alt[0] : h.alt[1])}</p>` : ''}
+    <button class="btn ghost" data-act="close" style="margin-top:16px" data-nt>${esc(L2('Schließen', 'Kapat'))}</button>`);
+}
 
 /* ---- Namaz & Zikir: Konstanten ---- */
 const PORDER = ['fajr','sunrise','dhuhr','asr','maghrib','isha'];
@@ -1491,7 +1582,7 @@ const wallHTML = t => `<div class="wl"><div class="wl-img" data-mid="${t.bgImg |
 const catOf = id => S.cats.find(c => c.id === id) || {id, name:'Ohne Kategorie', color:'#9A948E'};
 const grpOf = id => S.groups.find(g => g.id === id) || {id:'', name:'Ohne Gruppe', color:'#9A948E'};
 const prioOf = l => S.prios.find(p => p.lvl === Number(l));
-const colorOf = e => e.type === 'bday' ? BDC : (e.color || catOf(e.type).color);
+const colorOf = e => e.type === 'bday' ? BDC : e.hist ? HISTC : (e.color || catOf(e.type).color);
 function occurs(e, d){
   if ((e.skip || []).includes(d)) return false;
   if (e.date === d) return true;
@@ -1512,6 +1603,7 @@ function dayItems(d, withBd){
   if (withBd){
     const x = pd(d);
     S.bdays.filter(b => b.m === x.getMonth() + 1 && b.d === x.getDate()).forEach(b => out.push({id:'b'+b.id, bid:b.id, title:`${b.name} hat Geburtstag`, type:'bday', bday:true, vd:d}));
+    if (histOn()) (HIST_BY[d.slice(5)] || []).forEach(h => { if (x.getFullYear() >= Number(h.d.slice(0, 4))) out.push({id:'h' + h.i, hid:h.i, title:`${histT(h)[0]} (${h.d.slice(0, 4)})`, type:'hist', hist:true, vd:d}); });
   }
   return out.sort((a,b) => (a.start || '') < (b.start || '') ? -1 : (a.start || '') > (b.start || '') ? 1 : 0);
 }
@@ -1623,7 +1715,7 @@ function plList(path, ph){
   return `<div class="pll">${arr.map(it => `<div class="pli"><button class="chk sm ${it.done ? 'on' : ''}" data-act="plTog" data-p="${path}" data-id="${it.id}" aria-label="Erledigt">${I.check}</button><input class="pl-in ${it.done ? 'done' : ''}" data-pli="${path}|${it.id}" value="${esc(it.t)}" placeholder="${esc(ph)}"><button class="pl-x" data-act="plDel" data-p="${path}" data-id="${it.id}" aria-label="Entfernen">${I.x}</button></div>`).join('')}
     <button class="addli" data-act="plAdd" data-p="${path}">+ Hinzufügen</button></div>`;
 }
-const evChip = e => `<button class="pev" style="--c:${colorOf(e)}" data-act="${e.bday ? 'editBd' : e.derived ? 'editSub' : 'editEv'}" data-id="${e.bday ? e.bid : e.derived ? e.sid : e.id}" data-d="${e.vd}">${e.start ? `<b>${e.start}</b> ` : ''}${esc(e.title)}</button>`;
+const evChip = e => `<button class="pev" style="--c:${colorOf(e)}" data-act="${e.hist ? 'histInfo' : e.bday ? 'editBd' : e.derived ? 'editSub' : 'editEv'}" data-id="${e.hist ? e.hid : e.bday ? e.bid : e.derived ? e.sid : e.id}" data-d="${e.vd}">${e.start ? `<b>${e.start}</b> ` : ''}${e.hist ? '<span data-nt>' + esc(e.title) + '</span>' : esc(e.title)}</button>`;
 
 function plTop(){
   const y = V.cm.getFullYear(), m = V.cm.getMonth(), lv = V.cv || 'month';
@@ -1671,7 +1763,7 @@ function vMonthP(){
       <div class="pg-hrow"><h2 class="pg-h">${MONTHS[m]} <small>${y}</small></h2><div class="pg-links"><button data-act="calV" data-v="glance">Im Überblick</button><button data-act="calBudget">Budget</button><button data-act="calV" data-v="review">Rückblick</button></div></div>
       <div class="dchips">${chips}</div>
       <div class="mg" style="grid-template-rows:auto repeat(${weeks.length},minmax(0,1fr))">${grid}</div>
-      <div class="legend">${S.cats.map(c => `<span><i style="--c:${c.color}"></i>${esc(c.name)}</span>`).join('')}<span><i style="--c:${BDC}"></i>Geburtstag</span></div>
+      <div class="legend">${S.cats.map(c => `<span><i style="--c:${c.color}"></i>${esc(c.name)}</span>`).join('')}<span><i style="--c:${BDC}"></i>Geburtstag</span>${histOn() ? `<span data-nt><i style="--c:${HISTC}"></i>${esc(L2('Gedenktag', 'Tarihte bugün'))}</span>` : ''}</div>
       <div class="chips" style="margin-top:10px"><button class="chip" style="padding:6px 12px;font-size:13px" data-act="mCats">Kategorien anpassen</button><button class="chip" style="padding:6px 12px;font-size:13px" data-act="icsSheet">${I.link} Apple Kalender</button></div>
     </div>
     <div class="pg">${box('Monatsziele', plList(`months|${mk}|goals`, 'Ziel für diesen Monat'))}${box('To-do', plList(`months|${mk}|todos`, 'Was diesen Monat ansteht'))}${box('Notizen', plTa(`months|${mk}|notes`, '', 6, 'pl-ta ruled'))}</div></div>`;
@@ -2845,10 +2937,13 @@ apiSampler.json = async (input, opts = {}) => {
 /* ================= Assistent ================= */
 const AI = {busy:false, ctl:null, chat:lsGet('koesem.chat') || []};
 const saveChat = () => lsSet('koesem.chat', AI.chat.slice(-40));
-const AI_SUGG = ['Wann habe ich diese Woche Zeit für 2 Stunden Lernen?', 'Trag mir morgen um 14 Uhr Zahnarzt ein', 'Was steht heute an?', 'Wie viel habe ich diesen Monat ausgegeben?', 'Plane meine Aufgaben für morgen zwischen die Gebete'];
+const AI_SUGG = ['Wann habe ich diese Woche Zeit für 2 Stunden Lernen?', 'Trag mir morgen um 14 Uhr Zahnarzt ein', 'Was steht heute an?', 'Wie viel habe ich diesen Monat ausgegeben?', 'Plane meine Aufgaben für morgen zwischen die Gebete', 'Was war heute in der Geschichte?', 'Hilfe'];
 function vAi(){
   const msgs = AI.chat.map((m, i) => `<div class="msg ${m.r}${m.busy ? ' busy' : ''}" ${m.busy ? 'id="aibusy"' : ''}>${m.r === 'a' ? fmtAi(m.t) : esc(m.t)}${(m.acts || []).length ? `<div class="did">${m.acts.map(a => `<span>${esc(a)}</span>`).join('')}${m.undone ? '<span>Rückgängig gemacht</span>' : `<button data-act="aiUndo" data-i="${i}">Rückgängig</button>`}</div>` : ''}</div>`).join('');
-  return head('ai', 'Kennt deine Termine, Aufgaben, Gebetszeiten und Notizen und kann für dich eintragen', AI.chat.length ? `<button class="chip" data-act="aiClear">Neuer Chat</button>` : '')
+  const off = offMode() || !aiOnline();
+  const sub = off ? `<span data-nt>${esc(L2('Offline-Modus: läuft ohne Internet und versteht feste Befehle. Tippe „Hilfe“ für Beispiele.', 'Çevrimdışı mod: internetsiz çalışır ve belirli komutları anlar. Örnekler için „yardım“ yaz.'))}</span>` : 'Kennt deine Termine, Aufgaben, Gebetszeiten und Notizen und kann für dich eintragen';
+  const modeBtn = aiOnline() ? `<button class="chip ${off ? '' : 'on'}" data-act="aiMode" data-nt>${off ? '⚡ ' + esc(L2('Offline', 'Çevrimdışı')) : '✨ ' + esc(L2('KI', 'Yapay zekâ'))}</button>` : `<span class="chip" data-nt>⚡ ${esc(L2('Offline', 'Çevrimdışı'))}</span>`;
+  return head('ai', sub, `<div class="chips" style="justify-content:flex-end">${modeBtn}${AI.chat.length ? `<button class="chip" data-act="aiClear">Neuer Chat</button>` : ''}</div>`)
     + (AI.chat.length ? '' : `<div class="sugg">${(isTr() ? AI_SUGG_TR : AI_SUGG).map(q => `<button data-act="aiAsk" data-q="${esc(q)}">${esc(q)}</button>`).join('')}</div>`)
     + `<div class="chat" id="chat">${msgs}</div>
     <form class="composer" data-ai><textarea id="aiq" rows="1" placeholder="Frag mich etwas oder sag, was ich eintragen soll" enterkeyhint="send"></textarea><button class="send" type="submit" aria-label="Senden">${AI.busy ? I.x : I.send}</button></form>`;
@@ -2884,7 +2979,7 @@ function aiTools(){
       execute(i){ const [f, to] = rng(i), L = getLoc(), out = [];
         for (let d = f; d <= to; d = addDays(d, 1)){
           const tt = L && prayerTimes(d, L);
-          out.push({date:d, day:WDL[wdIdx(pd(d))], events:dayItems(d, true).map(e => ({id:e.bday || e.derived ? undefined : e.id, time:e.start ? e.start + (e.end ? '-' + e.end : '') : 'ganztägig', title:e.title, category:e.bday ? 'Geburtstag' : catOf(e.type).name, place:e.place || undefined})),
+          out.push({date:d, day:WDL[wdIdx(pd(d))], events:dayItems(d, true).map(e => ({id:e.bday || e.derived || e.hist ? undefined : e.id, time:e.start ? e.start + (e.end ? '-' + e.end : '') : 'ganztägig', title:e.title, category:e.bday ? 'Geburtstag' : e.hist ? 'Gedenktag (Geschichte, nicht bearbeitbar)' : catOf(e.type).name, place:e.place || undefined})),
             study:S.sessions.filter(x => x.date === d).map(x => ({subject:(S.subjects.find(y => y.id === x.sid) || {}).name, minutes:x.min, done:x.done})),
             todos_due:S.todos.filter(x => x.due === d && !x.done).map(x => x.title),
             prayers:tt ? Object.fromEntries(PORDER.map(k => [PNAMES[k][0], fmtClock(tt[k], tzOf(L))])) : undefined});
@@ -2945,11 +3040,270 @@ function aiTools(){
           zikir_today:S.zikir.log[today()] || 0}; }}
   ];
 }
+/* ================= Offline-Assistent =================
+   Läuft ohne KI, ohne Internet und ohne Schlüssel direkt in der App. Versteht feste Befehle auf Deutsch und Türkisch.
+   Ist Claude oder ein API-Schlüssel verfügbar, antwortet die echte KI; fällt sie aus, springt dieser Assistent ein. */
+const offMode = () => !!lsGet('koesem.aioff');
+const aiOnline = () => IN_CLAUDE || !!AIK();
+const OW = '[0-9A-Za-zÄÖÜäöüßÇĞİÖŞÜçğıöşüâîû]';
+const ORX = (src, fl = 'i') => new RegExp(src.split('\\b<').join(`(?<!${OW})`).split('\\b>').join(`(?!${OW})`), fl);
+const OFF_WD = [['montag','pazartesi'],['dienstag','salı'],['mittwoch','çarşamba'],['donnerstag','perşembe'],['freitag','cuma'],['samstag','cumartesi'],['sonntag','pazar']];
+const OFF_MDE = ['jan','feb','m(?:ä|ae)r','apr','mai','jun','jul','aug','sep','okt','nov','dez'];
+const OFF_MTR = ['ocak','şubat','mart','nisan','mayıs','haziran','temmuz','ağustos','eylül','ekim','kasım','aralık'];
+// Nimmt Datumsangaben aus o.s heraus. Ergebnis: {d} für einen Tag oder {week, from} für eine Woche.
+function offDate(o){
+  const t0 = today(), y0 = pd(t0).getFullYear();
+  const take = (re, ok) => { const m = o.s.match(re); if (!m || (ok && !ok(m))) return null; o.s = o.s.replace(m[0], ' '); return m; };
+  const fut = (dd, mm, yy) => { if (!(dd >= 1 && dd <= 31 && mm >= 1 && mm <= 12)) return null; let y = yy ? (yy < 100 ? 2000 + yy : yy) : y0, r = `${y}-${pad(mm)}-${pad(dd)}`; if (!yy && r < t0) r = `${y + 1}-${pad(mm)}-${pad(dd)}`; return r; };
+  let m;
+  if ((m = take(ORX('\\b<(\\d{1,2})[./](\\d{1,2})(?:[./](\\d{2,4}))?\\.?(?!\\s*uhr)(?![:\\d])'), m => Number(m[2]) <= 12 && Number(m[1]) <= 31))) return {d:fut(+m[1], +m[2], m[3] ? +m[3] : 0)};
+  if ((m = take(ORX('\\b<(\\d{1,2})\\.?\\s*(' + OFF_MDE.join('|') + '|' + OFF_MTR.join('|') + ')' + OW + '*(?:\\s+(\\d{4}))?')))){
+    const n = m[2].toLowerCase(); let i = OFF_MTR.findIndex(x => n.startsWith(x)); if (i < 0) i = OFF_MDE.findIndex(x => new RegExp('^' + x).test(n));
+    if (i >= 0) return {d:fut(+m[1], i + 1, m[3] ? +m[3] : 0)};
+  }
+  if (take(ORX('\\b<(übermorgen|öbür\\s*gün)'))) return {d:addDays(t0, 2)};
+  if (take(ORX('\\b<(heute|heutigen?|bugün)' + OW + '*'))) return {d:t0};
+  if (take(ORX('\\b<(morgen\\b>|yar[ıi]n' + OW + '*)'))) return {d:addDays(t0, 1)};
+  if (take(ORX('\\b<(gestern|dün\\b>)'))) return {d:addDays(t0, -1)};
+  if ((m = take(ORX('\\b<in\\s+(\\d{1,3})\\s+tag(en)?\\b>|\\b<(\\d{1,3})\\s+gün\\s+sonra')))) return {d:addDays(t0, Number(m[1] || m[3]))};
+  if (take(ORX('\\b<((nächste|kommende)n?\\s+woche|gelecek\\s+hafta|önümüzdeki\\s+hafta|haftaya)'))) return {week:true, from:addDays(t0, 7 - wdIdx(pd(t0)))};
+  for (let i = 0; i < 7; i++){
+    const [de, tr] = OFF_WD[i];
+    const re = i === 4 ? 'cuma(?!rtesi)' + OW + '*' : i === 6 ? 'pazar(?!tesi)' + OW + '*' : tr + OW + '*';
+    if ((m = take(ORX('\\b<(?:(?:am|nächsten|nächster|kommenden|diesen|jeden|bu|gelecek|önümüzdeki|her)\\s+)?(' + de + 's?\\b>|' + re + ')')))){
+      return {d:addDays(t0, ((i - wdIdx(pd(t0)) + 7) % 7) || 7), every:/jeden|her/i.test(m[0])};
+    }
+  }
+  if (take(ORX('\\b<(diese\\s+woche|die\\s+woche|bu\\s+hafta|woche|hafta' + OW + '*)'))) return {week:true, from:t0};
+  return {};
+}
+// Nimmt Uhrzeiten aus o.s heraus.
+function offTime(o){
+  const hm = (h, m) => (h >= 0 && h <= 23 && (m || 0) <= 59) ? pad(h) + ':' + pad(m || 0) : '';
+  const pm = h => (o.pm && h < 12 ? h + 12 : h);
+  if (ORX('\\b<(abends|nachmittags|akşam(?!\\s+yeme)|öğleden\\s+sonra|gece)').test(o.s)){ o.pm = true; o.s = o.s.replace(ORX('\\b<(abends|nachmittags|akşam(?!\\s+yeme)' + OW + '*|öğleden\\s+sonra|gece)'), ' '); }
+  let m = o.s.match(ORX('\\b<(?:von|um|saat|ab)?\\s*(\\d{1,2})(?:[:.](\\d{2}))?\\s*(?:uhr)?\\s*(?:-|–|bis)\\s*(\\d{1,2})(?:[:.](\\d{2}))?\\s*(?:uhr)?(?:[\'’]?\\s*(?:e|a|ye|ya|te|ta|de|da)\\b>)?'));
+  if (m && +m[1] < +m[3] + (m[4] ? 1 : 0) && +m[3] <= 23){ o.s = o.s.replace(m[0], ' '); return {start:hm(pm(+m[1]), +m[2]), end:hm(pm(+m[3]), +m[4])}; }
+  const pats = ['\\b<(?:um|saat|ab|gegen)\\s*(\\d{1,2})(?:[:.](\\d{2}))?\\s*(?:uhr\\b>)?(?:[\'’]?\\s*(?:te|ta|de|da|den|dan|e|a)\\b>)?', '\\b<(\\d{1,2})[:.](\\d{2})\\b>(?:\\s*uhr\\b>)?(?:[\'’]?(?:te|ta|de|da|den|dan)\\b>)?', '\\b<(\\d{1,2})\\s*uhr\\b>', '\\b<(\\d{1,2})[\'’](?:te|ta|de|da|den|dan)\\b>'];
+  for (const p of pats){ m = o.s.match(ORX(p)); if (m && +m[1] <= 23){ o.s = o.s.replace(m[0], ' '); return {start:hm(pm(+m[1]), +(m[2] || 0)), end:''}; } }
+  return {start:'', end:''};
+}
+const OFF_FILL = new Set(('bitte trag trage mir mich uns ein eine einen eintragen neuen neuer neues termin termine am um im uhr für als kalender in den der die das dem erstelle erstell anlegen lege leg an setz setze mal noch auch ist sind wird habe hab ich und eintrag hinzufügen speichern notiere '
+  + 'ekle ekler misin ekleyin ekleyebilir kaydet oluştur lütfen randevu randevusu randevum randevuyu takvime için saat günü tarihinde var bir olarak not et yaz').split(' '));
+function offTitle(s){
+  let w = s.replace(/[?!.,;:]+/g, ' ').split(/\s+/).filter(Boolean);
+  while (w.length && OFF_FILL.has(w[0].toLowerCase())) w.shift();
+  while (w.length && OFF_FILL.has(w[w.length - 1].toLowerCase())) w.pop();
+  const t = w.join(' ').trim();
+  return t ? t.charAt(0).toLocaleUpperCase(isTr() ? 'tr' : 'de') + t.slice(1) : '';
+}
+function offCat(t){
+  const has = id => S.cats.some(c => c.id === id) ? id : null, x = t.toLowerCase();
+  if (/(prüfung|klausur|examen|sınav|vize|final)/.test(x)) return has('pruefung');
+  if (/(vorlesung|seminar|übung|tutorium|ders\b|kurs)/.test(x)) return has('vorlesung');
+  if (/(meeting|besprechung|call|toplantı|görüşme)/.test(x)) return has('meeting');
+  if (/(arbeit|schicht|dienst|iş\b|mesai|vardiya)/.test(x)) return has('arbeit');
+  return has('privat') || (S.cats[0] || {}).id;
+}
+function offTxCat(t, inc){
+  const x = t.toLowerCase();
+  if (inc) return /(gehalt|lohn|maaş)/.test(x) ? 'Gehalt' : /(nebenjob|minijob|ek iş)/.test(x) ? 'Nebenjob' : 'Sonstiges';
+  const R = [['Essen & Trinken', /(essen|mensa|restaurant|döner|kaffee|café|cafe|bäcker|pizza|burger|lidl|aldi|rewe|edeka|einkauf|lebensmittel|yemek|kahve|market|bakkal|fırın|lokanta)/], ['Wohnen', /(miete|strom|wohnung|internet|kira|fatura|elektrik)/], ['Mobilität', /(bus|bahn|ticket|tank|benzin|zug|taxi|otobüs|metro|taksi|bilet|akaryakıt)/], ['Freizeit', /(kino|netflix|spotify|konzert|ausflug|sinema|konser|gezi)/], ['Shopping', /(kleid|schuh|zara|h&m|amazon|kıyafet|ayakkabı|alışveriş)/], ['Uni', /(buch|uni|semester|kopie|kitap|okul|üniversite)/], ['Gesundheit', /(apotheke|arzt|medikament|eczane|doktor|ilaç)/]];
+  return (R.find(([, r]) => r.test(x)) || ['Sonstiges'])[0];
+}
+function offAnswer(raw){
+  const s0 = String(raw || '').replace(/[’`´]/g, "'").trim(), low = s0.toLowerCase();
+  const tr = isTr() ? !/\b(was|wann|wie|ich|habe|heute|morgen|termin|trag|bitte)\b/i.test(s0) : /[ğış]|\b(bugün|yarın|neler|ekle|randevu|görev|harcama|harcadım|bütçe|boş|ne kadar|hafta|doğum|bitti|tamam|yaptım|not al|yardım|cuma|pazar|salı|kadar|saat)\b/i.test(s0);
+  const L = (de, t) => tr ? t : de, M = DATES[tr ? 'tr' : 'de'];
+  const dl = d => { const x = pd(d), n = diffDays(today(), d), rel = n === 0 ? L('Heute', 'Bugün') : n === 1 ? L('Morgen', 'Yarın') : n === -1 ? L('Gestern', 'Dün') : '';
+    const f = tr ? `${x.getDate()} ${M.M[x.getMonth()]} ${M.WDL[wdIdx(x)]}` : `${M.WDL[wdIdx(x)]}, ${x.getDate()}. ${M.M[x.getMonth()]}`; return rel ? `${rel} (${f})` : f; };
+  const has = re => re.test(low), Lc = getLoc();
+  const help = L(`Ich bin der Offline-Assistent. Ich laufe ohne Internet und verstehe feste Befehle, zum Beispiel:
+• „Morgen 14 Uhr Zahnarzt“ trägt einen Termin ein
+• „Jeden Montag 10–12 Uhr Vorlesung Statistik“
+• „Aufgabe: Wäsche waschen bis Freitag“
+• „Erledigt: Wäsche“
+• „Notiz: Ideen für die Hausarbeit …“
+• „12,50 € Mensa“ oder „Gehalt 900 €“
+• „Geburtstag Mama 12. Mai“
+• „Was steht heute an?“ oder „Was ist am Freitag?“
+• „Wann habe ich diese Woche 2 Stunden Zeit?“
+• „Plane meine Aufgaben für morgen“
+• „Nächstes Gebet“, „Offene Aufgaben“, „Wie viel habe ich diesen Monat ausgegeben?“
+• „Was war heute in der Geschichte?“`, `Ben çevrimdışı asistanım. İnternetsiz çalışırım ve belirli komutları anlarım, örneğin:
+• „Yarın saat 14'te diş hekimi“ randevu ekler
+• „Her pazartesi 10–12 istatistik dersi“
+• „Görev: çamaşır yıka cumaya kadar“
+• „Bitti: çamaşır“
+• „Not: ödev için fikirler …“
+• „12,50 € yemekhane“ ya da „maaş 900 €“
+• „Doğum günü annem 12 mayıs“
+• „Bugün neler var?“ ya da „Cuma ne var?“
+• „Bu hafta 2 saat ne zaman boş vaktim var?“
+• „Yarınki görevlerimi planla“
+• „Sıradaki namaz“, „Açık görevler“, „Bu ay ne kadar harcadım?“
+• „Tarihte bugün ne oldu?“`);
+  const dayLines = d => {
+    const out = [];
+    dayItems(d, true).forEach(e => out.push(`• ${e.start ? e.start + (e.end ? '–' + e.end : '') : L('ganztägig', 'tüm gün')}  ${e.hist ? '🏛 ' : e.bday ? '🎂 ' : ''}${e.title}`));
+    S.sessions.filter(x => x.date === d && !x.done).forEach(x => { const sb = S.subjects.find(y => y.id === x.sid); out.push(`• 📚 ${sb ? sb.name : ''}${x.topic ? ': ' + x.topic : ''} (${x.min} ${L('Min.', 'dk')})`); });
+    S.todos.filter(x => x.due === d && !x.done).forEach(x => out.push(`• ☐ ${x.title}`));
+    return out;
+  };
+  const prLine = d => { const tt = Lc && prayerTimes(d, Lc); return tt ? '🕌 ' + ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].map(k => `${PNAMES[k][0]} ${fmtClock(tt[k], tzOf(Lc))}`).join(' · ') : ''; };
+  const o = {s:s0};
+  let m;
+
+  // Hilfe
+  if (!low || has(/^(hilfe|help|\?|was kannst du|wie funktioniert|yardım|neler yapabilirsin|ne yapabilirsin|nasıl kullan)/)) return help;
+
+  // Aufgabe abhaken
+  m = s0.match(/^\s*(erledigt|abhaken|hake ab|fertig|tamamlandı|tamamla|bitti|yaptım)\s*[:\-]?\s*(.+)$/i) || s0.match(/^\s*(.+?)\s+(ist\s+)?(erledigt|fertig|bitti|tamam)\s*[.!]?$/i);
+  if (m){
+    const q = (m[1].match(/^(erledigt|abhaken|hake ab|fertig|tamamlandı|tamamla|bitti|yaptım)$/i) ? m[2] : m[1]).trim().toLowerCase();
+    const x = S.todos.find(t => !t.done && t.title.toLowerCase().includes(q)) || S.todos.find(t => !t.done && q.includes(t.title.toLowerCase()));
+    if (!x) return L(`Ich finde keine offene Aufgabe mit „${q}“.`, `„${q}“ içeren açık görev bulamadım.`);
+    x.done = true; save(); track(L('Erledigt: ', 'Tamamlandı: ') + x.title, () => { x.done = false; });
+    return L(`Abgehakt ✅ ${x.title}`, `İşaretlendi ✅ ${x.title}`);
+  }
+
+  // Aufgabe anlegen
+  m = s0.match(/^\s*(aufgabe|to-?do|erinnere mich( daran)?|ich muss|nicht vergessen|görev|yapılacak|hatırlat|unutma)\s*[:\-]?\s*(.+)$/i);
+  if (m){
+    o.s = m[3]; o.s = o.s.replace(ORX('\\b<(bis|kadar|zum|zu)\\b>', 'gi'), ' ');
+    const dt = offDate(o), title = offTitle(o.s.replace(ORX('(\\w+)(?:ye|ya|e|a)\\s+kadar', 'gi'), ' '));
+    if (!title) return L('Was soll ich als Aufgabe eintragen?', 'Görev olarak ne ekleyeyim?');
+    const prio = has(/(dringend|wichtig|sofort|acil|önemli)/) ? (has(/(dringend|sofort|acil)/) ? 1 : 2) : 0;
+    const x = {id:uid(), title, due:dt.d || '', prio, group:'', note:'', done:false, ts:Date.now()};
+    S.todos.push(x); save(); track(L('Aufgabe: ', 'Görev: ') + title, () => { S.todos = S.todos.filter(y => y.id !== x.id); });
+    return L(`Aufgabe eingetragen ✅ ${title}${x.due ? ', fällig ' + dl(x.due) : ''}.`, `Görev eklendi ✅ ${title}${x.due ? ', son tarih ' + dl(x.due) : ''}.`);
+  }
+
+  // Notiz anlegen
+  m = s0.match(/^\s*(notiz|notiere|merk dir|merke dir|not al|not)\s*:\s*([\s\S]+)$/i);
+  if (m){
+    const body = m[2].trim(), title = body.split('\n')[0].slice(0, 40), x = {id:uid(), kind:'note', title, body, items:[], color:0, pin:false, ts:Date.now()};
+    S.notes.push(x); save(); track(L('Notiz: ', 'Not: ') + title, () => { S.notes = S.notes.filter(y => y.id !== x.id); });
+    return L(`Notiz gespeichert 📝 ${title}`, `Not kaydedildi 📝 ${title}`);
+  }
+
+  // Aufgaben planen (Vorschlag, nichts wird eingetragen)
+  if (has(/(plane|planen|einplanen|verteile|planla|yerleştir|sığdır)/)){
+    const dt = offDate(o), d = dt.d || today();
+    const tds = [...S.todos.filter(x => !x.done && x.due === d), ...S.todos.filter(x => !x.done && !x.due).sort(todoSort)].slice(0, 8);
+    if (!tds.length) return L(`Für ${dl(d)} gibt es keine offenen Aufgaben.`, `${dl(d)} için açık görev yok.`);
+    const slots = freeSlots(d, 30, null, null, true).map(x => ({a:toMin(x.a), b:toMin(x.b)}));
+    const plan = []; let si = 0;
+    tds.forEach(t => { while (si < slots.length && slots[si].b - slots[si].a < 30) si++; if (si >= slots.length) return; plan.push(`• ${fromMin(slots[si].a)}–${fromMin(slots[si].a + 30)}  ${t.title}`); slots[si].a += 45; });
+    return L(`Vorschlag für ${dl(d)} (je 30 Min., Gebetszeiten bleiben frei):\n`, `${dl(d)} için öneri (her biri 30 dk, namaz vakitleri boş kalır):\n`) + (plan.join('\n') || L('Leider ist an dem Tag nichts frei.', 'Maalesef o gün boş zaman yok.')) + (prLine(d) ? '\n' + prLine(d) : '');
+  }
+
+  // Freie Zeit
+  if (has(ORX('\\b<(zeit|frei|freie|freien|lücke|lücken)\\b>|\\b<(boş|müsait)'))){
+    const dm = low.match(/(\d+(?:[.,]\d+)?)\s*(stunden?|std\.?|saat(?!\s*\d))/), mm = low.match(/(\d+)\s*(minuten|min\.?|dakika|dk)/);
+    const need = dm ? Math.round(parseFloat(dm[1].replace(',', '.')) * 60) : mm ? Number(mm[1]) : 30;
+    const dt = offDate(o), days = dt.week ? Array.from({length:7}, (_, i) => addDays(dt.from, i)).filter(d => d >= today()) : [dt.d || today()];
+    const lines = days.map(d => { const fs = freeSlots(d, need, null, null, true); return `**${dl(d)}**: ` + (fs.length ? fs.map(f => `${f.a}–${f.b}`).join(', ') : L('nichts frei', 'boş zaman yok')); });
+    let out = L(`Freie Zeit${need !== 30 ? ` (mind. ${fmtMin(need)})` : ''}, zwischen ${S.settings.dayStart} und ${S.settings.dayEnd} Uhr, Gebete ausgespart:\n`, `Boş zamanlar${need !== 30 ? ` (en az ${need >= 60 ? (need / 60).toString().replace('.', ',') + ' sa.' : need + ' dk'})` : ''}, ${S.settings.dayStart}–${S.settings.dayEnd} arası, namaz vakitleri hariç:\n`) + lines.join('\n');
+    if (days.length === 1){ const dlns = dayLines(days[0]); if (dlns.length) out += '\n\n' + L('Eingetragen:', 'Plandakiler:') + '\n' + dlns.join('\n'); }
+    return out;
+  }
+
+  // Gedenktage
+  if (has(/(geschichte|gedenk|historisch|tarihte|tarihî|tarihi olay|tarih olay|tarihi gün|bugün ne oldu)/)){
+    const dt = offDate(o), d = dt.d || today(), hs = HIST_BY[d.slice(5)] || [];
+    const show = h => { const [t, n] = tr ? h.tr : h.de; return `🏛 **${t}** (${h.d.slice(0, 4)})\n${n}`; };
+    if (hs.length) return hs.map(show).join('\n\n');
+    const up = []; for (let i = 1; i < 366 && up.length < 3; i++){ const x = addDays(d, i); (HIST_BY[x.slice(5)] || []).forEach(h => up.length < 3 && up.push({x, h})); }
+    return L(`${dl(d)}: kein Gedenktag in der Liste. Als Nächstes:\n`, `${dl(d)} için listede tarihî bir olay yok. Sıradakiler:\n`) + up.map(({x, h}) => `• ${dl(x)}: ${(tr ? h.tr : h.de)[0]} (${h.d.slice(0, 4)})`).join('\n');
+  }
+
+  // Ausgabe oder Einnahme eintragen
+  const am = s0.match(/(\d+(?:[.,]\d{1,2})?)\s*(€|euro|eur|tl|lira)?/i);
+  if (am && !s0.includes('?') && !has(/(wie viel|ne kadar)/) && (am[2] || has(/(ausgabe|ausgegeben|bezahlt|gekauft|kostet|einnahme|gehalt|lohn|verdient|harcama|harcadım|ödedim|aldım|maaş|gelir|kazandım)/)) && !offTime({s:s0}).start){
+    const amount = parseFloat(am[1].replace(',', '.')); if (!(amount > 0)) return help;
+    const inc = has(/(einnahme|gehalt|lohn|verdient|bekommen|maaş|gelir|kazandım)/);
+    o.s = s0.replace(am[0], ' '); const dt = offDate(o);
+    const title = offTitle(o.s.replace(ORX('\\b<(ausgabe|ausgegeben|bezahlt|gekauft|kostet|einnahme|euro|für|harcama|harcadım|ödedim|aldım|için|tl|lira)' + OW + '*', 'gi'), ' '));
+    const cat = offTxCat(title + ' ' + s0, inc), x = {id:uid(), type:inc ? 'in' : 'out', amount, title, cat, date:dt.d || today(), monthly:has(/(monatlich|jeden monat|her ay|aylık)/)};
+    S.tx.push(x); save(); track(`${inc ? L('Einnahme', 'Gelir') : L('Ausgabe', 'Harcama')}: ${fmtE(amount)}`, () => { S.tx = S.tx.filter(y => y.id !== x.id); });
+    return L(`Gebucht ✅ ${inc ? 'Einnahme' : 'Ausgabe'} ${fmtE(amount)}${title ? ', ' + title : ''} (${cat}), ${dl(x.date)}.`, `Kaydedildi ✅ ${inc ? 'Gelir' : 'Harcama'} ${fmtE(amount)}${title ? ', ' + title : ''} (${TR[cat] || cat}), ${dl(x.date)}.`);
+  }
+
+  // Budget
+  if (has(/(ausgegeben|ausgaben|budget|kosten|saldo|einnahmen|harca|bütçe|para|masraf|gelir)/)){
+    const n = new Date(), prev = has(/(letzten monat|vormonat|geçen ay)/), y = prev && n.getMonth() === 0 ? n.getFullYear() - 1 : n.getFullYear(), mo = prev ? (n.getMonth() + 11) % 12 : n.getMonth();
+    const list = txMonth(y, mo), inc = sumTx(list.filter(x => x.type === 'in')), out = sumTx(list.filter(x => x.type === 'out')), lim = Number(S.settings.budget) || 0, by = {};
+    list.filter(x => x.type === 'out').forEach(x => by[x.cat] = (by[x.cat] || 0) + Number(x.amount));
+    const top = Object.entries(by).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([c, v]) => `• ${tr ? TR[c] || c : c}: ${fmtE(v)}`).join('\n');
+    return L(`${M.M[mo]} ${y}: Ausgaben ${fmtE(out)}, Einnahmen ${fmtE(inc)}, Saldo ${fmtE(inc - out)}.`, `${M.M[mo]} ${y}: harcama ${fmtE(out)}, gelir ${fmtE(inc)}, bakiye ${fmtE(inc - out)}.`)
+      + (lim ? '\n' + (out > lim ? L(`Du liegst ${fmtE(out - lim)} über deinem Budget.`, `Bütçeni ${fmtE(out - lim)} aştın.`) : L(`Vom Budget sind noch ${fmtE(lim - out)} übrig.`, `Bütçenden ${fmtE(lim - out)} kaldı.`)) : '') + (top ? '\n' + top : '');
+  }
+
+  // Gebete
+  if (has(/(gebet|namaz|vakit|vakti|ezan|imsak|yatsı|ikindi|kıble)/)){
+    if (!Lc) return L('Lege zuerst unter „Namaz“ deinen Ort fest, dann kann ich dir die Gebetszeiten sagen.', 'Önce „Namaz“ bölümünde konumunu belirle, sonra namaz vakitlerini söyleyebilirim.');
+    const st = prayState(Lc); if (!st) return L('Für deinen Ort kann ich gerade keine Zeiten berechnen.', 'Konumun için şu an vakit hesaplanamıyor.');
+    const left = Math.max(0, st.next.t - Date.now()), h = Math.floor(left / 3600000), mi = Math.floor(left % 3600000 / 60000);
+    return L(`Nächstes Gebet: **${PNAMES[st.next.k][0]}** um ${fmtClock(st.next.t, st.tz)} Uhr (in ${h ? h + ' Std. ' : ''}${mi} Min.).`, `Sıradaki vakit: **${PNAMES[st.next.k][0]}** saat ${fmtClock(st.next.t, st.tz)} (${h ? h + ' sa. ' : ''}${mi} dk sonra).`) + '\n' + prLine(st.dstr);
+  }
+
+  // Geburtstag eintragen oder anzeigen
+  if (has(/(geburtstag|doğum ?günü)/)){
+    const dt = offDate(o);
+    if (dt.d && !s0.includes('?')){
+      let name = offTitle(o.s.replace(ORX('(geburtstag|doğum\\s*günü)' + OW + '*', 'gi'), ' ').replace(ORX('\\b<(hat|von|ist|am|nin|nın|in)\\b>', 'gi'), ' '));
+      if (tr) name = name.replace(/['’]?n?[ıiuü]n$/i, '');
+      if (!name) return L('Wessen Geburtstag? Schreib z. B. „Geburtstag Mama 12. Mai“.', 'Kimin doğum günü? Örneğin „Doğum günü annem 12 mayıs“ yaz.');
+      const x = pd(dt.d), b = {id:uid(), name, d:x.getDate(), m:x.getMonth() + 1, y:'', note:''};
+      S.bdays.push(b); save(); track(L('Geburtstag: ', 'Doğum günü: ') + name, () => { S.bdays = S.bdays.filter(y => y.id !== b.id); });
+      return L(`Eingetragen 🎂 ${name}, ${b.d}. ${M.M[b.m - 1]} (jedes Jahr).`, `Eklendi 🎂 ${name}, ${b.d} ${M.M[b.m - 1]} (her yıl).`);
+    }
+    const list = S.bdays.map(b => ({b, n:bdDays(b)})).sort((a, b) => a.n - b.n).slice(0, 4);
+    if (!list.length) return L('Du hast noch keine Geburtstage eingetragen.', 'Henüz doğum günü eklemedin.');
+    return L('Die nächsten Geburtstage:\n', 'Sıradaki doğum günleri:\n') + list.map(({b, n}) => `• ${b.name}: ${b.d}${tr ? '' : '.'} ${M.M[b.m - 1]} (${n === 0 ? L('heute 🎂', 'bugün 🎂') : n === 1 ? L('morgen', 'yarın') : L(`in ${n} Tagen`, `${n} gün sonra`)})`).join('\n');
+  }
+
+  // Offene Aufgaben anzeigen
+  if (has(/(offene aufgaben|meine aufgaben|aufgaben|to-?dos?|açık görev|görevlerim|görevler|yapılacaklar)/) && !offTime({s:s0}).start){
+    const open = S.todos.filter(x => !x.done).sort(todoSort);
+    if (!open.length) return L('Keine offenen Aufgaben. 🎉', 'Açık görev yok. 🎉');
+    return L(`${open.length === 1 ? 'Eine offene Aufgabe' : open.length + ' offene Aufgaben'}:\n`, `${open.length} açık görev:\n`) + open.slice(0, 10).map(x => `• ${x.title}${x.due ? ' (' + dl(x.due) + ')' : ''}`).join('\n') + (open.length > 10 ? L(`\n… und ${open.length - 10} weitere`, `\n… ve ${open.length - 10} tane daha`) : '');
+  }
+
+  // Termin eintragen oder Tag anzeigen
+  const isQ = s0.includes('?') || has(/^(was|wie|wann|welche|zeig|ne |neler|hangi|göster)|(steht|habe ich|hab ich|ansteht|neler var|ne var|programım|planım|nasıl)/);
+  const dt = offDate(o), tm = offTime(o);
+  if (isQ && !dt.d && !dt.week && !tm.start && !has(/(steht|habe ich|hab ich|ansteht|termin|plan|programm|kalender|neler var|ne var|program|takvim|randevu)/)) return L('Mir geht es gut, danke der Nachfrage! 😊', 'Teşekkürler, iyiyim! 😊') + '\n\n' + help;
+  if (isQ && !tm.start){
+    const days = dt.week ? Array.from({length:7}, (_, i) => addDays(dt.from, i)) : [dt.d || today()];
+    return days.map(d => { const ls = dayLines(d), p = days.length === 1 ? prLine(d) : ''; return `**${dl(d)}**\n` + (ls.length ? ls.join('\n') : L('Nichts eingetragen.', 'Plan yok.')) + (p ? '\n' + p : ''); }).join('\n\n');
+  }
+  if (dt.d || dt.every || tm.start){
+    const title = offTitle(o.s.replace(ORX('\\b<(jede[nrs]?|her|wöchentlich|täglich|jeden\\s+tag|her\\s+gün|haftalık)\\b>', 'gi'), ' '));
+    if (!title) return L('Wie soll der Termin heißen? Schreib z. B. „Morgen 14 Uhr Zahnarzt“.', 'Randevunun adı ne olsun? Örneğin „Yarın saat 14\'te diş hekimi“ yaz.');
+    const repeat = has(/(täglich|jeden tag|her gün)/) ? 'daily' : (dt.every || has(/(wöchentlich|jede woche|her hafta|haftalık)/)) ? 'weekly' : 'none';
+    const start = tm.start, end = tm.end || (start ? fromMin(Math.min(toMin(start) + 60, 1439)) : '');
+    const e = {id:uid(), title, type:offCat(title), date:dt.d || today(), start, end:start ? end : '', place:'', note:'', repeat, until:'', skip:[], rem:null};
+    S.events.push(e); save(); track(L('Termin: ', 'Randevu: ') + `${title}, ${shortDate(e.date)}${start ? ' ' + start : ''}`, () => { S.events = S.events.filter(y => y.id !== e.id); });
+    return L(`Eingetragen ✅ **${title}**\n${dl(e.date)}, ${start ? `${start}–${e.end} Uhr` : 'ganztägig'}${repeat === 'weekly' ? ', jede Woche' : repeat === 'daily' ? ', jeden Tag' : ''} · ${catOf(e.type).name}`,
+      `Eklendi ✅ **${title}**\n${dl(e.date)}, ${start ? `${start}–${e.end}` : 'tüm gün'}${repeat === 'weekly' ? ', her hafta' : repeat === 'daily' ? ', her gün' : ''} · ${TR[catOf(e.type).name] || catOf(e.type).name}`);
+  }
+  return L('Das habe ich leider nicht verstanden. ', 'Bunu maalesef anlayamadım. ') + '\n\n' + help;
+}
+function offReply(text, msg, note){
+  const m = msg || {r:'a', t:''}; if (!msg) AI.chat.push(m);
+  if (!_acts) _acts = {labels:[], undo:[]};
+  let t; try { t = offAnswer(text); } catch(e) { t = L2('Das hat nicht geklappt. Versuch es anders zu formulieren oder tippe „Hilfe“.', 'Olmadı. Farklı yazmayı dene ya da „yardım“ yaz.'); }
+  m.t = (note ? note + '\n\n' : '') + t; m.busy = false; m.off = true;
+  if (_acts.labels.length){ m.acts = _acts.labels; const id = uid(); m.undoId = id; UNDO[id] = _acts.undo; }
+  _acts = null; AI.busy = false; saveChat(); render(); scrollChat();
+}
 async function aiSend(text){
   text = str(text); if (!text || AI.busy) return;
-  const sample = await getSampler();
+  const sample = offMode() ? null : await getSampler();
   AI.chat.push({r:'u', t:text});
-  if (!sample){ AI.chat.push({r:'a', t:IN_CLAUDE ? 'Der Assistent läuft nur, wenn du die App in Claude (claude.ai oder die Claude-App) geöffnet hast und angemeldet bist.' : 'Damit der Assistent in dieser Version läuft, hinterlege in den Einstellungen unter „Assistent“ einen API-Schlüssel von Anthropic.'}); saveChat(); render(); return; }
+  if (!sample){ offReply(text); return; }
   const msg = {r:'a', t:'Denke nach …', busy:true}; AI.chat.push(msg);
   AI.busy = true; AI.ctl = new AbortController(); render(); scrollChat();
   _acts = {labels:[], undo:[]};
@@ -2965,6 +3319,7 @@ async function aiSend(text){
     msg.t = r.text + (r.truncated ? '\n(Antwort gekürzt)' : '');
   } catch(e) {
     const why = {bad_key:'Der API-Schlüssel wurde abgelehnt. Prüfe ihn in den Einstellungen.', network:'Keine Verbindung zum Internet.', not_granted:'Du hast den Assistenten nicht erlaubt. Du kannst es in den Berechtigungen der Seite ändern.', rate_limited:'Gerade sind zu viele Anfragen. Versuch es in einer Minute noch einmal.', cancelled:'Abgebrochen.', usage_limit:'Dein Nutzungslimit ist erreicht.'}[e && e.code];
+    if (e && e.code !== 'cancelled' && !_acts.labels.length && !(e && e.text)){ AI.busy = false; return offReply(text, msg, L2('(Die KI ist gerade nicht erreichbar, der Offline-Assistent antwortet.)', '(Yapay zekâya şu an ulaşılamıyor, çevrimdışı asistan yanıtlıyor.)')); }
     msg.t = (e && e.text ? e.text + '\n\n' : '') + (why || 'Das hat nicht geklappt. Versuch es bitte noch einmal.');
   }
   msg.busy = false; AI.busy = false;
@@ -3235,7 +3590,7 @@ function toolsSheet(){
   initSort($('#toolist'), '.trow', ids => { F.tools = [...ids.map(id => F.tools.find(t => t.id === id)), ...F.tools.filter(t => t.del)]; $('#toolist').innerHTML = toolRows(); });
 }
 function settingsSheet(){
-  F = {sfmt:clone(S.settings.fmt || {}), name:S.settings.name, greet:S.settings.greet || 'mix', splash:S.settings.splash !== false, notify:clone(S.settings.notify), dayStart:S.settings.dayStart, dayEnd:S.settings.dayEnd};
+  F = {sfmt:clone(S.settings.fmt || {}), name:S.settings.name, greet:S.settings.greet || 'mix', splash:S.settings.splash !== false, notify:clone(S.settings.notify), dayStart:S.settings.dayStart, dayEnd:S.settings.dayEnd, hist:S.settings.hist !== false};
   const perm = 'Notification' in window ? Notification.permission : 'unsupported';
   sheet(`<h2 class="sh">Einstellungen</h2>
     <div class="card" id="acct" style="margin:10px 0 4px;padding:14px 16px">${acctHTML()}</div>
@@ -3277,6 +3632,7 @@ function settingsSheet(){
     <h3 class="sh2">Kalender &amp; Planung</h3>
     <p class="hint">In diesem Zeitfenster sucht die App (und der Assistent) nach freier Zeit.</p>
     <div class="grid2"><div>${field('dayStart','Tag beginnt','time')}</div><div>${field('dayEnd','Tag endet','time')}</div></div>
+    ${toggle('hist', `<span data-nt>${esc(L2('Gedenktage der türkischen Geschichte (1918–1934) im Kalender zeigen', 'Türk tarihinin önemli günlerini (1918–1934) takvimde göster'))}</span>`, F.hist)}
     <button class="btn ghost" data-act="mCats">Kalender-Kategorien</button>
     <div class="grid2"><button class="btn ghost" data-act="mGroups">Aufgaben-Gruppen</button><button class="btn ghost" data-act="mPrios">Prioritäten</button></div>
     <button class="btn" data-act="saveSettings" style="margin-top:18px">Speichern</button>
@@ -3415,6 +3771,7 @@ const A = {
   /* Assistent */
   aiAsk(d){ aiSend(d.q); },
   aiClear(){ if (AI.busy) AI.ctl?.abort(); AI.chat = []; saveChat(); render(); },
+  aiMode(){ lsSet('koesem.aioff', !offMode()); render(); toast(offMode() ? L2('Offline-Assistent aktiv', 'Çevrimdışı asistan açık') : L2('KI-Assistent aktiv', 'Yapay zekâ asistanı açık')); },
   aiUndo(d){ const m = AI.chat[Number(d.i)]; const u = m && UNDO[m.undoId]; if (!u){ toast('Das geht nur direkt nach dem Eintragen'); return; } u.slice().reverse().forEach(f => { try { f(); } catch(e) {} }); delete UNDO[m.undoId]; m.undone = true; save(); saveChat(); render(); toast('Rückgängig gemacht'); },
   /* Home */
   homeEdit(){ V.edit = !V.edit; render(); },
@@ -3461,6 +3818,7 @@ const A = {
   _fix(){ const t = today(); V.sel = t.slice(0, 7) === ds(V.cm).slice(0, 7) ? t : ds(V.cm); render(); },
   goToday(){ const n = new Date(); V.cm = new Date(n.getFullYear(), n.getMonth(), 1); V.sel = today(); render(); },
   editEv(d){ evSheet(d.id, null, d.d); },
+  histInfo(d){ histSheet(Number(d.id), d.d); },
   saveEv(){
     if (!(F.title || '').trim()) return toast('Bitte einen Titel eingeben');
     if (!F.date) return toast('Bitte ein Datum wählen');
@@ -3846,7 +4204,7 @@ const A = {
   },
   logoTheme(){ const k = lgKey(), cur = S.theme; S.theme = {...baseTheme(LG[k].theme), bgImg:cur.bgImg, bgLum:cur.bgLum, dim:cur.dim, blur:cur.blur, scale:cur.scale}; save(); _wallImg = null; applyTheme(S.theme); render(); toast('Farben angepasst. Im Design-Studio kannst du alles ändern.'); },
   logoPlay(){ playSplash(); },
-  saveSettings(){ S.settings.name = (F.name || '').trim(); S.settings.greet = F.greet || 'mix'; S.settings.splash = F.splash !== false; S.settings.fmt = clone(F.sfmt || {}); S.settings.notify = clone(F.notify); if (F.dayStart && F.dayEnd && F.dayStart < F.dayEnd){ S.settings.dayStart = F.dayStart; S.settings.dayEnd = F.dayEnd; } document.documentElement.dataset.splash = S.settings.splash ? '1' : '0'; save(); closeSheet(); render(); toast('Gespeichert'); },
+  saveSettings(){ S.settings.hist = F.hist !== false; S.settings.name = (F.name || '').trim(); S.settings.greet = F.greet || 'mix'; S.settings.splash = F.splash !== false; S.settings.fmt = clone(F.sfmt || {}); S.settings.notify = clone(F.notify); if (F.dayStart && F.dayEnd && F.dayStart < F.dayEnd){ S.settings.dayStart = F.dayStart; S.settings.dayEnd = F.dayEnd; } document.documentElement.dataset.splash = S.settings.splash ? '1' : '0'; save(); closeSheet(); render(); toast('Gespeichert'); },
   tools(){ toolsSheet(); },
   toolMove(d){ const vis = visTools(), i = vis.findIndex(t => t.id === d.id), j = i + Number(d.dir); if (j < 0 || j >= vis.length) return; [vis[i], vis[j]] = [vis[j], vis[i]]; F.tools = [...vis, ...F.tools.filter(t => t.del)]; $('#toolist').innerHTML = toolRows(); },
   mMove(d){ const i = Number(d.i), j = i + Number(d.dir); if (j < 0 || j >= F.items.length) return; [F.items[i], F.items[j]] = [F.items[j], F.items[i]]; $('#mlist').innerHTML = mlist(); },
@@ -4021,5 +4379,4 @@ syncInit();
 if (!IN_CLAUDE && 'serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 
-</body>
-</html>
+</body></html>
