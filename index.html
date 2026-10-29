@@ -673,6 +673,18 @@ svg.hl-mark{width:40px}
   .pg2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
   #app:has(.planner){max-width:1400px}
 }
+/* Kalender: Jahre und Filter */
+.ynav{display:flex;align-items:center;gap:8px;margin:0 0 10px;flex-wrap:wrap}
+.ynav .iconbtn{width:38px;height:38px}
+.ysel{background:var(--card);color:var(--cardInk);border:0;border-radius:12px;padding:8px 12px;font:700 16px var(--fb);min-width:96px;appearance:auto;box-shadow:var(--shadow)}
+.cfbtn{margin-left:auto;padding:7px 13px;font-size:13px}
+.cfbtn svg{width:15px;height:15px}
+.cfrow{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.cfc{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:99px;background:color-mix(in srgb,var(--card) 70%,transparent);color:var(--cardInk2);font-size:12.5px;font-weight:600;text-decoration:line-through;opacity:.75}
+.cfc i{width:9px;height:9px;border-radius:50%;background:transparent;box-shadow:inset 0 0 0 2px var(--c)}
+.cfc.on{background:var(--card);color:var(--cardInk);text-decoration:none;opacity:1}
+.cfc.on i{background:var(--c)}
+.cfc.all{text-decoration:none;opacity:1;color:var(--accent);background:var(--card)}
 </style>
 </head>
 <body>
@@ -795,6 +807,7 @@ const TR = {
 'Bild wird gespeichert…':'Resim kaydediliyor…','Bilder werden gespeichert…':'Resimler kaydediliyor…','Bild hinzugefügt':'Resim eklendi','Das Bild konnte nicht gespeichert werden':'Resim kaydedilemedi','Ein Bild konnte nicht gespeichert werden':'Bir resim kaydedilemedi','Video wird gespeichert…':'Video kaydediliyor…','Das Video konnte nicht gespeichert werden':'Video kaydedilemedi','Video ist nur auf diesem Gerät gespeichert':'Video sadece bu cihazda kayıtlı',
 // Sprache
 'Wörter':'Kelimeler','Wort':'Kelime','Übersetzung':'Çeviri','Beispielsatz (optional)':'Örnek cümle (isteğe bağlı)','Neues Wort':'Yeni kelime','Wort bearbeiten':'Kelimeyi düzenle','Sprache hinzufügen':'Dil ekle','Neue Sprache':'Yeni dil','Welche Sprache willst du lernen?':'Hangi dili öğrenmek istiyorsun?','Eigene Sprache':'Başka bir dil','Name der Sprache':'Dilin adı','Sprachcode für die Aussprache (z. B. en, ar, es)':'Telaffuz için dil kodu (ör. en, ar, es)','Karteikarten':'Kartlar','Quiz':'Quiz','Schreiben':'Yazma','Fällig':'Sırası gelen','Gelernt':'Öğrenildi','Serie':'Seri','Antippen zum Umdrehen':'Çevirmek için dokun','Nochmal':'Tekrar','Schwer':'Zor','Gewusst':'Bildim','Heute alles wiederholt. Super!':'Bugünkü tekrarlar bitti. Harika!','Trotzdem üben':'Yine de çalış','Richtung':'Yön','Weiter':'Devam','Richtig!':'Doğru!','Leider falsch.':'Maalesef yanlış.','Für ein Quiz brauchst du mindestens 4 Wörter.':'Quiz için en az 4 kelime gerekir.','Mit KI Wörter vorschlagen':'Yapay zekâyla kelime öner','Thema':'Konu','Niveau':'Seviye','Anfänger':'Başlangıç','Mittel':'Orta','Fortgeschritten':'İleri','Vorschläge holen':'Öneri al','Ausgewählte übernehmen':'Seçilenleri ekle','Satz prüfen':'Cümleyi kontrol et','Schreib einen Satz in der Sprache, die du lernst. Die KI verbessert ihn und erklärt kurz die Fehler.':'Öğrendiğin dilde bir cümle yaz. Yapay zekâ düzeltir ve hataları kısaca açıklar.','Dein Satz':'Cümlen','Prüfe …':'Kontrol ediliyor …','Anhören':'Dinle','Sprache bearbeiten':'Dili düzenle','Sprache löschen samt Wörtern':'Dili kelimeleriyle sil','Noch keine Wörter. Tippe auf das Plus oder lass dir Wörter vorschlagen.':'Henüz kelime yok. Artıya dokun ya da kelime önerisi al.','Englisch':'İngilizce','Arabisch':'Arapça','Kurdisch':'Kürtçe','Spanisch':'İspanyolca','Französisch':'Fransızca','Italienisch':'İtalyanca','Russisch':'Rusça','Koreanisch':'Korece','Japanisch':'Japonca','Persisch':'Farsça','Deutsch':'Almanca','Türkisch':'Türkçe','Wörter lernen, wiederholen und üben':'Kelime öğren, tekrarla ve çalış','Wortschatz-Trainer mit Karteikarten und Quiz':'Kartlı ve quizli kelime çalıştırıcı','Sprachen lernen':'Dil öğren','KW':'Hf.','Woche':'Hafta','Jahr':'Yıl','Jahresziele':'Yıllık hedefler','Wichtige Termine':'Önemli tarihler','Vision für das Jahr':'Yılın vizyonu','Was soll dieses Jahr ausmachen?':'Bu yıl neyle anılsın?','Geburtstage, Prüfungen und ganztägige Termine erscheinen hier.':'Doğum günleri, sınavlar ve tüm gün süren randevular burada görünür.','Ziel für dieses Jahr':'Bu yılın hedefi','Im Überblick':'Bir bakışta','Rückblick':'Değerlendirme','Monatsziele':'Aylık hedefler','Ziel für diesen Monat':'Bu ayın hedefi','To-do':'Yapılacaklar','Was diesen Monat ansteht':'Bu ay yapılacaklar','Gläser Wasser/Tag':'Bardak su/gün','Gewohnheiten':'Alışkanlıklar','Highlights des Monats':'Ayın öne çıkanları','Was lief gut?':'Ne iyi gitti?','Was will ich verbessern?':'Neyi geliştirmek istiyorum?','Was habe ich gelernt?':'Ne öğrendim?','Wofür bin ich dankbar?':'Neye şükrediyorum?','Fokus für nächsten Monat':'Gelecek ayın odağı','Gewohnheiten bearbeiten':'Alışkanlıkları düzenle','+ Gewohnheit hinzufügen':'+ Alışkanlık ekle','Notiz':'Not','Monat':'Ay','Wochenfokus':'Haftanın odağı','Für diese Woche':'Bu hafta için','Mit Stift schreiben':'Kalemle yaz','Tagesplan':'Günün planı','Tagesfokus':'Günün odağı','Unerledigtes auf morgen':'Bitmeyenleri yarına taşı','Neue Aufgabe, Enter zum Speichern':'Yeni görev, kaydetmek için Enter','Notizen & Reflexion':'Notlar & düşünceler','Memo':'Not defteri','Affirmation':'Olumlama','Ich bin dankbar für …':'Şükrettiklerim …','Mahlzeiten':'Öğünler','Frühstück':'Kahvaltı','Mittag':'Öğle','Abend':'Akşam','Snack':'Ara öğün','Wasser':'Su','Aufgewacht':'Uyanış','Schlaf':'Uyku','Std.':'sa.','Wetter':'Hava','Highlight des Tages':'Günün en güzel anı','Erscheinen in der Woche und an jedem Tag zum Abhaken, zum Beispiel Lesen, Sport oder Quran.':'Haftada ve her günde işaretlemek için görünür, örneğin okuma, spor ya da Kuran.','z. B. 10.000 Schritte':'ör. 10.000 adım','Weiter':'İleri','Handschrift':'El yazısı','Neueste oben':'En yeni üstte','Älteste oben':'En eski üstte','Eigene Reihenfolge':'Kendi sıram','Anordnen':'Sırala','Mit den Pfeilen verschieben oder am Griff ziehen.':'Oklarla taşı ya da tutamaçtan sürükle.','Rosa Nacht':'Pembe gece','App-Farben passend zum Logo':'Logoya uygun uygulama renkleri','Farben angepasst. Im Design-Studio kannst du alles ändern.':'Renkler uyarlandı. Tasarım stüdyosunda her şeyi değiştirebilirsin.','Gold auf Nachtblau':'Lacivert üzerine altın','Gold, Bordeaux & Rosa':'Altın, bordo & pembe','Tinte auf Papier':'Kağıt üzerine mürekkep','Ornament':'Süsleme','Osmanischer Stern':'Osmanlı yıldızı','Ohne':'Yok','Tuğra, Animation abspielen':'Tuğra, animasyonu oynat','Offline: wird gespeichert und später übertragen':'Çevrimdışı: kaydediliyor, sonra aktarılacak','Nicht angemeldet: Daten nur auf diesem Gerät':'Giriş yapılmadı: veriler sadece bu cihazda','Sync noch nicht eingerichtet':'Eşitleme henüz kurulmadı','Melde dich an, damit nichts verloren geht':'Hiçbir şey kaybolmasın diye giriş yap','Sync einrichten, damit nichts verloren geht':'Hiçbir şey kaybolmasın diye eşitlemeyi kur','Sonst bleiben deine Einträge nur auf diesem Gerät.':'Yoksa kayıtların sadece bu cihazda kalır.','Melde dich auf jedem Gerät mit derselben E-Mail an. Was schon auf diesem Gerät steht, wird dabei übernommen.':'Her cihazda aynı e-postayla giriş yap. Bu cihazdaki kayıtlar da aktarılır.','E-Mail':'E-posta','Passwort (mind. 6 Zeichen)':'Şifre (en az 6 karakter)','Anmelden':'Giriş yap','Konto erstellen':'Hesap oluştur','Passwort vergessen?':'Şifremi unuttum','Abmelden':'Çıkış yap','Wirklich abmelden? Nochmal tippen':'Gerçekten çıkış yapılsın mı? Tekrar dokun','Angemeldet':'Giriş yapıldı','Abgemeldet':'Çıkış yapıldı','Konto erstellt':'Hesap oluşturuldu','Verbunden':'Bağlandı','Verbinden':'Bağlan','Gib zuerst deine E-Mail ein':'Önce e-postanı gir','E-Mail zum Zurücksetzen verschickt':'Sıfırlama e-postası gönderildi','Alles wird in deinem Konto gesichert und erscheint auf allen Geräten, auf denen du so angemeldet bist. Offline Eingetragenes wird nachgeschickt.':'Her şey hesabında saklanır ve bu şekilde giriş yaptığın tüm cihazlarda görünür. Çevrimdışı eklenenler sonra gönderilir.','Damit deine Einträge gesichert sind und auf allen Geräten erscheinen, verbinde die App einmal mit deinem kostenlosen Firebase-Projekt (siehe Anleitung). Trag die Daten am besten in die Datei firebase-config.js ein. Oder füge sie hier ein, dann gelten sie nur für dieses Gerät.':'Kayıtların saklansın ve tüm cihazlarda görünsün diye uygulamayı bir kez ücretsiz Firebase projene bağla (kılavuza bak). Bilgileri en iyisi firebase-config.js dosyasına yaz. Ya da buraya yapıştır, o zaman sadece bu cihaz için geçerli olur.','Bitte die Firebase-Daten einfügen':'Lütfen Firebase bilgilerini yapıştır','Das sieht nicht wie die Firebase-Daten aus':'Bu Firebase bilgilerine benzemiyor','Die E-Mail-Adresse ist ungültig':'E-posta adresi geçersiz','Bitte ein Passwort eingeben':'Lütfen bir şifre gir','Das Passwort braucht mindestens 6 Zeichen':'Şifre en az 6 karakter olmalı','Für diese E-Mail gibt es schon ein Konto. Melde dich an.':'Bu e-postayla zaten bir hesap var. Giriş yap.','E-Mail oder Passwort stimmt nicht':'E-posta ya da şifre yanlış','Zu viele Versuche. Warte kurz.':'Çok fazla deneme. Biraz bekle.','Keine Verbindung zum Internet':'İnternet bağlantısı yok','In Firebase ist die Anmeldung mit E-Mail noch nicht aktiviert':'Firebase\'de e-postayla giriş henüz açık değil','Das hat nicht geklappt. Versuch es noch einmal.':'Olmadı. Tekrar dene.','In dieser Version braucht der Assistent einen eigenen API-Schlüssel von Anthropic (console.anthropic.com). Die Nutzung kostet dort ein paar Cent pro Anfrage. Der Schlüssel bleibt nur auf diesem Gerät.':'Bu sürümde asistanın kendi Anthropic API anahtarına ihtiyacı var (console.anthropic.com). Kullanımı istek başına birkaç sent tutar. Anahtar sadece bu cihazda kalır.','Schnell & günstig':'Hızlı & ucuz','Gründlicher':'Daha kapsamlı','Schlüssel speichern':'Anahtarı kaydet','Damit der Assistent in dieser Version läuft, hinterlege in den Einstellungen unter „Assistent“ einen API-Schlüssel von Anthropic.':'Asistanın bu sürümde çalışması için Ayarlar\'da „Asistan“ altında bir Anthropic API anahtarı gir.','Der API-Schlüssel wurde abgelehnt. Prüfe ihn in den Einstellungen.':'API anahtarı reddedildi. Ayarlardan kontrol et.','Keine Verbindung zum Internet.':'İnternet bağlantısı yok.','Sprache lernen':'Dil öğren','1 Sofort':'1 Hemen','2 Wichtig':'2 Önemli','3 Normal':'3 Normal','4 Später':'4 Sonra','5 Irgendwann':'5 Bir ara','Weiß':'Beyaz','Rosa':'Açık pembe','Pink':'Pembe','Vorlesen ist auf diesem Gerät nicht verfügbar':'Sesli okuma bu cihazda yok','Bitte Wort und Übersetzung eingeben':'Lütfen kelime ve çeviri gir','Die KI ist hier nicht verfügbar':'Yapay zekâ burada kullanılamıyor','Ich konnte gerade keine Vorschläge holen. Versuch es noch einmal.':'Şu an öneri alınamadı. Tekrar dene.','Muttersprache → Fremdsprache':'Ana dil → yabancı dil','Fremdsprache → Muttersprache':'Yabancı dil → ana dil',
+'Jeden Monat':'Her ay','Jedes Jahr':'Her yıl','Benutzerdefiniert':'Özel','Vorheriges Jahr':'Önceki yıl','Nächstes Jahr':'Sonraki yıl','Filter':'Filtre',
 };
 /* Muster für zusammengesetzte Texte. Reihenfolge ist wichtig. */
 const TRX = [
@@ -921,6 +934,7 @@ new MutationObserver(ms => {
 
 /* ================= Icons ================= */
 const I = {
+  filter:'<svg viewBox="0 0 24 24"><path d="M4 5h16l-6.5 8v5.5L10.5 20v-7z"/></svg>',
   globe:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
   folder:'<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
   trash:'<svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
@@ -1012,7 +1026,7 @@ const CATS_OUT = [
 ];
 const CATS_IN = [{n:'Gehalt',c:'#16A34A'},{n:'Nebenjob',c:'#22C55E'},{n:'Unterstützung',c:'#4ADE80'},{n:'Sonstiges',c:'#84CC16'}];
 const catColor = n => ([...CATS_OUT, ...CATS_IN].find(c => c.n === n) || {c:'#94A3B8'}).c;
-const REPEATS = [['none','Nie'],['daily','Täglich'],['weekdays','Montag bis Freitag'],['weekly','Jede Woche'],['biweekly','Alle 2 Wochen']];
+const REPEATS = [['none','Nie'],['daily','Täglich'],['weekdays','Montag bis Freitag'],['weekly','Jede Woche'],['biweekly','Alle 2 Wochen'],['monthly','Jeden Monat'],['yearly','Jedes Jahr'],['custom','Benutzerdefiniert']];
 const MOODS = [['😊','fröhlich'],['🥰','verliebt'],['😌','entspannt'],['🤩','begeistert'],['😴','müde'],['😢','traurig'],['😤','genervt'],['😰','gestresst'],['🥳','feierlaune'],['🤔','nachdenklich'],['💪','motiviert'],['😎','cool']];
 const BDC = '#E58EB5';
 
@@ -1588,15 +1602,53 @@ function occurs(e, d){
   if (e.date === d) return true;
   if (!e.repeat || e.repeat === 'none' || d < e.date) return false;
   if (e.until && d > e.until) return false;
-  const n = diffDays(e.date, d);
+  const n = diffDays(e.date, d), a = pd(e.date), b = pd(d);
+  const sameDay = b.getDate() === a.getDate(), months = (b.getFullYear() - a.getFullYear()) * 12 + b.getMonth() - a.getMonth();
   switch (e.repeat){
     case 'daily': return true;
-    case 'weekdays': return wdIdx(pd(d)) < 5;
+    case 'weekdays': return wdIdx(b) < 5;
     case 'weekly': return n % 7 === 0;
     case 'biweekly': return n % 14 === 0;
+    case 'monthly': return sameDay;
+    case 'yearly': return sameDay && b.getMonth() === a.getMonth();
+    case 'custom': {
+      const k = Math.max(1, Number(e.rint) || 1), u = e.runit || 'w';
+      if (u === 'd') return n % k === 0;
+      if (u === 'm') return sameDay && months % k === 0;
+      if (u === 'y') return sameDay && b.getMonth() === a.getMonth() && (b.getFullYear() - a.getFullYear()) % k === 0;
+      const days = e.rdays && e.rdays.length ? e.rdays : [String(wdIdx(a))];
+      if (!days.includes(String(wdIdx(b)))) return false;
+      return Math.round(diffDays(mondayOf(e.date), mondayOf(d)) / 7) % k === 0;
+    }
   }
   return false;
 }
+// Letzter Termin einer Serie mit fester Anzahl
+function seriesEnd(e){
+  const x = {...e, until:'', skip:[]}, max = Number(e.rcount) || 0; let c = 0;
+  if (!max) return '';
+  for (let d = e.date, i = 0; i < 40000; d = addDays(d, 1), i++) if (occurs(x, d) && ++c >= max) return d;
+  return '';
+}
+// Kurzbeschreibung einer Serie
+function repText(e){
+  const r = e.repeat; if (!r || r === 'none') return '';
+  const k = Math.max(1, Number(e.rint) || 1), u = e.runit || 'w';
+  let t;
+  if (r === 'custom'){
+    if (k === 1) t = L2({d:'Jeden Tag', w:'Jede Woche', m:'Jeden Monat', y:'Jedes Jahr'}[u], {d:'Her gün', w:'Her hafta', m:'Her ay', y:'Her yıl'}[u]);
+    else t = L2(`Alle ${k} ${{d:'Tage', w:'Wochen', m:'Monate', y:'Jahre'}[u]}`, `Her ${k} ${{d:'günde', w:'haftada', m:'ayda', y:'yılda'}[u]} bir`);
+    if (u === 'w' && (e.rdays || []).length) t += L2(' am ', ', ') + [...e.rdays].sort().map(i => WD[Number(i)]).join(', ');
+  } else t = TL((REPEATS.find(x => x[0] === r) || ['', ''])[1]);
+  const end = e.rend || (e.rcount ? 'count' : e.until ? 'date' : 'never');
+  if (end === 'count' && e.rcount) t += L2(`, insgesamt ${e.rcount} Termine`, `, toplam ${e.rcount} kez`);
+  else if (end === 'date' && e.until) t += L2(`, bis ${shortDate(e.until)} ${e.until.slice(0, 4)}`, `, ${shortDate(e.until)} ${e.until.slice(0, 4)} tarihine kadar`);
+  return t;
+}
+// Kalender-Filter: ausgeblendete Kategorien liegen in S.settings.calHide (wird mit synchronisiert)
+const calOn = k => !(S.settings.calHide || []).includes(k);
+const evKey = e => e.bday ? 'bday' : e.hist ? 'hist' : (e.type || '');
+function calItems(d){ const h = S.settings.calHide || []; const its = dayItems(d, true); return h.length ? its.filter(e => !h.includes(evKey(e))) : its; }
 function dayItems(d, withBd){
   const out = S.events.filter(e => occurs(e, d)).map(e => ({...e, vd:d}));
   S.subjects.forEach(s => { if (s.exam === d) out.push({id:'x'+s.id, sid:s.id, title:s.name + ' Prüfung', type:'pruefung', color:S.cats.find(c => c.id === 'pruefung')?.color || '#D96B5F', derived:true, vd:d}); });
@@ -1695,8 +1747,8 @@ const mondayOf = d => addDays(d, -wdIdx(pd(d)));
 const monKey = d => d.slice(0, 7);
 function isoWeek(dstr){ const d = pd(dstr), t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())), day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return Math.ceil(((t - y0) / 86400000 + 1) / 7); }
 function monthWeeks(y, m){ const first = ds(new Date(y, m, 1)), last = ds(new Date(y, m + 1, 0)); const out = []; for (let w = mondayOf(first); w <= last; w = addDays(w, 7)) out.push(w); return out; }
-const dayTodos = d => S.todos.filter(x => x.due === d).sort((a, b) => (a.done ? 1 : 0) - (b.done ? 1 : 0) || todoSort(a, b));
-const daySes = d => S.sessions.filter(s => s.date === d);
+const dayTodos = d => !calOn('todo') ? [] : S.todos.filter(x => x.due === d).sort((a, b) => (a.done ? 1 : 0) - (b.done ? 1 : 0) || todoSort(a, b));
+const daySes = d => calOn('study') ? S.sessions.filter(s => s.date === d) : [];
 const prayCount = d => PKEYS.filter(k => (S.pray.log[d] || {})[k]).length;
 function calGo(level, d){
   if (d){ V.sel = d; V.cm = new Date(pd(d).getFullYear(), pd(d).getMonth(), 1); V.wk = mondayOf(d); }
@@ -1718,15 +1770,22 @@ function plList(path, ph){
 const evChip = e => `<button class="pev" style="--c:${colorOf(e)}" data-act="${e.hist ? 'histInfo' : e.bday ? 'editBd' : e.derived ? 'editSub' : 'editEv'}" data-id="${e.hist ? e.hid : e.bday ? e.bid : e.derived ? e.sid : e.id}" data-d="${e.vd}">${e.start ? `<b>${e.start}</b> ` : ''}${e.hist ? '<span data-nt>' + esc(e.title) + '</span>' : esc(e.title)}</button>`;
 
 function plTop(){
-  const y = V.cm.getFullYear(), m = V.cm.getMonth(), lv = V.cv || 'month';
+  const y = V.cm.getFullYear(), m = V.cm.getMonth(), lv = V.cv || 'month', hid = calFilters().filter(f => !calOn(f.k)).length;
   const wk = V.wk || mondayOf(V.sel);
   const crumbs = [['year', String(y)], ['month', MONTHS[m]], ['week', `${TL('KW')} ${isoWeek(wk)}`], ['day', shortDate(V.sel)]];
   return `<div class="pl-top">
     <div class="pl-crumb">${crumbs.map(([k, t], i) => `${i ? '<i>›</i>' : ''}<button class="${(lv === k || (k === 'month' && ['glance', 'review'].includes(lv))) ? 'on' : ''}" data-act="calV" data-v="${k}">${esc(t)}</button>`).join('')}</div>
     <div class="mbtns"><button class="iconbtn" data-act="calNav" data-dir="-1" aria-label="Zurück">${I.left}</button><button class="pill" data-act="calToday">Heute</button><button class="iconbtn" data-act="calNav" data-dir="1" aria-label="Weiter">${I.right}</button></div>
   </div>
-  <div class="mtabs">${MS.map((n, i) => `<button class="${i === m ? 'on' : ''}" data-act="calMonth" data-m="${i}">${n}</button>`).join('')}</div>`;
+  <div class="ynav"><button class="iconbtn" data-act="calYear" data-y="${y - 1}" aria-label="Vorheriges Jahr">${I.left}</button>
+    <select class="ysel" data-cy aria-label="Jahr" data-nt>${calYears(y).map(v => `<option value="${v}" ${v === y ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    <button class="iconbtn" data-act="calYear" data-y="${y + 1}" aria-label="Nächstes Jahr">${I.right}</button>
+    <button class="chip cfbtn ${V.calF || hid ? 'on' : ''}" data-act="calFilterT">${I.filter} ${TL('Filter')}${hid ? ` · ${hid}` : ''}</button></div>
+  <div class="mtabs">${MS.map((n, i) => `<button class="${i === m ? 'on' : ''}" data-act="calMonth" data-m="${i}">${n}</button>`).join('')}</div>
+  ${V.calF || hid ? `<div class="cfrow">${calFilters().map(f => `<button class="cfc ${calOn(f.k) ? 'on' : ''}" data-act="calF" data-k="${esc(f.k)}" style="--c:${f.c}" aria-pressed="${calOn(f.k)}"><i></i>${esc(f.n)}</button>`).join('')}${hid ? `<button class="cfc all" data-act="calFAll">${esc(L2('Alle zeigen', 'Tümünü göster'))}</button>` : ''}</div>` : ''}`;
 }
+const calYears = y => { const c = new Date().getFullYear(), a = Math.min(1900, y - 5), b = Math.max(c + 50, y + 5), out = []; for (let v = b; v >= a; v--) out.push(v); return out; };
+const calFilters = () => [...S.cats.map(c => ({k:c.id, n:TL(c.name), c:c.color})), {k:'bday', n:TL('Geburtstage'), c:BDC}, ...(histOn() ? [{k:'hist', n:L2('Gedenktage', 'Tarihî günler'), c:HISTC}] : []), {k:'todo', n:TL('Aufgaben'), c:'#9A948E'}, {k:'study', n:TL('Lernen'), c:'#6F9BD1'}];
 
 // --- JAHR ---
 function vYear(){
@@ -1734,10 +1793,10 @@ function vYear(){
   const months = Array.from({length:12}, (_, m) => {
     const off = wdIdx(new Date(y, m, 1)), n = new Date(y, m + 1, 0).getDate();
     let cells = WD.map(w => `<i class="yw">${w[0]}</i>`).join('') + '<i></i>'.repeat(off);
-    for (let d = 1; d <= n; d++){ const k = `${y}-${pad(m + 1)}-${pad(d)}`, has = dayItems(k, true).length; cells += `<button class="yd ${k === t ? 'today' : ''} ${has ? 'has' : ''}" data-act="calDay" data-d="${k}">${d}</button>`; }
+    for (let d = 1; d <= n; d++){ const k = `${y}-${pad(m + 1)}-${pad(d)}`, has = calItems(k).length; cells += `<button class="yd ${k === t ? 'today' : ''} ${has ? 'has' : ''}" data-act="calDay" data-d="${k}">${d}</button>`; }
     return `<div class="ym"><button class="ymh" data-act="calMonth" data-m="${m}">${MONTHS[m]}</button><div class="ygrid">${cells}</div></div>`;
   }).join('');
-  const up = []; for (let i = 0; i < 120 && up.length < 10; i++){ const d = addDays(t, i); dayItems(d, true).forEach(e => { if (up.length < 10 && (e.bday || e.derived || !e.start || e.type === 'pruefung')) up.push({d, e}); }); }
+  const up = [], st = y === pd(t).getFullYear() ? t : `${y}-01-01`; for (let i = 0; i < 366 && up.length < 10; i++){ const d = addDays(st, i); if (d.slice(0, 4) !== String(y)) break; calItems(d).forEach(e => { if (up.length < 10 && (e.bday || e.derived || !e.start || e.type === 'pruefung')) up.push({d, e}); }); }
   return `<div class="spread wide-l"><div class="pg"><div class="pg-hrow"><h2 class="pg-h">${y}</h2></div><div class="yrs">${months}</div></div>
     <div class="pg">${box('Jahresziele', plList(`years|${y}|goals`, 'Ziel für dieses Jahr'))}
       ${box('Wichtige Termine', up.length ? up.map(({d, e}) => `<button class="kd" data-act="calDay" data-d="${d}"><span>${shortDate(d)}</span><b style="--c:${colorOf(e)}">${esc(e.title)}</b></button>`).join('') : '<p class="hint">Geburtstage, Prüfungen und ganztägige Termine erscheinen hier.</p>')}
@@ -1752,13 +1811,13 @@ function vMonthP(){
   weeks.forEach((w, wi) => {
     grid += `<button class="mg-w" data-act="calWeek" data-d="${w}"><span>${TL('Woche')} ${wi + 1}</span></button>`;
     for (let i = 0; i < 7; i++){
-      const d = addDays(w, i), inM = d.slice(0, 7) === mk, its = dayItems(d, true), td = S.todos.filter(x => x.due === d && !x.done).length, ss = daySes(d).length;
+      const d = addDays(w, i), inM = d.slice(0, 7) === mk, its = calItems(d), td = calOn('todo') ? S.todos.filter(x => x.due === d && !x.done).length : 0, ss = daySes(d).length;
       grid += `<div class="mc ${inM ? '' : 'out'} ${d === t ? 'today' : ''}" data-act="calDay" data-d="${d}"><span class="dn">${pd(d).getDate()}</span>
         ${its.slice(0, 3).map(e => `<span class="ev" style="--c:${colorOf(e)}">${esc(e.title)}</span>`).join('')}${its.length > 3 ? `<span class="more">+${its.length - 3}</span>` : ''}
         ${td || ss ? `<span class="mc-x">${td ? `<i>${I.todo}${td}</i>` : ''}${ss ? `<i>${I.study}${ss}</i>` : ''}</span>` : ''}</div>`;
     }
   });
-  const chips = Array.from({length:n}, (_, i) => { const d = `${mk}-${pad(i + 1)}`; return `<button class="${d === t ? 'today' : ''} ${dayItems(d, true).length ? 'has' : ''}" data-act="calDay" data-d="${d}">${pad(i + 1)}</button>`; }).join('');
+  const chips = Array.from({length:n}, (_, i) => { const d = `${mk}-${pad(i + 1)}`; return `<button class="${d === t ? 'today' : ''} ${calItems(d).length ? 'has' : ''}" data-act="calDay" data-d="${d}">${pad(i + 1)}</button>`; }).join('');
   return `<div class="spread wide-l pl-swipe"><div class="pg">
       <div class="pg-hrow"><h2 class="pg-h">${MONTHS[m]} <small>${y}</small></h2><div class="pg-links"><button data-act="calV" data-v="glance">Im Überblick</button><button data-act="calBudget">Budget</button><button data-act="calV" data-v="review">Rückblick</button></div></div>
       <div class="dchips">${chips}</div>
@@ -1772,7 +1831,7 @@ function vGlance(){
   const y = V.cm.getFullYear(), m = V.cm.getMonth(), mk = `${y}-${pad(m + 1)}`, n = new Date(y, m + 1, 0).getDate(), t = today();
   let rows = '';
   for (let i = 1; i <= n; i++){
-    const d = `${mk}-${pad(i)}`, its = dayItems(d, true), td = S.todos.filter(x => x.due === d);
+    const d = `${mk}-${pad(i)}`, its = calItems(d), td = calOn('todo') ? S.todos.filter(x => x.due === d) : [];
     rows += `<div class="gl ${d === t ? 'today' : ''}"><button class="gl-d" data-act="calDay" data-d="${d}"><b>${pad(i)}</b><span>${WD[wdIdx(pd(d))]}</span></button>
       <div class="gl-c">${its.map(evChip).join('')}${td.map(x => `<span class="pev todo ${x.done ? 'done' : ''}">${I.todo} ${esc(x.title)}</span>`).join('')}${plIn(`days|${d}|glance`, '…', 'style="flex:1;min-width:120px"')}</div></div>`;
   }
@@ -1805,7 +1864,7 @@ function vWeekP(){
   const wk = V.wk || mondayOf(V.sel), days = Array.from({length:7}, (_, i) => addDays(wk, i)), t = today(), wkey = wk;
   const y = V.cm.getFullYear(), m = V.cm.getMonth(), mws = monthWeeks(y, m);
   const dayRow = d => {
-    const its = dayItems(d, true), td = dayTodos(d), ss = daySes(d);
+    const its = calItems(d), td = dayTodos(d), ss = daySes(d);
     return `<div class="wr ${d === t ? 'today' : ''}"><button class="wr-l" data-act="calDay" data-d="${d}"><span>${WDL[wdIdx(pd(d))]}</span><b>${pd(d).getDate()}</b></button>
       <div class="wr-c"><div class="wr-ev">${its.map(evChip).join('')}${td.map(x => `<button class="pev todo ${x.done ? 'done' : ''}" data-act="tgTodo" data-id="${x.id}">${x.done ? I.check : I.todo} ${esc(x.title)}</button>`).join('')}${ss.map(s => { const sub = S.subjects.find(z => z.id === s.sid); return sub ? `<button class="pev" style="--c:${sub.color}" data-act="editSes" data-id="${s.id}">${I.study} ${esc(sub.name)}</button>` : ''; }).join('')}<button class="pev add" data-act="dayAdd" data-d="${d}" aria-label="Hinzufügen">${I.plus}</button></div>
       ${plTa(`days|${d}|wnote`, 'Notiz', 2, 'pl-ta ruled slim')}</div></div>`;
@@ -1825,7 +1884,7 @@ function vWeekP(){
 // --- TAG ---
 function vDayP(){
   const d = V.sel, P = PL(), dp = `days|${d}`, D = P.days[d] || {}, t = today();
-  const its = dayItems(d, true), allday = its.filter(e => !e.start), timed = its.filter(e => e.start);
+  const its = calItems(d), allday = its.filter(e => !e.start), timed = its.filter(e => e.start);
   const L = getLoc(), tt = L && prayerTimes(d, L), pr = {};
   if (tt) ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].forEach(k => { const c = fmtClock(tt[k], tzOf(L)); (pr[Number(c.slice(0, 2))] = pr[Number(c.slice(0, 2))] || []).push(`${PNAMES[k][0]} ${c}`); });
   let sched = '';
@@ -2541,16 +2600,19 @@ function parseICS(text){
   }
   const from = addDays(today(), -30);
   return out.filter(e => e.s && !e.cancel && !e.rid).map(e => {
-    let repeat = 'none', until = '';
+    let repeat = 'none', until = '', cx = {};
     if (e.rr){
       const f = e.rr.FREQ, iv = Number(e.rr.INTERVAL || 1), by = (e.rr.BYDAY || '').split(',').filter(Boolean);
       if (f === 'DAILY' && iv === 1) repeat = 'daily';
       else if (f === 'WEEKLY' && iv === 1 && by.length === 5 && ['MO','TU','WE','TH','FR'].every(x => by.includes(x))) repeat = 'weekdays';
       else if (f === 'WEEKLY' && iv <= 2 && by.length <= 1) repeat = iv === 2 ? 'biweekly' : 'weekly';
+      else if (f === 'MONTHLY' && iv === 1 && !e.rr.BYDAY) repeat = 'monthly';
+      else if (f === 'YEARLY' && iv === 1 && !e.rr.BYDAY) repeat = 'yearly';
+      else if (['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'].includes(f) && !(f !== 'WEEKLY' && e.rr.BYDAY)){ repeat = 'custom'; cx = {rint:iv, runit:{DAILY:'d', WEEKLY:'w', MONTHLY:'m', YEARLY:'y'}[f], rdays:f === 'WEEKLY' ? (by.length ? by.map(x => String(['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'].indexOf(x.slice(-2)))).filter(x => x !== '-1') : [String(wdIdx(pd(e.s.date)))]) : []}; }
       if (e.rr.UNTIL) until = (icsDate(e.rr.UNTIL, '') || {}).date || '';
-      else if (e.rr.COUNT && repeat !== 'none') until = addDays(e.s.date, (Number(e.rr.COUNT) - 1) * ({daily:1, weekdays:1.4, weekly:7, biweekly:14}[repeat]));
+      else if (e.rr.COUNT && repeat !== 'none') until = seriesEnd({date:e.s.date, repeat, ...cx, rcount:Number(e.rr.COUNT)});
     }
-    return {iuid:e.uid || uid(), title:e.title || 'Termin', date:e.s.date, start:e.s.time, end:e.e && e.e.date === e.s.date ? e.e.time : '', place:e.place || '', note:e.note || '', repeat, until, skip:e.ex};
+    return {iuid:e.uid || uid(), title:e.title || 'Termin', date:e.s.date, start:e.s.time, end:e.e && e.e.date === e.s.date ? e.e.time : '', place:e.place || '', note:e.note || '', repeat, until, skip:e.ex, ...cx};
   }).filter(e => e.date >= from || (e.repeat !== 'none' && (!e.until || e.until >= from)));
 }
 function importICS(text, cat){
@@ -2573,7 +2635,7 @@ function buildICS(opt){
     L.push('BEGIN:VEVENT', 'UID:' + e.id + '@benim-koesem', 'DTSTAMP:' + stamp, 'SUMMARY:' + icsEsc(e.title));
     if (e.start){ L.push('DTSTART:' + icsDT(e.date, e.start), 'DTEND:' + icsDT(e.date, e.end && e.end > e.start ? e.end : fromMin(Math.min(toMin(e.start) + 60, 1439)))); }
     else L.push('DTSTART;VALUE=DATE:' + icsDT(e.date), 'DTEND;VALUE=DATE:' + icsDT(addDays(e.date, 1)));
-    const rr = {daily:'FREQ=DAILY', weekdays:'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR', weekly:'FREQ=WEEKLY', biweekly:'FREQ=WEEKLY;INTERVAL=2'}[e.repeat];
+    const rr = {daily:'FREQ=DAILY', weekdays:'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR', weekly:'FREQ=WEEKLY', biweekly:'FREQ=WEEKLY;INTERVAL=2', monthly:'FREQ=MONTHLY', yearly:'FREQ=YEARLY'}[e.repeat] || (e.repeat === 'custom' ? `FREQ=${{d:'DAILY', w:'WEEKLY', m:'MONTHLY', y:'YEARLY'}[e.runit || 'w']}${(e.rint || 1) > 1 ? ';INTERVAL=' + e.rint : ''}${(e.runit || 'w') === 'w' && (e.rdays || []).length ? ';BYDAY=' + e.rdays.map(i => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][Number(i)]).join(',') : ''}` : '');
     if (rr) L.push('RRULE:' + rr + (e.until ? ';UNTIL=' + icsDT(e.until) + 'T235959' : ''));
     (e.skip || []).forEach(x => L.push(e.start ? 'EXDATE:' + icsDT(x, e.start) : 'EXDATE;VALUE=DATE:' + icsDT(x)));
     if (e.place) L.push('LOCATION:' + icsEsc(e.place));
@@ -2990,10 +3052,10 @@ function aiTools(){
       execute(i){ const [f, to] = rng(i, 21), out = [];
         for (let d = f; d <= to; d = addDays(d, 1)) out.push({date:d, day:WDL[wdIdx(pd(d))], free:freeSlots(d, Number(i.min_minutes) || 30, okTime(i.day_start) || null, okTime(i.day_end) || null, !!i.avoid_prayers).map(x => `${x.a}-${x.b} (${x.min} Min.)`)});
         return out; }},
-    {name:'create_event', description:'Legt einen Kalendertermin an. category ist eine Kategorie-id. repeat: none, daily, weekdays, weekly, biweekly. Gibt die id zurück.',
+    {name:'create_event', description:'Legt einen Kalendertermin an. category ist eine Kategorie-id. repeat: none, daily, weekdays, weekly, biweekly, monthly, yearly. Gibt die id zurück.',
       inputSchema:{type:'object', properties:{title:{type:'string'}, date:{type:'string'}, start:{type:'string'}, end:{type:'string'}, category:{type:'string'}, place:{type:'string'}, repeat:{type:'string'}, until:{type:'string'}, note:{type:'string'}, reminder_minutes:{type:'number'}, space:{type:'string'}}, required:['title', 'date']},
       execute(i){ const date = okDate(i.date); if (!date || !str(i.title)) throw new Error('title und date (YYYY-MM-DD) sind nötig');
-        const o = {id:uid(), title:str(i.title), type:S.cats.some(c => c.id === i.category) ? i.category : (S.cats[0] || {}).id, date, start:okTime(i.start), end:okTime(i.end), place:str(i.place), note:str(i.note), repeat:['daily', 'weekdays', 'weekly', 'biweekly'].includes(i.repeat) ? i.repeat : 'none', until:okDate(i.until) || '', skip:[], rem:i.reminder_minutes != null ? Number(i.reminder_minutes) : null, ...spIn(i)};
+        const o = {id:uid(), title:str(i.title), type:S.cats.some(c => c.id === i.category) ? i.category : (S.cats[0] || {}).id, date, start:okTime(i.start), end:okTime(i.end), place:str(i.place), note:str(i.note), repeat:['daily', 'weekdays', 'weekly', 'biweekly', 'monthly', 'yearly'].includes(i.repeat) ? i.repeat : 'none', until:okDate(i.until) || '', skip:[], rem:i.reminder_minutes != null ? Number(i.reminder_minutes) : null, ...spIn(i)};
         S.events.push(o); save(); track(`Termin: ${o.title}, ${shortDate(date)}${o.start ? ' ' + o.start : ''}`, () => { S.events = S.events.filter(x => x.id !== o.id); }); return {ok:true, id:o.id}; }},
     {name:'update_event', description:'Ändert oder verschiebt einen bestehenden Termin (id aus get_schedule). Nur übergebene Felder ändern sich. delete:true löscht ihn.',
       inputSchema:{type:'object', properties:{id:{type:'string'}, title:{type:'string'}, date:{type:'string'}, start:{type:'string'}, end:{type:'string'}, place:{type:'string'}, delete:{type:'boolean'}}, required:['id']},
@@ -3280,14 +3342,14 @@ function offAnswer(raw){
     return days.map(d => { const ls = dayLines(d), p = days.length === 1 ? prLine(d) : ''; return `**${dl(d)}**\n` + (ls.length ? ls.join('\n') : L('Nichts eingetragen.', 'Plan yok.')) + (p ? '\n' + p : ''); }).join('\n\n');
   }
   if (dt.d || dt.every || tm.start){
-    const title = offTitle(o.s.replace(ORX('\\b<(jede[nrs]?|her|wöchentlich|täglich|jeden\\s+tag|her\\s+gün|haftalık)\\b>', 'gi'), ' '));
+    const title = offTitle(o.s.replace(ORX('\\b<(jede[nrs]?\\s+(monat|jahr|woche|tag)|her\\s+(ay|yıl|hafta|gün)|jede[nrs]?|her|wöchentlich|täglich|monatlich|jährlich|haftalık|aylık|yıllık)\\b>', 'gi'), ' '));
     if (!title) return L('Wie soll der Termin heißen? Schreib z. B. „Morgen 14 Uhr Zahnarzt“.', 'Randevunun adı ne olsun? Örneğin „Yarın saat 14\'te diş hekimi“ yaz.');
-    const repeat = has(/(täglich|jeden tag|her gün)/) ? 'daily' : (dt.every || has(/(wöchentlich|jede woche|her hafta|haftalık)/)) ? 'weekly' : 'none';
+    const repeat = has(/(monatlich|jeden monat|her ay\b|aylık)/) ? 'monthly' : has(/(jährlich|jedes jahr|her yıl|yıllık)/) ? 'yearly' : has(/(täglich|jeden tag|her gün)/) ? 'daily' : (dt.every || has(/(wöchentlich|jede woche|her hafta|haftalık)/)) ? 'weekly' : 'none';
     const start = tm.start, end = tm.end || (start ? fromMin(Math.min(toMin(start) + 60, 1439)) : '');
     const e = {id:uid(), title, type:offCat(title), date:dt.d || today(), start, end:start ? end : '', place:'', note:'', repeat, until:'', skip:[], rem:null};
     S.events.push(e); save(); track(L('Termin: ', 'Randevu: ') + `${title}, ${shortDate(e.date)}${start ? ' ' + start : ''}`, () => { S.events = S.events.filter(y => y.id !== e.id); });
-    return L(`Eingetragen ✅ **${title}**\n${dl(e.date)}, ${start ? `${start}–${e.end} Uhr` : 'ganztägig'}${repeat === 'weekly' ? ', jede Woche' : repeat === 'daily' ? ', jeden Tag' : ''} · ${catOf(e.type).name}`,
-      `Eklendi ✅ **${title}**\n${dl(e.date)}, ${start ? `${start}–${e.end}` : 'tüm gün'}${repeat === 'weekly' ? ', her hafta' : repeat === 'daily' ? ', her gün' : ''} · ${TR[catOf(e.type).name] || catOf(e.type).name}`);
+    return L(`Eingetragen ✅ **${title}**\n${dl(e.date)}, ${start ? `${start}–${e.end} Uhr` : 'ganztägig'}${{weekly:', jede Woche', daily:', jeden Tag', monthly:', jeden Monat', yearly:', jedes Jahr'}[repeat] || ''} · ${catOf(e.type).name}`,
+      `Eklendi ✅ **${title}**\n${dl(e.date)}, ${start ? `${start}–${e.end}` : 'tüm gün'}${{weekly:', her hafta', daily:', her gün', monthly:', her ay', yearly:', her yıl'}[repeat] || ''} · ${TR[catOf(e.type).name] || catOf(e.type).name}`);
   }
   return L('Das habe ich leider nicht verstanden. ', 'Bunu maalesef anlayamadım. ') + '\n\n' + help;
 }
@@ -3391,7 +3453,7 @@ function initSort(box, sel, done){
 const REMS = [['', 'Standard aus den Einstellungen'], [-1, 'Keine Erinnerung'], [0, 'Zum Beginn'], [5, '5 Minuten vorher'], [15, '15 Minuten vorher'], [30, '30 Minuten vorher'], [60, '1 Stunde vorher'], [1440, '1 Tag vorher']];
 function evSheet(id, d, vd){
   const e = id ? S.events.find(x => x.id === id) : null;
-  F = e ? {...e, skip:[...(e.skip || [])], allday:!e.start, vd:vd || e.date} : {type:S.cats[0]?.id || '', date:d || V.sel, start:'09:00', end:'10:30', repeat:'none', allday:false, skip:[]};
+  F = e ? {rint:1, runit:'w', ...e, rdays:[...(e.rdays || [String(wdIdx(pd(e.date)))])], skip:[...(e.skip || [])], allday:!e.start, vd:vd || e.date, rend:e.rcount ? 'count' : e.until ? 'date' : 'never'} : {type:S.cats[0]?.id || '', date:d || V.sel, start:'09:00', end:'10:30', repeat:'none', allday:false, skip:[], rint:1, runit:'w', rdays:[String(wdIdx(pd(d || V.sel)))], rend:'never', rcount:10};
   const rep = F.repeat && F.repeat !== 'none';
   sheet(`<h2 class="sh">${e ? 'Termin bearbeiten' : 'Neuer Termin'}</h2>
     ${field('title','Titel','text','placeholder="z. B. Statistik Vorlesung" enterkeyhint="done"')}
@@ -3400,11 +3462,41 @@ function evSheet(id, d, vd){
     <div id="times" class="grid2" style="${F.allday ? 'display:none' : ''}"><div>${field('start','Beginn','time')}</div><div>${field('end','Ende','time')}</div></div>
     ${field('place','Ort (optional)','text','placeholder="z. B. Hörsaal 3"')}
     <label class="lab">Wiederholen</label><select class="fld" data-f="repeat">${REPEATS.map(r => `<option value="${r[0]}" ${F.repeat === r[0] ? 'selected' : ''}>${r[1]}</option>`).join('')}</select>
-    ${field('until','Wiederholen bis (optional)','date')}
+    <div id="repbox">${repBox()}</div>
     <label class="lab">Erinnerung</label><select class="fld" data-f="rem">${REMS.map(r => `<option value="${r[0]}" ${String(F.rem ?? '') === String(r[0]) ? 'selected' : ''}>${r[1]}</option>`).join('')}</select>
     <label class="lab">Notiz</label><textarea class="fld" rows="3" data-f="note">${esc(F.note || '')}</textarea>
     <button class="btn" data-act="saveEv" style="margin-top:20px">Speichern</button>
-    ${e ? (rep ? `<button class="btn danger" data-act="delEvOne">Nur den ${shortDate(F.vd)} löschen</button><button class="btn danger" style="margin-top:0" data-act="delEvAll">Ganze Serie löschen</button>` : `<button class="btn danger" data-act="delEvAll">Löschen</button>`) : ''}`);
+    ${e ? (rep ? `<button class="btn danger" data-act="delEvOne">Nur den ${shortDate(F.vd)} löschen</button>${F.vd > e.date ? `<button class="btn danger" style="margin-top:0" data-act="delEvFrom" data-nt>${esc(L2(`Ab dem ${shortDate(F.vd)} alle löschen`, `${shortDate(F.vd)} ve sonrasını sil`))}</button>` : ''}<button class="btn danger" style="margin-top:0" data-act="delEvAll">Ganze Serie löschen</button>` : `<button class="btn danger" data-act="delEvAll">Löschen</button>`) : ''}`);
+}
+function repBox(){
+  const r = F.repeat || 'none'; if (r === 'none') return '';
+  let h = '';
+  if (r === 'custom'){
+    const u = F.runit || 'w';
+    h += `<label class="lab" data-nt>${esc(L2('Wiederholen alle', 'Tekrar sıklığı'))}</label><div class="grid2"><input class="fld" type="number" min="1" max="99" inputmode="numeric" data-f="rint" data-num="1" value="${esc(F.rint || 1)}"><select class="fld" data-f="runit" data-nt>${[['d', L2('Tage', 'gün')], ['w', L2('Wochen', 'hafta')], ['m', L2('Monate', 'ay')], ['y', L2('Jahre', 'yıl')]].map(([v, n]) => `<option value="${v}" ${u === v ? 'selected' : ''}>${n}</option>`).join('')}</select></div>`;
+    if (u === 'w') h += `<label class="lab" data-nt>${esc(L2('An diesen Tagen', 'Bu günlerde'))}</label>${chips('rdays', WD.map((w, i) => ({v:String(i), n:w})), true)}`;
+  }
+  const end = F.rend || 'never';
+  h += `<label class="lab" data-nt>${esc(L2('Serie endet', 'Seri biter'))}</label><select class="fld" data-f="rend" data-nt>${[['never', L2('Nie', 'Hiçbir zaman')], ['date', L2('An einem Datum', 'Belirli bir tarihte')], ['count', L2('Nach einer Anzahl von Terminen', 'Belirli sayıda tekrardan sonra')]].map(([v, n]) => `<option value="${v}" ${end === v ? 'selected' : ''}>${n}</option>`).join('')}</select>`;
+  if (end === 'date') h += `<div data-nt>${field('until', L2('Letzter Tag der Serie', 'Serinin son günü'), 'date')}</div>`;
+  if (end === 'count') h += `<div data-nt>${field('rcount', L2('Wie viele Termine insgesamt?', 'Toplam kaç tekrar?'), 'number', 'min="2" max="500" inputmode="numeric" data-num="1"')}</div>`;
+  h += `<p class="hint rep-sum" style="margin-top:8px" data-nt>🔁 ${esc(repText(F))}</p>`;
+  return h;
+}
+const refreshRep = () => { const b = $('#repbox'); if (b) b.innerHTML = repBox(); };
+const refreshRepSum = () => { const h = $('#repbox .rep-sum'); if (h) h.textContent = '🔁 ' + repText(F); };
+// Serien-Felder aus dem Formular
+function repFields(date){
+  const rep = F.repeat || 'none'; if (rep === 'none') return {repeat:'none', until:''};
+  const end = F.rend || 'never', out = {repeat:rep, until:end === 'date' ? (F.until || '') : ''};
+  if (rep === 'custom'){
+    out.rint = Math.max(1, Math.min(99, Number(F.rint) || 1)); out.runit = ['d', 'w', 'm', 'y'].includes(F.runit) ? F.runit : 'w';
+    if (out.runit === 'w'){ out.rdays = (F.rdays && F.rdays.length ? [...F.rdays] : [String(wdIdx(pd(date)))]).sort(); for (let i = 0; i < 7 && !out.rdays.includes(String(wdIdx(pd(date)))); i++) date = addDays(date, 1); }
+  }
+  out.date = date;
+  if (out.until && out.until < date) out.until = '';
+  if (end === 'count'){ out.rcount = Math.max(2, Math.min(500, Number(F.rcount) || 10)); out.until = seriesEnd(out); }
+  return out;
 }
 function todoSheet(id){
   const x = id ? S.todos.find(t => t.id === id) : null;
@@ -3759,7 +3851,7 @@ const A = {
   tab(d){ V.arrange = null; V.view = d.v; V.edit = false; if (d.v === 'prayer'){ V.pd = ''; autoLoc(); } render(); scrollTo(0, 0); },
   fab(){ if (V.view === 'vocab') return vLang() ? vCardSheet() : vLangSheet(); if (isSpace(V.view)){ const m = spCur(); return ({todo:() => todoSheet(), notes:() => noteSheet(), cal:() => evSheet(null, today()), budget:() => txSheet(), know:() => knowSheet(), quotes:() => quoteSheet(), board:() => A.boardAdd()})[m]?.(); } ({cal:() => evSheet(null, V.sel), todo:() => todoSheet(), bday:() => bdSheet(), study:() => subSheet(), budget:() => txSheet(), notes:() => noteSheet(), know:() => knowSheet(), quotes:() => quoteSheet(), board:() => A.boardAdd(), zikir:() => zikirSheet()})[V.view]?.(); },
   chip(d, el){
-    if (d.m){ const a = getF(d.f) || []; const i = a.indexOf(d.v); i >= 0 ? a.splice(i, 1) : a.push(d.v); setF(d.f, a); el.classList.toggle('on'); }
+    if (d.m){ const a = getF(d.f) || []; const i = a.indexOf(d.v); i >= 0 ? a.splice(i, 1) : a.push(d.v); setF(d.f, a); el.classList.toggle('on'); if (d.f === 'rdays') refreshRepSum(); }
     else {
       const num = ['prio', 'cfg.max', 'cfg.count', 'hijri', 'notify.evMin', 'notify.prMin'].includes(d.f);
       setF(d.f, num ? Number(d.v) : d.v);
@@ -3823,9 +3915,11 @@ const A = {
     if (!(F.title || '').trim()) return toast('Bitte einen Titel eingeben');
     if (!F.date) return toast('Bitte ein Datum wählen');
     const o = {id:F.id || uid(), title:F.title.trim(), type:F.type, date:F.date, start:F.allday ? '' : (F.start || ''), end:F.allday ? '' : (F.end || ''), place:F.place || '', note:F.note || '', repeat:F.repeat || 'none', until:F.repeat && F.repeat !== 'none' ? (F.until || '') : '', skip:F.skip || [], rem:F.rem === '' || F.rem == null ? null : Number(F.rem), ...(F.iuid ? {iuid:F.iuid} : {}), ...(spOf() ? {sp:spOf()} : {})};
+    Object.assign(o, repFields(o.date));
     upsert(S.events, o); save(); closeSheet(); V.sel = o.date; V.cm = new Date(pd(o.date).getFullYear(), pd(o.date).getMonth(), 1); render(); toast('Gespeichert');
   },
   delEvOne(){ const e = S.events.find(x => x.id === F.id); if (e){ e.skip = [...(e.skip || []), F.vd]; save(); closeSheet(); render(); toast('Gelöscht'); } },
+  delEvFrom(){ const e = S.events.find(x => x.id === F.id); if (!e) return; if (F.vd <= e.date) S.events = S.events.filter(x => x.id !== e.id); else { e.until = addDays(F.vd, -1); delete e.rcount; } save(); closeSheet(); render(); toast('Gelöscht'); },
   delEvAll(){ S.events = S.events.filter(x => x.id !== F.id); save(); closeSheet(); render(); toast('Gelöscht'); },
   mCats(){ manageSheet('cats'); }, mGroups(){ manageSheet('groups'); }, mPrios(){ manageSheet('prios'); },
   mAdd(){ F.items.push({id:F.kind === 'cats' ? uid() : 'g_' + uid(), name:'', color:SUBJ_COLORS[F.items.length % SUBJ_COLORS.length]}); $('#mlist').innerHTML = mlist(); const a = document.querySelectorAll('#mlist .li-in'); a[a.length - 1]?.focus(); },
@@ -4084,6 +4178,10 @@ const A = {
     else { V.cm = new Date(V.cm.getFullYear(), V.cm.getMonth() + n, 1); const t = today(); V.sel = t.slice(0, 7) === ds(V.cm).slice(0, 7) ? t : ds(V.cm); V.wk = mondayOf(V.sel); }
     render();
   },
+  calYear(d){ const y = Number(d.y); if (!(y > 1000 && y < 3000)) return; const m = V.cm.getMonth(), dd = Math.min(pd(V.sel).getDate(), new Date(y, m + 1, 0).getDate()); V.cm = new Date(y, m, 1); V.sel = `${y}-${pad(m + 1)}-${pad(dd)}`; V.wk = mondayOf(V.sel); render(); },
+  calFilterT(){ V.calF = !V.calF; render(); },
+  calF(d){ const h = new Set(S.settings.calHide || []); h.has(d.k) ? h.delete(d.k) : h.add(d.k); S.settings.calHide = [...h]; save(); render(); },
+  calFAll(){ S.settings.calHide = []; V.calF = false; save(); render(); },
   calToday(){ const t = today(); V.sel = t; V.wk = mondayOf(t); V.cm = new Date(pd(t).getFullYear(), pd(t).getMonth(), 1); render(); },
   calBudget(){ V.bm = new Date(V.cm.getFullYear(), V.cm.getMonth(), 1); V.view = 'budget'; render(); scrollTo(0, 0); },
   plAdd(d){ const arr = pget(d.p) || []; const id = uid(); arr.push({id, t:'', done:false}); pset(d.p, arr); save(); render(); const el = document.querySelector(`[data-pli="${d.p}|${id}"]`); if (el) el.focus(); },
@@ -4239,6 +4337,7 @@ document.addEventListener('click', e => {
 });
 const onField = e => {
   const t = e.target;
+  if (t.dataset.cy !== undefined){ if (e.type === 'change') A.calYear({y:t.value}); return; }
   if (t.dataset.pl){ pset(t.dataset.pl, t.value); plSave(); return; }
   if (t.dataset.pli){ const a_ = t.dataset.pli.split('|'), id_ = a_.pop(), it_ = (pget(a_.join('|')) || []).find(x => x.id === id_); if (it_){ it_.t = t.value; plSave(); } return; }
   if (t.dataset.hi !== undefined){ F.items[Number(t.dataset.hi)].name = t.value; return; }
@@ -4250,6 +4349,8 @@ const onField = e => {
     let v = t.type === 'checkbox' ? t.checked : t.value;
     if (t.dataset.num) v = Number(v);
     setF(t.dataset.f, v); refreshPrev();
+    if (['repeat', 'runit', 'rend'].includes(t.dataset.f)){ if (e.type === 'change') refreshRep(); }
+    else if (['rint', 'rcount', 'until'].includes(t.dataset.f)) refreshRepSum();
   }
   else if (t.dataset.li !== undefined) F.items[Number(t.dataset.li)].t = t.value;
   else if (t.dataset.mi !== undefined){ F.items[Number(t.dataset.mi)][t.dataset.mf] = t.value; if (t.dataset.mf === 'color') t.parentElement.style.setProperty('--cc', t.value); }
